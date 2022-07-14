@@ -1,0 +1,16 @@
+-include ../../common.mk
+CHARMC=../../../bin/charmc $(OPTS) 
+
+all: pgm
+
+pgm: pgm.o
+	$(CHARMC) -o pgm pgm.o -language fem -module netfem #-memory paranoid
+
+pgm.o: pgm.C
+	$(CHARMC) -I../../../src/libs/ck-libs/fem -c pgm.C
+
+test: pgm
+	$(call run, ./pgm +vp4 +p2)
+
+clean:
+	rm -rf pgm fpgm *.o conv-host charmrun NetFEM Paraview* ParaView* *~ pvClient.out README

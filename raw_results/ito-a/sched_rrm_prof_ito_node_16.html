@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<meta charset="UTF-8"/>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<link rel="stylesheet" href="https://sindresorhus.com/github-markdown-css/github-markdown.css">
+<div id="rendered" class="markdown-body"></div>
+<div id="mdtxt" style="display:none;">
+## N = 32768
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |            0.0783662 |                    13977 |                              11.1855 |                             32.6576 |                  155132 |          1.32848e+06 |                          7.87633 |                               1684 |                       5.81963 |
+| Continuation Stealing (stalling) |            0.0844314 |                    16660 |                             139.841  |                             32.709  |                  185444 |          1.708e+06   |                          7.3144  |                               1698 |                       5.76932 |
+| Child Stealing (Full)            |            0.0944799 |                   197594 |                              81.6442 |                             29.8294 |                  287609 |          2.09268e+06 |                          7.3043  |                                 56 |                       4.32155 |
+| Child Stealing (RtC)             |            0.308499  |                   288011 |                              99.5874 |                             53.4338 |                  317298 |          1.05649e+07 |                         11.4574  |                                 55 |                       7.66513 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |            0.0783662 |                    13977 |                              11.1855 |                             32.6576 |                  155132 |          1.32848e+06 |                          7.87633 |                               1684 |                       5.81963 |
+| Continuation Stealing (stalling) |            0.0844314 |                    16660 |                             139.841  |                             32.709  |                  185444 |          1.708e+06   |                          7.3144  |                               1698 |                       5.76932 |
+| Child Stealing (Full)            |            0.0944799 |                   197594 |                              81.6442 |                             29.8294 |                  287609 |          2.09268e+06 |                          7.3043  |                                 56 |                       4.32155 |
+| Child Stealing (RtC)             |            0.308499  |                   288011 |                              99.5874 |                             53.4338 |                  317298 |          1.05649e+07 |                         11.4574  |                                 55 |                       7.66513 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            0.078366 &                   13977 &                           11.185510 &                          32.657637 &                 155132 &             1328476 &                        7.876328 &                              1684 &                     5.819629 \\
+Continuation Stealing (stalling) &            0.084431 &                   16660 &                          139.840810 &                          32.708994 &                 185444 &             1708003 &                        7.314404 &                              1698 &                     5.769325 \\
+Child Stealing (Full)            &            0.094480 &                  197594 &                           81.644155 &                          29.829350 &                 287609 &             2092675 &                        7.304302 &                                56 &                     4.321546 \\
+Child Stealing (RtC)             &            0.308499 &                  288011 &                           99.587366 &                          53.433766 &                 317298 &            10564888 &                       11.457439 &                                55 &                     7.665126 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 65536
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.133269 |                    19801 |                              10.8527 |                             32.3143 |                  204186 |          1.23836e+06 |                          8.41745 |                               1680 |                       5.74282 |
+| Continuation Stealing (stalling) |             0.141959 |                    23801 |                             226.435  |                             32.3216 |                  259859 |          1.65626e+06 |                          7.62434 |                               1698 |                       5.69244 |
+| Child Stealing (Full)            |             0.162118 |                   281017 |                             134.366  |                             29.4652 |                  433837 |          2.34987e+06 |                          7.97735 |                                 56 |                       4.26874 |
+| Child Stealing (RtC)             |             0.656868 |                   565342 |                             131.054  |                             58.9565 |                  622678 |          2.04703e+07 |                         12.3922  |                                 55 |                       8.4487  |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.133269 |                    19801 |                              10.8527 |                             32.3143 |                  204186 |          1.23836e+06 |                          8.41745 |                               1680 |                       5.74282 |
+| Continuation Stealing (stalling) |             0.141959 |                    23801 |                             226.435  |                             32.3216 |                  259859 |          1.65626e+06 |                          7.62434 |                               1698 |                       5.69244 |
+| Child Stealing (Full)            |             0.162118 |                   281017 |                             134.366  |                             29.4652 |                  433837 |          2.34987e+06 |                          7.97735 |                                 56 |                       4.26874 |
+| Child Stealing (RtC)             |             0.656868 |                   565342 |                             131.054  |                             58.9565 |                  622678 |          2.04703e+07 |                         12.3922  |                                 55 |                       8.4487  |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            0.133269 &                   19801 &                           10.852740 &                          32.314262 &                 204186 &             1238363 &                        8.417446 &                              1680 &                     5.742822 \\
+Continuation Stealing (stalling) &            0.141959 &                   23801 &                          226.434728 &                          32.321648 &                 259859 &             1656263 &                        7.624337 &                              1698 &                     5.692445 \\
+Child Stealing (Full)            &            0.162118 &                  281017 &                          134.366165 &                          29.465162 &                 433837 &             2349874 &                        7.977353 &                                56 &                     4.268739 \\
+Child Stealing (RtC)             &            0.656868 &                  565342 &                          131.053889 &                          58.956528 &                 622678 &            20470337 &                       12.392224 &                                55 &                     8.448700 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 131072
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.243776 |          26567           |                              10.5166 |                             31.934  |        257825           |          1.16564e+06 |                          8.81009 |                               1684 |                       5.64719 |
+| Continuation Stealing (stalling) |             0.254577 |          32123           |                             380.498  |                             31.8209 |        347491           |          1.55931e+06 |                          7.70142 |                               1703 |                       5.57581 |
+| Child Stealing (Full)            |             0.294304 |         398703           |                             235.425  |                             29.4478 |        640757           |          2.75286e+06 |                          8.79653 |                                 55 |                       4.26178 |
+| Child Stealing (RtC)             |             1.30243  |              1.11738e+06 |                             159.415  |                             60.3219 |             1.22904e+06 |          3.92632e+07 |                         12.5379  |                                 55 |                       8.62642 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.243776 |          26567           |                              10.5166 |                             31.934  |        257825           |          1.16564e+06 |                          8.81009 |                               1684 |                       5.64719 |
+| Continuation Stealing (stalling) |             0.254577 |          32123           |                             380.498  |                             31.8209 |        347491           |          1.55931e+06 |                          7.70142 |                               1703 |                       5.57581 |
+| Child Stealing (Full)            |             0.294304 |         398703           |                             235.425  |                             29.4478 |        640757           |          2.75286e+06 |                          8.79653 |                                 55 |                       4.26178 |
+| Child Stealing (RtC)             |             1.30243  |              1.11738e+06 |                             159.415  |                             60.3219 |             1.22904e+06 |          3.92632e+07 |                         12.5379  |                                 55 |                       8.62642 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            0.243776 &                   26567 &                           10.516641 &                          31.933995 &                 257825 &             1165639 &                        8.810091 &                              1684 &                     5.647192 \\
+Continuation Stealing (stalling) &            0.254577 &                   32123 &                          380.497915 &                          31.820898 &                 347491 &             1559312 &                        7.701416 &                              1703 &                     5.575811 \\
+Child Stealing (Full)            &            0.294304 &                  398703 &                          235.425215 &                          29.447788 &                 640757 &             2752862 &                        8.796530 &                                55 &                     4.261780 \\
+Child Stealing (RtC)             &            1.302425 &                 1117381 &                          159.414975 &                          60.321937 &                1229040 &            39263238 &                       12.537949 &                                55 &                     8.626424 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 262144
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.470181 |          33524           |                              10.1539 |                             31.4875 |        310329           |          1.10811e+06 |                          8.73324 |                               1696 |                       5.60658 |
+| Continuation Stealing (stalling) |             0.48496  |          40943           |                             668.498  |                             31.5226 |        443274           |          1.4513e+06  |                          7.89381 |                               1716 |                       5.52343 |
+| Child Stealing (Full)            |             0.556834 |         558201           |                             437.63   |                             29.2335 |        928664           |          3.47468e+06 |                          9.51553 |                                 55 |                       4.23683 |
+| Child Stealing (RtC)             |             2.64109  |              2.22945e+06 |                             191.719  |                             61.4868 |             2.44836e+06 |          7.8034e+07  |                         12.6459  |                                 55 |                       8.79773 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.470181 |          33524           |                              10.1539 |                             31.4875 |        310329           |          1.10811e+06 |                          8.73324 |                               1696 |                       5.60658 |
+| Continuation Stealing (stalling) |             0.48496  |          40943           |                             668.498  |                             31.5226 |        443274           |          1.4513e+06  |                          7.89381 |                               1716 |                       5.52343 |
+| Child Stealing (Full)            |             0.556834 |         558201           |                             437.63   |                             29.2335 |        928664           |          3.47468e+06 |                          9.51553 |                                 55 |                       4.23683 |
+| Child Stealing (RtC)             |             2.64109  |              2.22945e+06 |                             191.719  |                             61.4868 |             2.44836e+06 |          7.8034e+07  |                         12.6459  |                                 55 |                       8.79773 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            0.470181 &                   33524 &                           10.153937 &                          31.487499 &                 310329 &             1108112 &                        8.733235 &                              1696 &                     5.606579 \\
+Continuation Stealing (stalling) &            0.484960 &                   40943 &                          668.497716 &                          31.522647 &                 443274 &             1451299 &                        7.893814 &                              1716 &                     5.523433 \\
+Child Stealing (Full)            &            0.556834 &                  558201 &                          437.629759 &                          29.233526 &                 928664 &             3474684 &                        9.515526 &                                55 &                     4.236827 \\
+Child Stealing (RtC)             &            2.641085 &                 2229450 &                          191.719473 &                          61.486769 &                2448355 &            78034029 &                       12.645875 &                                55 &                     8.797726 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 524288
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.941901 |          40106           |                               9.8689 |                             31.2572 |        357091           |          1.05997e+06 |                          8.70643 |                               1713 |                       5.55616 |
+| Continuation Stealing (stalling) |             0.960912 |          49852           |                            1201.05   |                             31.1187 |        543768           |          1.38983e+06 |                          7.91938 |                               1732 |                       5.44722 |
+| Child Stealing (Full)            |             1.09265  |         804502           |                             860.544  |                             29.2553 |             1.3889e+06  |          4.66878e+06 |                         10.2206  |                                 55 |                       4.23788 |
+| Child Stealing (RtC)             |             5.52867  |              4.63477e+06 |                             220.206  |                             61.2042 |             5.09663e+06 |          1.65259e+08 |                         12.5096  |                                 55 |                       8.76338 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |             0.941901 |          40106           |                               9.8689 |                             31.2572 |        357091           |          1.05997e+06 |                          8.70643 |                               1713 |                       5.55616 |
+| Continuation Stealing (stalling) |             0.960912 |          49852           |                            1201.05   |                             31.1187 |        543768           |          1.38983e+06 |                          7.91938 |                               1732 |                       5.44722 |
+| Child Stealing (Full)            |             1.09265  |         804502           |                             860.544  |                             29.2553 |             1.3889e+06  |          4.66878e+06 |                         10.2206  |                                 55 |                       4.23788 |
+| Child Stealing (RtC)             |             5.52867  |              4.63477e+06 |                             220.206  |                             61.2042 |             5.09663e+06 |          1.65259e+08 |                         12.5096  |                                 55 |                       8.76338 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            0.941901 &                   40106 &                            9.868900 &                          31.257224 &                 357091 &             1059968 &                        8.706435 &                              1713 &                     5.556165 \\
+Continuation Stealing (stalling) &            0.960912 &                   49852 &                         1201.051190 &                          31.118657 &                 543768 &             1389826 &                        7.919383 &                              1732 &                     5.447218 \\
+Child Stealing (Full)            &            1.092646 &                  804502 &                          860.543625 &                          29.255256 &                1388899 &             4668777 &                       10.220561 &                                55 &                     4.237876 \\
+Child Stealing (RtC)             &            5.528674 &                 4634769 &                          220.206157 &                          61.204169 &                5096634 &           165258859 &                       12.509640 &                                55 &                     8.763376 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 1048576
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              1.92822 |          46276           |                              9.60803 |                             31.0021 |        401653           |          1.03563e+06 |                          8.7051  |                               1732 |                       5.50091 |
+| Continuation Stealing (stalling) |              1.9511  |          58027           |                           2246.78    |                             30.8818 |        638330           |          1.34713e+06 |                          8.15817 |                               1752 |                       5.42706 |
+| Child Stealing (Full)            |              2.18875 |              1.20862e+06 |                           1769.52    |                             29.3213 |             2.15756e+06 |          6.46614e+06 |                         10.6346  |                                 55 |                       4.23798 |
+| Child Stealing (RtC)             |             11.3828  |              9.61862e+06 |                            246.238   |                             60.3674 |             1.05907e+07 |          3.43257e+08 |                         12.3497  |                                 55 |                       8.63818 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              1.92822 |          46276           |                              9.60803 |                             31.0021 |        401653           |          1.03563e+06 |                          8.7051  |                               1732 |                       5.50091 |
+| Continuation Stealing (stalling) |              1.9511  |          58027           |                           2246.78    |                             30.8818 |        638330           |          1.34713e+06 |                          8.15817 |                               1752 |                       5.42706 |
+| Child Stealing (Full)            |              2.18875 |              1.20862e+06 |                           1769.52    |                             29.3213 |             2.15756e+06 |          6.46614e+06 |                         10.6346  |                                 55 |                       4.23798 |
+| Child Stealing (RtC)             |             11.3828  |              9.61862e+06 |                            246.238   |                             60.3674 |             1.05907e+07 |          3.43257e+08 |                         12.3497  |                                 55 |                       8.63818 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            1.928219 &                   46276 &                            9.608031 &                          31.002054 &                 401653 &             1035630 &                        8.705096 &                              1732 &                     5.500906 \\
+Continuation Stealing (stalling) &            1.951103 &                   58027 &                         2246.783988 &                          30.881792 &                 638330 &             1347129 &                        8.158171 &                              1752 &                     5.427056 \\
+Child Stealing (Full)            &            2.188754 &                 1208624 &                         1769.516329 &                          29.321287 &                2157559 &             6466141 &                       10.634594 &                                55 &                     4.237979 \\
+Child Stealing (RtC)             &           11.382786 &                 9618616 &                          246.237935 &                          60.367421 &               10590684 &           343256758 &                       12.349707 &                                55 &                     8.638176 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 2097152
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              3.98868 |          51669           |                              9.43641 |                             30.777  |        439894           |          1.00673e+06 |                          8.73843 |                               1748 |                       5.47337 |
+| Continuation Stealing (stalling) |              4.01467 |          65845           |                           4240.89    |                             30.6235 |        729019           |          1.2954e+06  |                          8.22746 |                               1769 |                       5.39561 |
+| Child Stealing (Full)            |              4.47456 |              1.92202e+06 |                           3815.08    |                             29.4571 |             3.53008e+06 |          9.54452e+06 |                         10.7571  |                                 55 |                       4.24699 |
+| Child Stealing (RtC)             |             23.4635  |              1.99511e+07 |                            265.771   |                             59.3987 |             2.20064e+07 |          7.10368e+08 |                         12.2758  |                                 55 |                       8.5161  |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              3.98868 |          51669           |                              9.43641 |                             30.777  |        439894           |          1.00673e+06 |                          8.73843 |                               1748 |                       5.47337 |
+| Continuation Stealing (stalling) |              4.01467 |          65845           |                           4240.89    |                             30.6235 |        729019           |          1.2954e+06  |                          8.22746 |                               1769 |                       5.39561 |
+| Child Stealing (Full)            |              4.47456 |              1.92202e+06 |                           3815.08    |                             29.4571 |             3.53008e+06 |          9.54452e+06 |                         10.7571  |                                 55 |                       4.24699 |
+| Child Stealing (RtC)             |             23.4635  |              1.99511e+07 |                            265.771   |                             59.3987 |             2.20064e+07 |          7.10368e+08 |                         12.2758  |                                 55 |                       8.5161  |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            3.988681 &                   51669 &                            9.436411 &                          30.776980 &                 439894 &             1006728 &                        8.738433 &                              1748 &                     5.473367 \\
+Continuation Stealing (stalling) &            4.014669 &                   65845 &                         4240.890237 &                          30.623459 &                 729019 &             1295405 &                        8.227459 &                              1769 &                     5.395607 \\
+Child Stealing (Full)            &            4.474560 &                 1922022 &                         3815.079916 &                          29.457069 &                3530077 &             9544524 &                       10.757090 &                                55 &                     4.246989 \\
+Child Stealing (RtC)             &           23.463461 &                19951135 &                          265.770616 &                          59.398714 &               22006399 &           710368442 &                       12.275832 &                                55 &                     8.516104 \\
+\bottomrule
+\end{tabular}
+```
+
+## N = 4194304
+
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              8.29116 |          55589           |                              9.28425 |                             30.4832 |        467167           |     973554           |                          8.84678 |                               1765 |                       5.47557 |
+| Continuation Stealing (stalling) |              8.31777 |          73013           |                           8066.55    |                             30.4308 |        812265           |          1.26454e+06 |                          8.51692 |                               1789 |                       5.39578 |
+| Child Stealing (Full)            |              9.27473 |              3.21133e+06 |                           8479.27    |                             29.458  |             6.0017e+06  |          1.50325e+07 |                         10.3972  |                                 55 |                       4.23411 |
+| Child Stealing (RtC)             |             47.859   |              4.10011e+07 |                            290.072   |                             58.5623 |             4.53011e+07 |          1.45524e+09 |                         12.1613  |                                 55 |                       8.38369 |
+
+```
+| Steal Strategy                   |   Execution Time (s) |   # of Outstanding Joins |   Average Outstanding Join Time (us) |   Average Succeeded Steal Time (us) |   # of Succeeded Steals |   # of Failed Steals |   Average Failed Steal Time (us) |   Average Stolen Task Size (bytes) |   Average Task Copy Time (us) |
+|:---------------------------------|---------------------:|-------------------------:|-------------------------------------:|------------------------------------:|------------------------:|---------------------:|---------------------------------:|-----------------------------------:|------------------------------:|
+| Continuation Stealing (greedy)   |              8.29116 |          55589           |                              9.28425 |                             30.4832 |        467167           |     973554           |                          8.84678 |                               1765 |                       5.47557 |
+| Continuation Stealing (stalling) |              8.31777 |          73013           |                           8066.55    |                             30.4308 |        812265           |          1.26454e+06 |                          8.51692 |                               1789 |                       5.39578 |
+| Child Stealing (Full)            |              9.27473 |              3.21133e+06 |                           8479.27    |                             29.458  |             6.0017e+06  |          1.50325e+07 |                         10.3972  |                                 55 |                       4.23411 |
+| Child Stealing (RtC)             |             47.859   |              4.10011e+07 |                            290.072   |                             58.5623 |             4.53011e+07 |          1.45524e+09 |                         12.1613  |                                 55 |                       8.38369 |
+```
+
+```
+\begin{tabular}{lrrrrrrrrr}
+\toprule
+{} &  Execution Time (s) &  \# of Outstanding Joins &  Average Outstanding Join Time (us) &  Average Succeeded Steal Time (us) &  \# of Succeeded Steals &  \# of Failed Steals &  Average Failed Steal Time (us) &  Average Stolen Task Size (bytes) &  Average Task Copy Time (us) \\
+Steal Strategy                   &                     &                         &                                     &                                    &                        &                     &                                 &                                   &                              \\
+\midrule
+Continuation Stealing (greedy)   &            8.291165 &                   55589 &                            9.284249 &                          30.483161 &                 467167 &              973554 &                        8.846779 &                              1765 &                     5.475572 \\
+Continuation Stealing (stalling) &            8.317774 &                   73013 &                         8066.545612 &                          30.430780 &                 812265 &             1264540 &                        8.516916 &                              1789 &                     5.395779 \\
+Child Stealing (Full)            &            9.274733 &                 3211330 &                         8479.265363 &                          29.457978 &                6001698 &            15032511 &                       10.397224 &                                55 &                     4.234106 \\
+Child Stealing (RtC)             &           47.859002 &                41001110 &                          290.072405 &                          58.562323 &               45301142 &          1455236407 &                       12.161331 &                                55 &                     8.383685 \\
+\bottomrule
+\end{tabular}
+```
+
+
+</div>
+<script>
+  document.getElementById("rendered").innerHTML = marked.parse(document.getElementById("mdtxt").innerText);
+</script>

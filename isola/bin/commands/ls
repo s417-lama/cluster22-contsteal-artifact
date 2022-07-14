@@ -1,0 +1,37 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+. ${ISOLA_ROOT}/bin/commands/common.bash
+
+help_and_exit() {
+  echo "Usage: isola ls [OPTIONS] [project[:name[:version]]]
+
+OPTIONS:
+  -r    list isolas recursively
+  -h    show help" >&2
+  exit 1
+}
+
+RECURSIVE_FLAG=false
+
+while getopts :rh OPT; do
+  case $OPT in
+    r) RECURSIVE_FLAG=true ;;
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" > 1 ]]; then
+  help_and_exit
+fi
+
+if "$RECURSIVE_FLAG"; then
+  get_rec_isola_list "$@"
+else
+  get_isola_list "$@"
+fi

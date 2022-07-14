@@ -1,0 +1,621 @@
+MADM_COMM_ALLOCATOR_INIT_SIZE = 4194304
+MADM_LOGGER_PRINT_STAT_PER_RANK = 0
+MADM_STACK_FRAME_SIZE = 32768
+MADM_FUTURE_POOL_BUF_SIZE = 2097152
+=============================================================
+[pfor]
+# of processes:                9216
+N (Input size):                8388608
+M (Leaf execution time in ns): 10000
+# of blocks:                   5
+# of repeats:                  100
+# of warmup runs:              2000
+CPU frequency:                 3.300000 GHz
+# of loop iterations at leaf:  4125
+-------------------------------------------------------------
+uth options:
+MADM_DEBUG_LEVEL = 0, MADM_DEBUG_LEVEL_RT = 5, MADM_CORES = 16, MADM_SERVER_MOD = 0, MADM_GASNET_POLL_THREAD = 0, MADM_GASNET_SEGMENT_SIZE = 0
+MADM_STACK_SIZE = 1048576, MADM_TASKQ_CAPACITY = 1024, MADM_PROFILE = 0, MADM_STEAL_LOG = 0, MADM_ABORTING_STEAL = 1
+=============================================================
+
+warmup time: 34195743879 ns
+[0] 86501624 ns ( #tasks: 41943040 work: 427381951644 ns span: 11269478 ns busy: 53.610450 % )
+  steal_success           :   2.359453 % (     18809534523 ns /    797198966784 ns ) count:   569551 ave:    33025 ns
+  steal_fail              :  53.740467 % (    428418448914 ns /    797198966784 ns ) count: 75031861 ave:     5709 ns
+  steal_task_copy         :   0.345290 % (      2752650628 ns /    797198966784 ns ) count:   569551 ave:     4833 ns
+  steal_task_size         :       56 bytes ( 31894856 /   569551 )
+
+[1] 97156278 ns ( #tasks: 41943040 work: 426719839055 ns span: 10310423 ns busy: 47.657307 % )
+  steal_success           :   2.023091 % (     18114602468 ns /    895392258048 ns ) count:   556457 ave:    32553 ns
+  steal_fail              :  76.612154 % (    685979293418 ns /    895392258048 ns ) count: 122327756 ave:     5607 ns
+  steal_task_copy         :   0.289904 % (      2595774623 ns /    895392258048 ns ) count:   556457 ave:     4664 ns
+  steal_task_size         :       56 bytes ( 31161592 /   556457 )
+
+[2] 128554256 ns ( #tasks: 41943040 work: 426779837172 ns span: 13279948 ns busy: 36.022593 % )
+  steal_success           :   1.569433 % (     18593952960 ns /   1184756023296 ns ) count:   582547 ave:    31918 ns
+  steal_fail              :  65.381942 % (    774616498704 ns /   1184756023296 ns ) count: 141494189 ave:     5474 ns
+  steal_task_copy         :   0.225555 % (      2672275836 ns /   1184756023296 ns ) count:   582547 ave:     4587 ns
+  steal_task_size         :       56 bytes ( 32622632 /   582547 )
+
+[3] 80811315 ns ( #tasks: 41943040 work: 426729826996 ns span: 9767770 ns busy: 57.297854 % )
+  steal_success           :   2.402720 % (     17894428933 ns /    744757079040 ns ) count:   566960 ave:    31562 ns
+  steal_fail              :  45.458473 % (    338555193067 ns /    744757079040 ns ) count: 59874800 ave:     5654 ns
+  steal_task_copy         :   0.348814 % (      2597817698 ns /    744757079040 ns ) count:   566960 ave:     4582 ns
+  steal_task_size         :       56 bytes ( 31749760 /   566960 )
+
+[4] 57833712 ns ( #tasks: 41943040 work: 426660843236 ns span: 5351264 ns busy: 80.049616 % )
+  steal_success           :   3.372229 % (     17973826958 ns /    532995489792 ns ) count:   575592 ave:    31226 ns
+  steal_fail              :  25.070410 % (    133624154890 ns /    532995489792 ns ) count: 21215708 ave:     6298 ns
+  steal_task_copy         :   0.488062 % (      2601349102 ns /    532995489792 ns ) count:   575592 ave:     4519 ns
+  steal_task_size         :       56 bytes ( 32233152 /   575592 )
+
+[5] 80660471 ns ( #tasks: 41943040 work: 426702590019 ns span: 10193629 ns busy: 57.401344 % )
+  steal_success           :   2.530028 % (     18807390778 ns /    743366900736 ns ) count:   594673 ave:    31626 ns
+  steal_fail              :  38.422842 % (    285622688819 ns /    743366900736 ns ) count: 49234043 ave:     5801 ns
+  steal_task_copy         :   0.367027 % (      2728359892 ns /    743366900736 ns ) count:   594673 ave:     4588 ns
+  steal_task_size         :       56 bytes ( 33301688 /   594673 )
+
+[6] 66073378 ns ( #tasks: 41943040 work: 426680199086 ns span: 6135617 ns busy: 70.070225 % )
+  steal_success           :   3.100750 % (     18881467543 ns /    608932251648 ns ) count:   578733 ave:    32625 ns
+  steal_fail              :  43.881988 % (    267211579116 ns /    608932251648 ns ) count: 44603824 ave:     5990 ns
+  steal_task_copy         :   0.439016 % (      2673309157 ns /    608932251648 ns ) count:   578733 ave:     4619 ns
+  steal_task_size         :       56 bytes ( 32409048 /   578733 )
+
+[7] 74090583 ns ( #tasks: 41943040 work: 426794683593 ns span: 9270637 ns busy: 62.504822 % )
+  steal_success           :   2.750880 % (     18783525437 ns /    682818812928 ns ) count:   594776 ave:    31580 ns
+  steal_fail              :  40.663134 % (    277655526046 ns /    682818812928 ns ) count: 45996565 ave:     6036 ns
+  steal_task_copy         :   0.398819 % (      2723213238 ns /    682818812928 ns ) count:   594776 ave:     4578 ns
+  steal_task_size         :       56 bytes ( 33307456 /   594776 )
+
+[8] 57170348 ns ( #tasks: 41943040 work: 426666350216 ns span: 8672221 ns busy: 80.979500 % )
+  steal_success           :   3.300282 % (     17388587353 ns /    526881927168 ns ) count:   557825 ave:    31172 ns
+  steal_fail              :  26.636989 % (    140345481426 ns /    526881927168 ns ) count: 22398787 ave:     6265 ns
+  steal_task_copy         :   0.477579 % (      2516278090 ns /    526881927168 ns ) count:   557825 ave:     4510 ns
+  steal_task_size         :       56 bytes ( 31238200 /   557825 )
+
+[9] 72448224 ns ( #tasks: 41943040 work: 426674907411 ns span: 5446024 ns busy: 63.903831 % )
+  steal_success           :   2.810297 % (     18763868428 ns /    667682832384 ns ) count:   591439 ave:    31725 ns
+  steal_fail              :  49.414921 % (    329934945166 ns /    667682832384 ns ) count: 57767686 ave:     5711 ns
+  steal_task_copy         :   0.402146 % (      2685061573 ns /    667682832384 ns ) count:   591439 ave:     4539 ns
+  steal_task_size         :       56 bytes ( 33120584 /   591439 )
+
+[10] 84235709 ns ( #tasks: 41943040 work: 426723042990 ns span: 10877558 ns busy: 54.967678 % )
+  steal_success           :   2.316131 % (     17980504853 ns /    776316294144 ns ) count:   566268 ave:    31752 ns
+  steal_fail              :  69.383949 % (    538638904558 ns /    776316294144 ns ) count: 97143073 ave:     5544 ns
+  steal_task_copy         :   0.331976 % (      2577182752 ns /    776316294144 ns ) count:   566268 ave:     4551 ns
+  steal_task_size         :       56 bytes ( 31711008 /   566268 )
+
+[11] 87815544 ns ( #tasks: 41943040 work: 426776047974 ns span: 11089301 ns busy: 52.733449 % )
+  steal_success           :   2.251066 % (     18218059671 ns /    809308053504 ns ) count:   572755 ave:    31807 ns
+  steal_fail              :  49.656311 % (    401872527689 ns /    809308053504 ns ) count: 70795566 ave:     5676 ns
+  steal_task_copy         :   0.325440 % (      2633810640 ns /    809308053504 ns ) count:   572755 ave:     4598 ns
+  steal_task_size         :       56 bytes ( 32074280 /   572755 )
+
+[12] 58285854 ns ( #tasks: 41943040 work: 426661350446 ns span: 4366083 ns busy: 79.428740 % )
+  steal_success           :   3.469850 % (     18638730040 ns /    537162430464 ns ) count:   584346 ave:    31896 ns
+  steal_fail              :  24.736191 % (    132873525963 ns /    537162430464 ns ) count: 20300659 ave:     6545 ns
+  steal_task_copy         :   0.502141 % (      2697311053 ns /    537162430464 ns ) count:   584346 ave:     4615 ns
+  steal_task_size         :       56 bytes ( 32723376 /   584346 )
+
+[13] 93625860 ns ( #tasks: 41943040 work: 426725928045 ns span: 10132845 ns busy: 49.455061 % )
+  steal_success           :   1.983313 % (     17113132489 ns /    862855925760 ns ) count:   542590 ave:    31539 ns
+  steal_fail              :  47.254186 % (    407735545269 ns /    862855925760 ns ) count: 72301487 ave:     5639 ns
+  steal_task_copy         :   0.287334 % (      2479279490 ns /    862855925760 ns ) count:   542590 ave:     4569 ns
+  steal_task_size         :       56 bytes ( 30385040 /   542590 )
+
+[14] 81253804 ns ( #tasks: 41943040 work: 427078828480 ns span: 7755829 ns busy: 57.032430 % )
+  steal_success           :   2.712924 % (     20315325849 ns /    748835057664 ns ) count:   632101 ave:    32139 ns
+  steal_fail              :  53.830819 % (    403104041669 ns /    748835057664 ns ) count: 69690702 ave:     5784 ns
+  steal_task_copy         :   0.388580 % (      2909825824 ns /    748835057664 ns ) count:   632101 ave:     4603 ns
+  steal_task_size         :       56 bytes ( 35397656 /   632101 )
+
+[15] 88726459 ns ( #tasks: 41943040 work: 426711092994 ns span: 9617137 ns busy: 52.184114 % )
+  steal_success           :   2.394918 % (     19583316998 ns /    817703046144 ns ) count:   615155 ave:    31834 ns
+  steal_fail              :  61.150919 % (    500032927636 ns /    817703046144 ns ) count: 89759156 ave:     5570 ns
+  steal_task_copy         :   0.344540 % (      2817310711 ns /    817703046144 ns ) count:   615155 ave:     4579 ns
+  steal_task_size         :       56 bytes ( 34448680 /   615155 )
+
+[16] 67942534 ns ( #tasks: 41943040 work: 426694069924 ns span: 9337484 ns busy: 68.144750 % )
+  steal_success           :   2.962893 % (     18552402737 ns /    626158393344 ns ) count:   592561 ave:    31308 ns
+  steal_fail              :  46.066880 % (    288451636651 ns /    626158393344 ns ) count: 50648818 ave:     5695 ns
+  steal_task_copy         :   0.427732 % (      2678280663 ns /    626158393344 ns ) count:   592561 ave:     4519 ns
+  steal_task_size         :       56 bytes ( 33183416 /   592561 )
+
+[17] 103446005 ns ( #tasks: 41943040 work: 426717912319 ns span: 11899058 ns busy: 44.759444 % )
+  steal_success           :   1.954920 % (     18637394849 ns /    953358382080 ns ) count:   576003 ave:    32356 ns
+  steal_fail              :  57.172537 % (    545059171141 ns /    953358382080 ns ) count: 97793716 ave:     5573 ns
+  steal_task_copy         :   0.279618 % (      2665757130 ns /    953358382080 ns ) count:   576003 ave:     4628 ns
+  steal_task_size         :       56 bytes ( 32256168 /   576003 )
+
+[18] 91470135 ns ( #tasks: 41943040 work: 426777172956 ns span: 11637005 ns busy: 50.626674 % )
+  steal_success           :   2.166335 % (     18261963812 ns /    842988764160 ns ) count:   564962 ave:    32324 ns
+  steal_fail              :  63.618660 % (    536298157915 ns /    842988764160 ns ) count: 94916511 ave:     5650 ns
+  steal_task_copy         :   0.313590 % (      2643528174 ns /    842988764160 ns ) count:   564962 ave:     4679 ns
+  steal_task_size         :       56 bytes ( 31637872 /   564962 )
+
+[19] 73502770 ns ( #tasks: 41943040 work: 426666799696 ns span: 4602744 ns busy: 62.985804 % )
+  steal_success           :   2.821403 % (     19112230092 ns /    677401528320 ns ) count:   607974 ave:    31435 ns
+  steal_fail              :  50.516200 % (    342197510189 ns /    677401528320 ns ) count: 60517588 ave:     5654 ns
+  steal_task_copy         :   0.405387 % (      2746099703 ns /    677401528320 ns ) count:   607974 ave:     4516 ns
+  steal_task_size         :       56 bytes ( 34046544 /   607974 )
+
+[20] 96935137 ns ( #tasks: 41943040 work: 426732955414 ns span: 12010396 ns busy: 47.767497 % )
+  steal_success           :   2.057235 % (     18378394546 ns /    893354222592 ns ) count:   580536 ave:    31657 ns
+  steal_fail              :  55.256659 % (    493637692904 ns /    893354222592 ns ) count: 88680501 ave:     5566 ns
+  steal_task_copy         :   0.296558 % (      2649310443 ns /    893354222592 ns ) count:   580536 ave:     4563 ns
+  steal_task_size         :       56 bytes ( 32510016 /   580536 )
+
+[21] 64403764 ns ( #tasks: 41943040 work: 426713848440 ns span: 5862648 ns busy: 71.892407 % )
+  steal_success           :   3.030280 % (     17986076664 ns /    593545089024 ns ) count:   563892 ave:    31896 ns
+  steal_fail              :  55.225624 % (    327788980971 ns /    593545089024 ns ) count: 57695585 ave:     5681 ns
+  steal_task_copy         :   0.432630 % (      2567855344 ns /    593545089024 ns ) count:   563892 ave:     4553 ns
+  steal_task_size         :       56 bytes ( 31577952 /   563892 )
+
+[22] 90156361 ns ( #tasks: 41943040 work: 426700851060 ns span: 12165755 ns busy: 51.355229 % )
+  steal_success           :   2.401202 % (     19951135618 ns /    830881022976 ns ) count:   635581 ave:    31390 ns
+  steal_fail              :  60.745940 % (    504726491341 ns /    830881022976 ns ) count: 90842692 ave:     5556 ns
+  steal_task_copy         :   0.346768 % (      2881230799 ns /    830881022976 ns ) count:   635581 ave:     4533 ns
+  steal_task_size         :       56 bytes ( 35592536 /   635581 )
+
+[23] 78744824 ns ( #tasks: 41943040 work: 427005136862 ns span: 8498081 ns busy: 58.839452 % )
+  steal_success           :   2.637350 % (     19139575277 ns /    725712297984 ns ) count:   578031 ave:    33111 ns
+  steal_fail              :  58.325092 % (    423272362534 ns /    725712297984 ns ) count: 70842662 ave:     5974 ns
+  steal_task_copy         :   0.377665 % (      2740764641 ns /    725712297984 ns ) count:   578031 ave:     4741 ns
+  steal_task_size         :       56 bytes ( 32369736 /   578031 )
+
+[24] 58316528 ns ( #tasks: 41943040 work: 426694051036 ns span: 8316748 ns busy: 79.393046 % )
+  steal_success           :   3.363709 % (     18078090652 ns /    537445122048 ns ) count:   569072 ave:    31767 ns
+  steal_fail              :  25.758170 % (    138436030060 ns /    537445122048 ns ) count: 21276282 ave:     6506 ns
+  steal_task_copy         :   0.487039 % (      2617567882 ns /    537445122048 ns ) count:   569072 ave:     4599 ns
+  steal_task_size         :       56 bytes ( 31868032 /   569072 )
+
+[25] 58688908 ns ( #tasks: 41943040 work: 426674937047 ns span: 6520638 ns busy: 78.885764 % )
+  steal_success           :   3.331810 % (     18020991525 ns /    540876976128 ns ) count:   573022 ave:    31449 ns
+  steal_fail              :  56.385037 % (    304973685054 ns /    540876976128 ns ) count: 52870887 ave:     5768 ns
+  steal_task_copy         :   0.478270 % (      2586850166 ns /    540876976128 ns ) count:   573022 ave:     4514 ns
+  steal_task_size         :       56 bytes ( 32089232 /   573022 )
+
+[26] 93599012 ns ( #tasks: 41943040 work: 426678485356 ns span: 10224672 ns busy: 49.463747 % )
+  steal_success           :   2.206281 % (     19031570871 ns /    862608494592 ns ) count:   605294 ave:    31441 ns
+  steal_fail              :  52.402602 % (    452029292242 ns /    862608494592 ns ) count: 81185007 ave:     5567 ns
+  steal_task_copy         :   0.320793 % (      2767188431 ns /    862608494592 ns ) count:   605294 ave:     4571 ns
+  steal_task_size         :       56 bytes ( 33896464 /   605294 )
+
+[27] 101587881 ns ( #tasks: 41943040 work: 426698821788 ns span: 8981810 ns busy: 45.576091 % )
+  steal_success           :   2.013169 % (     18847968127 ns /    936233911296 ns ) count:   596295 ave:    31608 ns
+  steal_fail              :  57.166477 % (    535211944576 ns /    936233911296 ns ) count: 96679456 ave:     5535 ns
+  steal_task_copy         :   0.290222 % (      2717153397 ns /    936233911296 ns ) count:   596295 ave:     4556 ns
+  steal_task_size         :       56 bytes ( 33392520 /   596295 )
+
+[28] 59274797 ns ( #tasks: 41943040 work: 426671349529 ns span: 4822712 ns busy: 78.105378 % )
+  steal_success           :   3.330381 % (     18193088313 ns /    546276529152 ns ) count:   564312 ave:    32239 ns
+  steal_fail              :  59.522424 % (    325157029818 ns /    546276529152 ns ) count: 56753673 ave:     5729 ns
+  steal_task_copy         :   0.471114 % (      2573585908 ns /    546276529152 ns ) count:   564312 ave:     4560 ns
+  steal_task_size         :       56 bytes ( 31601472 /   564312 )
+
+[29] 82826505 ns ( #tasks: 41943040 work: 426670943803 ns span: 10096548 ns busy: 55.896069 % )
+  steal_success           :   2.529665 % (     19309669848 ns /    763329070080 ns ) count:   589755 ave:    32741 ns
+  steal_fail              :  46.761334 % (    356942854027 ns /    763329070080 ns ) count: 60861036 ave:     5864 ns
+  steal_task_copy         :   0.363424 % (      2774122813 ns /    763329070080 ns ) count:   589755 ave:     4703 ns
+  steal_task_size         :       56 bytes ( 33026280 /   589755 )
+
+[30] 66302133 ns ( #tasks: 41943040 work: 426703395659 ns span: 6954837 ns busy: 69.832266 % )
+  steal_success           :   2.993790 % (     18293266310 ns /    611040457728 ns ) count:   581627 ave:    31451 ns
+  steal_fail              :  33.990289 % (    207694418253 ns /    611040457728 ns ) count: 34493724 ave:     6021 ns
+  steal_task_copy         :   0.434209 % (      2653192819 ns /    611040457728 ns ) count:   581627 ave:     4561 ns
+  steal_task_size         :       56 bytes ( 32571112 /   581627 )
+
+[31] 59206654 ns ( #tasks: 41943040 work: 426679391634 ns span: 7891442 ns busy: 78.196746 % )
+  steal_success           :   3.339764 % (     18223371215 ns /    545648523264 ns ) count:   583142 ave:    31250 ns
+  steal_fail              :  26.465751 % (    144409981614 ns /    545648523264 ns ) count: 23158670 ave:     6235 ns
+  steal_task_copy         :   0.483603 % (      2638774077 ns /    545648523264 ns ) count:   583142 ave:     4525 ns
+  steal_task_size         :       56 bytes ( 32655952 /   583142 )
+
+[32] 69724325 ns ( #tasks: 41943040 work: 426692286667 ns span: 8891227 ns busy: 66.403047 % )
+  steal_success           :   2.839269 % (     18244554722 ns /    642579379200 ns ) count:   583305 ave:    31277 ns
+  steal_fail              :  31.418579 % (    201889307992 ns /    642579379200 ns ) count: 33704837 ave:     5989 ns
+  steal_task_copy         :   0.411310 % (      2642991821 ns /    642579379200 ns ) count:   583305 ave:     4531 ns
+  steal_task_size         :       56 bytes ( 32665080 /   583305 )
+
+[33] 78384301 ns ( #tasks: 41943040 work: 426725364377 ns span: 10089813 ns busy: 59.071351 % )
+  steal_success           :   2.542191 % (     18364523812 ns /    722389718016 ns ) count:   581453 ave:    31583 ns
+  steal_fail              :  56.431472 % (    407655152169 ns /    722389718016 ns ) count: 72728936 ave:     5605 ns
+  steal_task_copy         :   0.366996 % (      2651140038 ns /    722389718016 ns ) count:   581453 ave:     4559 ns
+  steal_task_size         :       56 bytes ( 32561368 /   581453 )
+
+[34] 69920907 ns ( #tasks: 41943040 work: 426680081475 ns span: 9272358 ns busy: 66.214461 % )
+  steal_success           :   2.898361 % (     18676777920 ns /    644391078912 ns ) count:   598627 ave:    31199 ns
+  steal_fail              :  37.785424 % (    243485900845 ns /    644391078912 ns ) count: 41670062 ave:     5843 ns
+  steal_task_copy         :   0.420496 % (      2709638123 ns /    644391078912 ns ) count:   598627 ave:     4526 ns
+  steal_task_size         :       56 bytes ( 33523112 /   598627 )
+
+[35] 102243359 ns ( #tasks: 41943040 work: 426764723968 ns span: 13661207 ns busy: 45.290899 % )
+  steal_success           :   1.979007 % (     18647688222 ns /    942274796544 ns ) count:   566201 ave:    32934 ns
+  steal_fail              :  68.144843 % (    642111681541 ns /    942274796544 ns ) count: 114213646 ave:     5622 ns
+  steal_task_copy         :   0.283871 % (      2674840215 ns /    942274796544 ns ) count:   566201 ave:     4724 ns
+  steal_task_size         :       56 bytes ( 31707256 /   566201 )
+
+[36] 71879651 ns ( #tasks: 41943040 work: 426736756338 ns span: 9412717 ns busy: 64.418651 % )
+  steal_success           :   2.829433 % (     18743377790 ns /    662442863616 ns ) count:   596997 ave:    31396 ns
+  steal_fail              :  39.038468 % (    258607547192 ns /    662442863616 ns ) count: 43846564 ave:     5898 ns
+  steal_task_copy         :   0.410203 % (      2717359187 ns /    662442863616 ns ) count:   596997 ave:     4551 ns
+  steal_task_size         :       56 bytes ( 33431832 /   596997 )
+
+[37] 57055040 ns ( #tasks: 41943040 work: 426665733059 ns span: 6168131 ns busy: 81.143042 % )
+  steal_success           :   3.417646 % (     17970643103 ns /    525819248640 ns ) count:   577730 ave:    31105 ns
+  steal_fail              :  23.564223 % (    123905222850 ns /    525819248640 ns ) count: 19471576 ave:     6363 ns
+  steal_task_copy         :   0.494166 % (      2598417396 ns /    525819248640 ns ) count:   577730 ave:     4497 ns
+  steal_task_size         :       56 bytes ( 32352880 /   577730 )
+
+[38] 64075105 ns ( #tasks: 41943040 work: 426671820707 ns span: 8801390 ns busy: 72.254046 % )
+  steal_success           :   3.189236 % (     18832954404 ns /    590516167680 ns ) count:   605850 ave:    31085 ns
+  steal_fail              :  24.313037 % (    143572413682 ns /    590516167680 ns ) count: 23037859 ave:     6232 ns
+  steal_task_copy         :   0.460621 % (      2720039037 ns /    590516167680 ns ) count:   605850 ave:     4489 ns
+  steal_task_size         :       56 bytes ( 33927600 /   605850 )
+
+[39] 68770902 ns ( #tasks: 41943040 work: 426681726869 ns span: 9505734 ns busy: 67.321976 % )
+  steal_success           :   3.085372 % (     19554862312 ns /    633792632832 ns ) count:   623191 ave:    31378 ns
+  steal_fail              :  52.323597 % (    331623102349 ns /    633792632832 ns ) count: 58299290 ave:     5688 ns
+  steal_task_copy         :   0.442636 % (      2805397255 ns /    633792632832 ns ) count:   623191 ave:     4501 ns
+  steal_task_size         :       56 bytes ( 34898696 /   623191 )
+
+[40] 87638921 ns ( #tasks: 41943040 work: 426734973104 ns span: 10517776 ns busy: 52.834640 % )
+  steal_success           :   2.699862 % (     21806250455 ns /    807680295936 ns ) count:   684568 ave:    31854 ns
+  steal_fail              :  49.895342 % (    402994842560 ns /    807680295936 ns ) count: 71448681 ave:     5640 ns
+  steal_task_copy         :   0.387723 % (      3131561389 ns /    807680295936 ns ) count:   684568 ave:     4574 ns
+  steal_task_size         :       56 bytes ( 38335808 /   684568 )
+
+[41] 87786905 ns ( #tasks: 41943040 work: 426770354714 ns span: 11716894 ns busy: 52.749948 % )
+  steal_success           :   2.233340 % (     18068702903 ns /    809044116480 ns ) count:   564739 ave:    31994 ns
+  steal_fail              :  51.295908 % (    415006524124 ns /    809044116480 ns ) count: 73321413 ave:     5660 ns
+  steal_task_copy         :   0.322576 % (      2609781656 ns /    809044116480 ns ) count:   564739 ave:     4621 ns
+  steal_task_size         :       56 bytes ( 31625384 /   564739 )
+
+[42] 79898826 ns ( #tasks: 41943040 work: 426684765258 ns span: 5978951 ns busy: 57.946108 % )
+  steal_success           :   2.565153 % (     18888441692 ns /    736347580416 ns ) count:   589616 ave:    32035 ns
+  steal_fail              :  45.243282 % (    333147813500 ns /    736347580416 ns ) count: 56239712 ave:     5923 ns
+  steal_task_copy         :   0.370443 % (      2727748478 ns /    736347580416 ns ) count:   589616 ave:     4626 ns
+  steal_task_size         :       56 bytes ( 33018496 /   589616 )
+
+[43] 57400905 ns ( #tasks: 41943040 work: 426656243571 ns span: 3971605 ns busy: 80.652327 % )
+  steal_success           :   3.406537 % (     18020812156 ns /    529006740480 ns ) count:   577896 ave:    31183 ns
+  steal_fail              :  26.245211 % (    138838936933 ns /    529006740480 ns ) count: 22166181 ave:     6263 ns
+  steal_task_copy         :   0.492996 % (      2607984212 ns /    529006740480 ns ) count:   577896 ave:     4512 ns
+  steal_task_size         :       56 bytes ( 32362176 /   577896 )
+
+[44] 99074787 ns ( #tasks: 41943040 work: 426638587142 ns span: 5563900 ns busy: 46.725560 % )
+  steal_success           :   2.047035 % (     18690930471 ns /    913073236992 ns ) count:   588033 ave:    31785 ns
+  steal_fail              :  49.928246 % (    455881456044 ns /    913073236992 ns ) count: 81371720 ave:     5602 ns
+  steal_task_copy         :   0.290799 % (      2655207811 ns /    913073236992 ns ) count:   588033 ave:     4515 ns
+  steal_task_size         :       56 bytes ( 32929848 /   588033 )
+
+[45] 83606989 ns ( #tasks: 41943040 work: 426766756139 ns span: 14548589 ns busy: 55.386705 % )
+  steal_success           :   2.406807 % (     18544974347 ns /    770522010624 ns ) count:   579050 ave:    32026 ns
+  steal_fail              :  62.824922 % (    484079850460 ns /    770522010624 ns ) count: 84939623 ave:     5699 ns
+  steal_task_copy         :   0.342659 % (      2640265902 ns /    770522010624 ns ) count:   579050 ave:     4559 ns
+  steal_task_size         :       56 bytes ( 32426800 /   579050 )
+
+[46] 82967046 ns ( #tasks: 41943040 work: 426699864324 ns span: 10182830 ns busy: 55.805167 % )
+  steal_success           :   2.418759 % (     18494415724 ns /    764624295936 ns ) count:   593094 ave:    31182 ns
+  steal_fail              :  46.940277 % (    358916759753 ns /    764624295936 ns ) count: 63262927 ave:     5673 ns
+  steal_task_copy         :   0.350790 % (      2682228619 ns /    764624295936 ns ) count:   593094 ave:     4522 ns
+  steal_task_size         :       56 bytes ( 33213264 /   593094 )
+
+[47] 73103379 ns ( #tasks: 41943040 work: 426702627599 ns span: 9995874 ns busy: 63.335237 % )
+  steal_success           :   2.797224 % (     18845479649 ns /    673720740864 ns ) count:   589776 ave:    31953 ns
+  steal_fail              :  58.207869 % (    392158487829 ns /    673720740864 ns ) count: 68757548 ave:     5703 ns
+  steal_task_copy         :   0.398159 % (      2682482958 ns /    673720740864 ns ) count:   589776 ave:     4548 ns
+  steal_task_size         :       56 bytes ( 33027456 /   589776 )
+
+[48] 78384861 ns ( #tasks: 41943040 work: 427091244304 ns span: 11756641 ns busy: 59.121577 % )
+  steal_success           :   2.668566 % (     19277585183 ns /    722394878976 ns ) count:   593707 ave:    32469 ns
+  steal_fail              :  51.693606 % (    373431964397 ns /    722394878976 ns ) count: 62545002 ave:     5970 ns
+  steal_task_copy         :   0.387507 % (      2799331926 ns /    722394878976 ns ) count:   593707 ave:     4715 ns
+  steal_task_size         :       56 bytes ( 33247592 /   593707 )
+
+[49] 58642143 ns ( #tasks: 41943040 work: 426659504999 ns span: 3212224 ns busy: 78.945818 % )
+  steal_success           :   3.494105 % (     18883748361 ns /    540445989888 ns ) count:   593319 ave:    31827 ns
+  steal_fail              :  39.723340 % (    214683195740 ns /    540445989888 ns ) count: 34719879 ave:     6183 ns
+  steal_task_copy         :   0.503175 % (      2719391250 ns /    540445989888 ns ) count:   593319 ave:     4583 ns
+  steal_task_size         :       56 bytes ( 33225864 /   593319 )
+
+[50] 86463039 ns ( #tasks: 41943040 work: 426752320942 ns span: 7770195 ns busy: 53.555358 % )
+  steal_success           :   2.625031 % (     20917388723 ns /    796843367424 ns ) count:   670287 ave:    31206 ns
+  steal_fail              :  48.748064 % (    388445715942 ns /    796843367424 ns ) count: 68765873 ave:     5648 ns
+  steal_task_copy         :   0.377682 % (      3009536575 ns /    796843367424 ns ) count:   670287 ave:     4489 ns
+  steal_task_size         :       56 bytes ( 37536072 /   670287 )
+
+[51] 92294420 ns ( #tasks: 41943040 work: 426698700070 ns span: 7686762 ns busy: 50.165299 % )
+  steal_success           :   2.083033 % (     17717969971 ns /    850585374720 ns ) count:   567589 ave:    31216 ns
+  steal_fail              :  52.478998 % (    446378679754 ns /    850585374720 ns ) count: 79622850 ave:     5606 ns
+  steal_task_copy         :   0.300533 % (      2556289752 ns /    850585374720 ns ) count:   567589 ave:     4503 ns
+  steal_task_size         :       56 bytes ( 31784984 /   567589 )
+
+[52] 77655022 ns ( #tasks: 41943040 work: 426744393399 ns span: 11395484 ns busy: 59.628764 % )
+  steal_success           :   2.636347 % (     18867508491 ns /    715668682752 ns ) count:   600143 ave:    31438 ns
+  steal_fail              :  59.678080 % (    427097329091 ns /    715668682752 ns ) count: 76396612 ave:     5590 ns
+  steal_task_copy         :   0.381227 % (      2728321910 ns /    715668682752 ns ) count:   600143 ave:     4546 ns
+  steal_task_size         :       56 bytes ( 33608008 /   600143 )
+
+[53] 61098013 ns ( #tasks: 41943040 work: 426720884349 ns span: 9315676 ns busy: 75.783445 % )
+  steal_success           :   3.136599 % (     17661539879 ns /    563079287808 ns ) count:   565966 ave:    31206 ns
+  steal_fail              :  28.602192 % (    161053019008 ns /    563079287808 ns ) count: 26288674 ave:     6126 ns
+  steal_task_copy         :   0.454566 % (      2559569483 ns /    563079287808 ns ) count:   565966 ave:     4522 ns
+  steal_task_size         :       56 bytes ( 31694096 /   565966 )
+
+[54] 70967163 ns ( #tasks: 41943040 work: 426857781893 ns span: 11850358 ns busy: 65.265443 % )
+  steal_success           :   2.877996 % (     18823057004 ns /    654033374208 ns ) count:   590996 ave:    31849 ns
+  steal_fail              :  30.605060 % (    200167305930 ns /    654033374208 ns ) count: 32763038 ave:     6109 ns
+  steal_task_copy         :   0.416848 % (      2726326528 ns /    654033374208 ns ) count:   590996 ave:     4613 ns
+  steal_task_size         :       56 bytes ( 33095776 /   590996 )
+
+[55] 73359626 ns ( #tasks: 41943040 work: 427035931683 ns span: 9668665 ns busy: 63.163305 % )
+  steal_success           :   2.905575 % (     19644080697 ns /    676082313216 ns ) count:   614479 ave:    31968 ns
+  steal_fail              :  40.930568 % (    276724330100 ns /    676082313216 ns ) count: 46787096 ave:     5914 ns
+  steal_task_copy         :   0.419878 % (      2838719272 ns /    676082313216 ns ) count:   614479 ave:     4619 ns
+  steal_task_size         :       56 bytes ( 34410824 /   614479 )
+
+[56] 74787210 ns ( #tasks: 41943040 work: 427243676867 ns span: 8763233 ns busy: 61.987746 % )
+  steal_success           :   2.630536 % (     18130679169 ns /    689238927360 ns ) count:   573026 ave:    31640 ns
+  steal_fail              :  42.192866 % (    290809657433 ns /    689238927360 ns ) count: 50173391 ave:     5796 ns
+  steal_task_copy         :   0.379076 % (      2612736395 ns /    689238927360 ns ) count:   573026 ave:     4559 ns
+  steal_task_size         :       56 bytes ( 32089456 /   573026 )
+
+[57] 61016210 ns ( #tasks: 41943040 work: 427072631286 ns span: 5993313 ns busy: 75.947599 % )
+  steal_success           :   3.449097 % (     19395149012 ns /    562325391360 ns ) count:   619481 ave:    31308 ns
+  steal_fail              :  39.429261 % (    221720748229 ns /    562325391360 ns ) count: 37204731 ave:     5959 ns
+  steal_task_copy         :   0.496754 % (      2793375597 ns /    562325391360 ns ) count:   619481 ave:     4509 ns
+  steal_task_size         :       56 bytes ( 34690936 /   619481 )
+
+[58] 73647946 ns ( #tasks: 41943040 work: 427116548926 ns span: 3749074 ns busy: 62.927908 % )
+  steal_success           :   2.704229 % (     18354667541 ns /    678739470336 ns ) count:   581276 ave:    31576 ns
+  steal_fail              :  40.258272 % (    273248779958 ns /    678739470336 ns ) count: 46912876 ave:     5824 ns
+  steal_task_copy         :   0.393075 % (      2667956233 ns /    678739470336 ns ) count:   581276 ave:     4589 ns
+  steal_task_size         :       56 bytes ( 32551456 /   581276 )
+
+[59] 82704281 ns ( #tasks: 41943040 work: 426750201869 ns span: 12530317 ns busy: 55.989073 % )
+  steal_success           :   2.366367 % (     18036509963 ns /    762202653696 ns ) count:   577904 ave:    31210 ns
+  steal_fail              :  46.945958 % (    357823337961 ns /    762202653696 ns ) count: 62867792 ave:     5691 ns
+  steal_task_copy         :   0.343244 % (      2616212807 ns /    762202653696 ns ) count:   577904 ave:     4527 ns
+  steal_task_size         :       56 bytes ( 32362624 /   577904 )
+
+[60] 97638253 ns ( #tasks: 41943040 work: 426813469176 ns span: 16042978 ns busy: 47.432460 % )
+  steal_success           :   2.044720 % (     18399084822 ns /    899834139648 ns ) count:   573360 ave:    32089 ns
+  steal_fail              :  53.374857 % (    480285187124 ns /    899834139648 ns ) count: 82911427 ave:     5792 ns
+  steal_task_copy         :   0.297607 % (      2677973368 ns /    899834139648 ns ) count:   573360 ave:     4670 ns
+  steal_task_size         :       56 bytes ( 32108160 /   573360 )
+
+[61] 122989832 ns ( #tasks: 41943040 work: 426718706823 ns span: 12579532 ns busy: 37.646968 % )
+  steal_success           :   1.761260 % (     19963425405 ns /   1133474291712 ns ) count:   617740 ave:    32316 ns
+  steal_fail              :  64.345665 % (    729341565038 ns /   1133474291712 ns ) count: 131157472 ave:     5560 ns
+  steal_task_copy         :   0.250952 % (      2844480141 ns /   1133474291712 ns ) count:   617740 ave:     4604 ns
+  steal_task_size         :       56 bytes ( 34593440 /   617740 )
+
+[62] 73190768 ns ( #tasks: 41943040 work: 426682911455 ns span: 7122677 ns busy: 63.256692 % )
+  steal_success           :   2.832248 % (     19104254154 ns /    674526117888 ns ) count:   603024 ave:    31680 ns
+  steal_fail              :  56.673366 % (    382276654014 ns /    674526117888 ns ) count: 67177967 ave:     5690 ns
+  steal_task_copy         :   0.406218 % (      2740047598 ns /    674526117888 ns ) count:   603024 ave:     4543 ns
+  steal_task_size         :       56 bytes ( 33769344 /   603024 )
+
+[63] 81552768 ns ( #tasks: 41943040 work: 426739989071 ns span: 6529678 ns busy: 56.778272 % )
+  steal_success           :   2.499995 % (     18789721492 ns /    751590309888 ns ) count:   593426 ave:    31663 ns
+  steal_fail              :  55.040243 % (    413677129217 ns /    751590309888 ns ) count: 73641450 ave:     5617 ns
+  steal_task_copy         :   0.357139 % (      2684220463 ns /    751590309888 ns ) count:   593426 ave:     4523 ns
+  steal_task_size         :       56 bytes ( 33231856 /   593426 )
+
+[64] 83556457 ns ( #tasks: 41943040 work: 426938874785 ns span: 7227229 ns busy: 55.442553 % )
+  steal_success           :   2.509790 % (     19326798421 ns /    770056307712 ns ) count:   607386 ave:    31819 ns
+  steal_fail              :  46.994244 % (    361882136338 ns /    770056307712 ns ) count: 61880309 ave:     5848 ns
+  steal_task_copy         :   0.362325 % (      2790107722 ns /    770056307712 ns ) count:   607386 ave:     4593 ns
+  steal_task_size         :       56 bytes ( 34013616 /   607386 )
+
+[65] 64114203 ns ( #tasks: 41943040 work: 426675913496 ns span: 4478925 ns busy: 72.210676 % )
+  steal_success           :   3.037757 % (     17949393854 ns /    590876494848 ns ) count:   576863 ave:    31115 ns
+  steal_fail              :  31.892481 % (    188445173214 ns /    590876494848 ns ) count: 31180604 ave:     6043 ns
+  steal_task_copy         :   0.439517 % (      2597001581 ns /    590876494848 ns ) count:   576863 ave:     4501 ns
+  steal_task_size         :       56 bytes ( 32304328 /   576863 )
+
+[66] 81029323 ns ( #tasks: 41943040 work: 426678056995 ns span: 7700993 ns busy: 57.136763 % )
+  steal_success           :   2.559349 % (     19112352593 ns /    746766240768 ns ) count:   588421 ave:    32480 ns
+  steal_fail              :  45.236168 % (    337808430595 ns /    746766240768 ns ) count: 57565692 ave:     5868 ns
+  steal_task_copy         :   0.370386 % (      2765915947 ns /    746766240768 ns ) count:   588421 ave:     4700 ns
+  steal_task_size         :       56 bytes ( 32951576 /   588421 )
+
+[67] 106954169 ns ( #tasks: 41943040 work: 426777000551 ns span: 13877638 ns busy: 43.297301 % )
+  steal_success           :   1.841477 % (     18151245586 ns /    985689621504 ns ) count:   573775 ave:    31634 ns
+  steal_fail              :  68.632075 % (    676499240981 ns /    985689621504 ns ) count: 122507702 ave:     5522 ns
+  steal_task_copy         :   0.265941 % (      2621353088 ns /    985689621504 ns ) count:   573775 ave:     4568 ns
+  steal_task_size         :       56 bytes ( 32131400 /   573775 )
+
+[68] 76120865 ns ( #tasks: 41943040 work: 426720238018 ns span: 9953097 ns busy: 60.827093 % )
+  steal_success           :   2.709462 % (     19007683589 ns /    701529891840 ns ) count:   588542 ave:    32296 ns
+  steal_fail              :  51.988809 % (    364717035074 ns /    701529891840 ns ) count: 64013966 ave:     5697 ns
+  steal_task_copy         :   0.383007 % (      2686908256 ns /    701529891840 ns ) count:   588542 ave:     4565 ns
+  steal_task_size         :       56 bytes ( 32958352 /   588542 )
+
+[69] 121798391 ns ( #tasks: 41943040 work: 426747504228 ns span: 9523581 ns busy: 38.017799 % )
+  steal_success           :   1.623998 % (     18229279556 ns /   1122493971456 ns ) count:   561171 ave:    32484 ns
+  steal_fail              :  63.513490 % (    712935091297 ns /   1122493971456 ns ) count: 129995981 ave:     5484 ns
+  steal_task_copy         :   0.233680 % (      2623042768 ns /   1122493971456 ns ) count:   561171 ave:     4674 ns
+  steal_task_size         :       56 bytes ( 31425576 /   561171 )
+
+[70] 82270660 ns ( #tasks: 41943040 work: 426689981020 ns span: 6128395 ns busy: 56.276230 % )
+  steal_success           :   2.449699 % (     18573777712 ns /    758206402560 ns ) count:   584289 ave:    31788 ns
+  steal_fail              :  59.663579 % (    452373079435 ns /    758206402560 ns ) count: 80573027 ave:     5614 ns
+  steal_task_copy         :   0.351037 % (      2661588734 ns /    758206402560 ns ) count:   584289 ave:     4555 ns
+  steal_task_size         :       56 bytes ( 32720184 /   584289 )
+
+[71] 94211566 ns ( #tasks: 41943040 work: 426718263686 ns span: 9511849 ns busy: 49.146720 % )
+  steal_success           :   2.192114 % (     19033113408 ns /    868253792256 ns ) count:   590989 ave:    32205 ns
+  steal_fail              :  53.714658 % (    466379553729 ns /    868253792256 ns ) count: 80134537 ave:     5819 ns
+  steal_task_copy         :   0.317604 % (      2757606772 ns /    868253792256 ns ) count:   590989 ave:     4666 ns
+  steal_task_size         :       56 bytes ( 33095384 /   590989 )
+
+[72] 83559477 ns ( #tasks: 41943040 work: 426727065068 ns span: 10829878 ns busy: 55.413044 % )
+  steal_success           :   2.343640 % (     18048000876 ns /    770084140032 ns ) count:   567139 ave:    31822 ns
+  steal_fail              :  47.440340 % (    365330536339 ns /    770084140032 ns ) count: 64326440 ave:     5679 ns
+  steal_task_copy         :   0.336137 % (      2588534845 ns /    770084140032 ns ) count:   567139 ave:     4564 ns
+  steal_task_size         :       56 bytes ( 31759784 /   567139 )
+
+[73] 72297624 ns ( #tasks: 41943040 work: 426734986135 ns span: 7533859 ns busy: 64.045963 % )
+  steal_success           :   2.743230 % (     18278004911 ns /    666294902784 ns ) count:   578362 ave:    31603 ns
+  steal_fail              :  49.116502 % (    327260748610 ns /    666294902784 ns ) count: 57508640 ave:     5690 ns
+  steal_task_copy         :   0.394421 % (      2628003902 ns /    666294902784 ns ) count:   578362 ave:     4543 ns
+  steal_task_size         :       56 bytes ( 32388272 /   578362 )
+
+[74] 69052532 ns ( #tasks: 41943040 work: 426683091786 ns span: 4084505 ns busy: 67.047619 % )
+  steal_success           :   2.804163 % (     17845363054 ns /    636388134912 ns ) count:   567311 ave:    31456 ns
+  steal_fail              :  51.056444 % (    324917149696 ns /    636388134912 ns ) count: 56974909 ave:     5702 ns
+  steal_task_copy         :   0.403919 % (      2570490189 ns /    636388134912 ns ) count:   567311 ave:     4531 ns
+  steal_task_size         :       56 bytes ( 31769416 /   567311 )
+
+[75] 113358379 ns ( #tasks: 41943040 work: 426750055166 ns span: 15555032 ns busy: 40.848630 % )
+  steal_success           :   1.791964 % (     18720838773 ns /   1044710820864 ns ) count:   587860 ave:    31845 ns
+  steal_fail              :  60.715639 % (    634302853165 ns /   1044710820864 ns ) count: 115359510 ave:     5498 ns
+  steal_task_copy         :   0.259007 % (      2705878969 ns /   1044710820864 ns ) count:   587860 ave:     4602 ns
+  steal_task_size         :       56 bytes ( 32920160 /   587860 )
+
+[76] 73060059 ns ( #tasks: 41943040 work: 426675606692 ns span: 5728557 ns busy: 63.368778 % )
+  steal_success           :   2.718967 % (     18307386180 ns /    673321503744 ns ) count:   568306 ave:    32213 ns
+  steal_fail              :  39.584431 % (    266530488041 ns /    673321503744 ns ) count: 45438880 ave:     5865 ns
+  steal_task_copy         :   0.392098 % (      2640083089 ns /    673321503744 ns ) count:   568306 ave:     4645 ns
+  steal_task_size         :       56 bytes ( 31825136 /   568306 )
+
+[77] 82871602 ns ( #tasks: 41943040 work: 426697796702 ns span: 4735739 ns busy: 55.869167 % )
+  steal_success           :   2.421390 % (     18493236815 ns /    763744684032 ns ) count:   577066 ave:    32047 ns
+  steal_fail              :  46.775055 % (    357241995578 ns /    763744684032 ns ) count: 62318886 ave:     5732 ns
+  steal_task_copy         :   0.351005 % (      2680785809 ns /    763744684032 ns ) count:   577066 ave:     4645 ns
+  steal_task_size         :       56 bytes ( 32315696 /   577066 )
+
+[78] 58285057 ns ( #tasks: 41943040 work: 426681202848 ns span: 4855309 ns busy: 79.433522 % )
+  steal_success           :   3.524158 % (     18930195093 ns /    537155085312 ns ) count:   599593 ave:    31571 ns
+  steal_fail              :  42.686661 % (    229293571805 ns /    537155085312 ns ) count: 38514948 ave:     5953 ns
+  steal_task_copy         :   0.503739 % (      2705861069 ns /    537155085312 ns ) count:   599593 ave:     4512 ns
+  steal_task_size         :       56 bytes ( 33577208 /   599593 )
+
+[79] 110452333 ns ( #tasks: 41943040 work: 426758589815 ns span: 12340002 ns busy: 41.924212 % )
+  steal_success           :   1.729522 % (     17605296793 ns /   1017928700928 ns ) count:   557471 ave:    31580 ns
+  steal_fail              :  60.197492 % (    612767550607 ns /   1017928700928 ns ) count: 110980806 ave:     5521 ns
+  steal_task_copy         :   0.251384 % (      2558906075 ns /   1017928700928 ns ) count:   557471 ave:     4590 ns
+  steal_task_size         :       56 bytes ( 31218376 /   557471 )
+
+[80] 129290616 ns ( #tasks: 41943040 work: 426793326759 ns span: 15672975 ns busy: 35.818562 % )
+  steal_success           :   1.575456 % (     18772226195 ns /   1191542317056 ns ) count:   580862 ave:    32317 ns
+  steal_fail              :  66.870697 % (    796792656242 ns /   1191542317056 ns ) count: 145262424 ave:     5485 ns
+  steal_task_copy         :   0.227154 % (      2706634937 ns /   1191542317056 ns ) count:   580862 ave:     4659 ns
+  steal_task_size         :       56 bytes ( 32528272 /   580862 )
+
+[81] 73826811 ns ( #tasks: 41943040 work: 426680526736 ns span: 7327809 ns busy: 62.711364 % )
+  steal_success           :   2.739327 % (     18638045987 ns /    680387890176 ns ) count:   587393 ave:    31730 ns
+  steal_fail              :  40.092118 % (    272781914356 ns /    680387890176 ns ) count: 46394481 ave:     5879 ns
+  steal_task_copy         :   0.397474 % (      2704367340 ns /    680387890176 ns ) count:   587393 ave:     4604 ns
+  steal_task_size         :       56 bytes ( 32894008 /   587393 )
+
+[82] 77947188 ns ( #tasks: 41943040 work: 426703945956 ns span: 9364146 ns busy: 59.399630 % )
+  steal_success           :   2.599673 % (     18675047871 ns /    718361284608 ns ) count:   584678 ave:    31940 ns
+  steal_fail              :  43.533068 % (    312724705927 ns /    718361284608 ns ) count: 53537168 ave:     5841 ns
+  steal_task_copy         :   0.376886 % (      2707401129 ns /    718361284608 ns ) count:   584678 ave:     4630 ns
+  steal_task_size         :       56 bytes ( 32741968 /   584678 )
+
+[83] 76876692 ns ( #tasks: 41943040 work: 426716932425 ns span: 9710425 ns busy: 60.228594 % )
+  steal_success           :   2.547281 % (     18047371977 ns /    708495593472 ns ) count:   577434 ave:    31254 ns
+  steal_fail              :  42.809051 % (    303300242916 ns /    708495593472 ns ) count: 53121984 ave:     5709 ns
+  steal_task_copy         :   0.370080 % (      2622000734 ns /    708495593472 ns ) count:   577434 ave:     4540 ns
+  steal_task_size         :       56 bytes ( 32336304 /   577434 )
+
+[84] 113848783 ns ( #tasks: 41943040 work: 426735540576 ns span: 10948433 ns busy: 40.671291 % )
+  steal_success           :   1.709402 % (     17935562709 ns /   1049230384128 ns ) count:   570822 ave:    31420 ns
+  steal_fail              :  61.129947 % (    641393973568 ns /   1049230384128 ns ) count: 117077993 ave:     5478 ns
+  steal_task_copy         :   0.247829 % (      2600297222 ns /   1049230384128 ns ) count:   570822 ave:     4555 ns
+  steal_task_size         :       56 bytes ( 31966032 /   570822 )
+
+[85] 94538072 ns ( #tasks: 41943040 work: 426760277868 ns span: 12222522 ns busy: 48.981805 % )
+  steal_success           :   2.347449 % (     20452454294 ns /    871262871552 ns ) count:   646268 ave:    31647 ns
+  steal_fail              :  53.615285 % (    467130075045 ns /    871262871552 ns ) count: 83921800 ave:     5566 ns
+  steal_task_copy         :   0.338552 % (      2949674773 ns /    871262871552 ns ) count:   646268 ave:     4564 ns
+  steal_task_size         :       56 bytes ( 36191008 /   646268 )
+
+[86] 126976733 ns ( #tasks: 41943040 work: 426825994231 ns span: 15890093 ns busy: 36.474072 % )
+  steal_success           :   1.593180 % (     18643676461 ns /   1170217571328 ns ) count:   577820 ave:    32265 ns
+  steal_fail              :  70.950965 % (    830280654981 ns /   1170217571328 ns ) count: 151706549 ave:     5472 ns
+  steal_task_copy         :   0.226735 % (      2653290214 ns /   1170217571328 ns ) count:   577820 ave:     4591 ns
+  steal_task_size         :       56 bytes ( 32357920 /   577820 )
+
+[87] 109569035 ns ( #tasks: 41943040 work: 426745383561 ns span: 8670612 ns busy: 42.260879 % )
+  steal_success           :   1.817386 % (     18351745815 ns /   1009788226560 ns ) count:   570896 ave:    32145 ns
+  steal_fail              :  70.254554 % (    709422218149 ns /   1009788226560 ns ) count: 126858729 ave:     5592 ns
+  steal_task_copy         :   0.265021 % (      2676150832 ns /   1009788226560 ns ) count:   570896 ave:     4687 ns
+  steal_task_size         :       56 bytes ( 31970176 /   570896 )
+
+[88] 83241698 ns ( #tasks: 41943040 work: 426712698675 ns span: 11286421 ns busy: 55.622713 % )
+  steal_success           :   2.377902 % (     18242203492 ns /    767155488768 ns ) count:   572185 ave:    31881 ns
+  steal_fail              :  57.106307 % (    438094168978 ns /    767155488768 ns ) count: 78471653 ave:     5582 ns
+  steal_task_copy         :   0.340755 % (      2614122644 ns /    767155488768 ns ) count:   572185 ave:     4568 ns
+  steal_task_size         :       56 bytes ( 32042360 /   572185 )
+
+[89] 93593463 ns ( #tasks: 41943040 work: 426786226678 ns span: 9130335 ns busy: 49.479171 % )
+  steal_success           :   2.103403 % (     18143054109 ns /    862557355008 ns ) count:   579566 ave:    31304 ns
+  steal_fail              :  52.559867 % (    453358995412 ns /    862557355008 ns ) count: 80943756 ave:     5600 ns
+  steal_task_copy         :   0.305014 % (      2630919906 ns /    862557355008 ns ) count:   579566 ave:     4539 ns
+  steal_task_size         :       56 bytes ( 32455696 /   579566 )
+
+[90] 100777860 ns ( #tasks: 41943040 work: 426739832641 ns span: 13011951 ns busy: 45.946833 % )
+  steal_success           :   2.040032 % (     18947181676 ns /    928768757760 ns ) count:   596028 ave:    31789 ns
+  steal_fail              :  68.646100 % (    637563530984 ns /    928768757760 ns ) count: 116099343 ave:     5491 ns
+  steal_task_copy         :   0.291700 % (      2709215356 ns /    928768757760 ns ) count:   596028 ave:     4545 ns
+  steal_task_size         :       56 bytes ( 33377568 /   596028 )
+
+[91] 85885036 ns ( #tasks: 41943040 work: 426726200317 ns span: 8324118 ns busy: 53.912484 % )
+  steal_success           :   2.416751 % (     19128984031 ns /    791516491776 ns ) count:   591100 ave:    32361 ns
+  steal_fail              :  65.376506 % (    517465822971 ns /    791516491776 ns ) count: 92273421 ave:     5607 ns
+  steal_task_copy         :   0.344597 % (      2727545530 ns /    791516491776 ns ) count:   591100 ave:     4614 ns
+  steal_task_size         :       56 bytes ( 33101600 /   591100 )
+
+[92] 73891919 ns ( #tasks: 41943040 work: 426671451784 ns span: 9357611 ns busy: 62.654775 % )
+  steal_success           :   2.647857 % (     18031587617 ns /    680987925504 ns ) count:   564147 ave:    31962 ns
+  steal_fail              :  40.630360 % (    276687848826 ns /    680987925504 ns ) count: 47326021 ave:     5846 ns
+  steal_task_copy         :   0.383334 % (      2610457955 ns /    680987925504 ns ) count:   564147 ave:     4627 ns
+  steal_task_size         :       56 bytes ( 31592232 /   564147 )
+
+[93] 97304938 ns ( #tasks: 41943040 work: 426702070279 ns span: 11147347 ns busy: 47.582516 % )
+  steal_success           :   2.054047 % (     18419915715 ns /    896762308608 ns ) count:   579010 ave:    31812 ns
+  steal_fail              :  56.264675 % (    504560399164 ns /    896762308608 ns ) count: 90983737 ave:     5545 ns
+  steal_task_copy         :   0.294768 % (      2643372492 ns /    896762308608 ns ) count:   579010 ave:     4565 ns
+  steal_task_size         :       56 bytes ( 32424560 /   579010 )
+
+[94] 70840965 ns ( #tasks: 41943040 work: 426695038096 ns span: 10263056 ns busy: 65.356782 % )
+  steal_success           :   2.743857 % (     17913828858 ns /    652870333440 ns ) count:   569258 ave:    31468 ns
+  steal_fail              :  53.068324 % (    346467346235 ns /    652870333440 ns ) count: 61710760 ave:     5614 ns
+  steal_task_copy         :   0.395657 % (      2583124914 ns /    652870333440 ns ) count:   569258 ave:     4537 ns
+  steal_task_size         :       56 bytes ( 31878448 /   569258 )
+
+[95] 72179981 ns ( #tasks: 41943040 work: 426713500383 ns span: 6762857 ns busy: 64.147119 % )
+  steal_success           :   2.717421 % (     18076573568 ns /    665210704896 ns ) count:   577419 ave:    31305 ns
+  steal_fail              :  39.383675 % (    261984419023 ns /    665210704896 ns ) count: 45209325 ave:     5794 ns
+  steal_task_copy         :   0.394488 % (      2624177869 ns /    665210704896 ns ) count:   577419 ave:     4544 ns
+  steal_task_size         :       56 bytes ( 32335464 /   577419 )
+
+[96] 68333187 ns ( #tasks: 41943040 work: 426678907870 ns span: 5095214 ns busy: 67.752766 % )
+  steal_success           :   2.974841 % (     18734320369 ns /    629758651392 ns ) count:   601176 ave:    31162 ns
+  steal_fail              :  35.681339 % (    224706317424 ns /    629758651392 ns ) count: 38380669 ave:     5854 ns
+  steal_task_copy         :   0.431329 % (      2716331074 ns /    629758651392 ns ) count:   601176 ave:     4518 ns
+  steal_task_size         :       56 bytes ( 33665856 /   601176 )
+
+[97] 82862739 ns ( #tasks: 41943040 work: 426667971484 ns span: 6752554 ns busy: 55.871238 % )
+  steal_success           :   2.427356 % (     18536815977 ns /    763663002624 ns ) count:   574060 ave:    32290 ns
+  steal_fail              :  48.431964 % (    369856992559 ns /    763663002624 ns ) count: 64393336 ave:     5743 ns
+  steal_task_copy         :   0.347925 % (      2656976346 ns /    763663002624 ns ) count:   574060 ave:     4628 ns
+  steal_task_size         :       56 bytes ( 32147360 /   574060 )
+
+[98] 65372888 ns ( #tasks: 41943040 work: 426695278578 ns span: 8834597 ns busy: 70.823551 % )
+  steal_success           :   3.032729 % (     18271483158 ns /    602476535808 ns ) count:   573394 ave:    31865 ns
+  steal_fail              :  34.143288 % (    205705298658 ns /    602476535808 ns ) count: 34091918 ave:     6033 ns
+  steal_task_copy         :   0.437959 % (      2638602993 ns /    602476535808 ns ) count:   573394 ave:     4601 ns
+  steal_task_size         :       56 bytes ( 32110064 /   573394 )
+
+[99] 72982413 ns ( #tasks: 41943040 work: 426671153569 ns span: 7238347 ns busy: 63.435534 % )
+  steal_success           :   2.728197 % (     18350013169 ns /    672605918208 ns ) count:   583670 ave:    31439 ns
+  steal_fail              :  50.445888 % (    339302029464 ns /    672605918208 ns ) count: 60031227 ave:     5652 ns
+  steal_task_copy         :   0.393233 % (      2644905185 ns /    672605918208 ns ) count:   583670 ave:     4531 ns
+  steal_task_size         :       56 bytes ( 32685520 /   583670 )
+

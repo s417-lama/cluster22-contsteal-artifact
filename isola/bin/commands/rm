@@ -1,0 +1,72 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+. ${ISOLA_ROOT}/bin/commands/common.bash
+
+help_and_exit() {
+  echo "Usage: isola rm [OPTIONS] project[:name[:version]]...
+
+OPTIONS:
+  -f    force removal without asking in prompt
+  -h    show help" >&2
+  exit 1
+}
+
+resolve_simlink_in_list() {
+  local input_list=("$@")
+  local ret=()
+  for isola in "${input_list[@]}"; do
+    ret+=($(isola_id2realid $isola))
+  done
+  ret=($(IFS=$'\n'; echo "${ret[*]}" | sort | uniq))
+  echo "${ret[@]}"
+}
+
+FORCE_FLAG=false
+
+while getopts :fh OPT; do
+  case $OPT in
+    f) FORCE_FLAG=true ;;
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" == 0 ]]; then
+  echo -e "Please specify isolas to be removed.\n" >&2; help_and_exit
+fi
+
+trap cleanup_projects EXIT
+
+REMOVE_LIST=()
+for isola in "$@"; do
+  REMOVE_LIST+=($(get_rec_isola_list $isola))
+done
+REMOVE_LIST=($(resolve_simlink_in_list "${REMOVE_LIST[@]}"))
+
+echo -e "The following isolas are going to be removed:\n" >&2
+for isola in "${REMOVE_LIST[@]}"; do
+  echo $isola >&2
+done
+
+if ! "$FORCE_FLAG"; then
+  echo -e "" >&2
+
+  read -p "Do you really remove these isolas (y/n)? "
+  case "$REPLY" in
+    y|Y) ;;
+    n|N) echo -e "quitting..."; exit 1 ;;
+    *) echo -e "Please enter 'y' or 'n'. quitting..."; exit 1 ;;
+  esac
+fi
+
+for isola in "${REMOVE_LIST[@]}"; do
+  remove_isola $isola
+done
+
+echo -e "" >&2
+echo -e "done." >&2

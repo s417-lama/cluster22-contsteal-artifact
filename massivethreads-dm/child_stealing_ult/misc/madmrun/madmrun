@@ -1,0 +1,81 @@
+#!/bin/bash
+
+thisdir=$(cd $(dirname $BASH_SOURCE); pwd)
+
+mpirun_version_string=$(mpirun --version)
+if [[ $mpirun_version_string =~ "HYDRA" ]]; then
+  mpi_impl=MPICH
+elif [[ $mpirun_version_string =~ "Open MPI" ]]; then
+  mpi_impl=OMPI
+elif [[ $mpirun_version_string =~ "Intel(R) MPI Library" ]]; then
+  mpi_impl=IMPI
+else
+  echo cannot detect the type of MPI implementation
+  exit 1
+fi
+
+opt_error=0
+np=1
+ppn=
+envs=
+hostfile=
+dry_run=
+mca_opts=
+
+while getopts "df:m:n:c:x:" flag; do
+  case $mpi_impl in
+    MPICH | IMPI)
+      case $flag in
+        \?) opt_error=1; break;;
+        f) hostfile="-hostfile $OPTARG";;
+        n) np="$OPTARG";;
+        c) ppn="-ppn $OPTARG";;
+        x) envs="$envs -x $OPTARG";;
+        d) dry_run=1;;
+        m) mca_opts="$mca_opts --mca $OPTARG";;
+      esac ;;
+    OMPI)
+      case $flag in
+        \?) opt_error=1; break;;
+        f) hostfile="-hostfile $OPTARG";;
+        n) np="$OPTARG";;
+        c) ppn="-N $OPTARG";;
+        x) envs="$envs -x $OPTARG";;
+        d) dry_run=1;;
+        m) mca_opts="$mca_opts --mca $OPTARG";;
+      esac ;;
+  esac
+done
+
+shift $(( $OPTIND - 1 ))
+
+# report option error
+if [ "$opt_error" == "1" -o "$*" = "" ]; then
+  echo >&2 "Usage:
+  $0
+      [-n <# of MPI processes>]
+      [-x <env>]
+      [-f <hostfile>]
+      [-d] (dry run)
+      [-m <MPI mca parameters>]
+      <program> [<args>]"
+  exit 1
+fi
+
+disable_aslr="$thisdir/madm_disable_aslr"
+if [ "$(uname -s)" = "Darwin" ]; then
+  disable_aslr=""
+fi
+
+# run or dry run
+export MADM_RUN__=1
+params="-n $np $ppn $envs $hostfile $mca_opts"
+cmd="mpirun $params $disable_aslr $@"
+
+# echo "$params"
+
+if [ "$dry_run" == "" ]; then
+  $cmd
+else
+  echo $cmd
+fi

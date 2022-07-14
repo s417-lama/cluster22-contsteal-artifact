@@ -1,0 +1,90 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+. ${ISOLA_ROOT}/bin/commands/common.bash
+
+help_and_exit() {
+  echo "Usage: isola create [OPTIONS] NAME COMMANDS
+
+OPTIONS:
+  -b base_isola   speficy a base isola ID as 'project:name[:version]' format
+  -o              overwrite the 'latest' isola with the new one (the current 'latest' isola will be removed)
+  -r              make the isola readonly after creation
+  -p              project name (default: current dir name)
+  -h              show help" >&2
+  exit 1
+}
+
+OVERWRITE_FLAG=false
+READONLY_FLAG=false
+BASE_ISOLA_DIRS=()
+PROJECT_NAME=$(project_name)
+
+while getopts :b:orp:h OPT; do
+  case $OPT in
+    b) BASE_ISOLA_DIRS=(${BASE_ISOLA_DIRS[@]+"${BASE_ISOLA_DIRS[@]}"} $(parse_isola_id2path $OPTARG)) ;;
+    o) OVERWRITE_FLAG=true ;;
+    r) READONLY_FLAG=true ;;
+    p) PROJECT_NAME=$OPTARG ;;
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" == 0 ]]; then
+  echo -e "Error: NAME is not specified.\n" >&2; help_and_exit
+elif [[ "$#" == 1 ]]; then
+  echo -e "Error: COMMANDS is not specified.\n" >&2; help_and_exit
+fi
+
+ISOLA_NAME=$1
+ISOLA_COMMANDS=("${@:2}")
+
+DATETIME=${DATETIME:-$(date +%Y-%m-%d_%H-%M-%S)}
+VERSION=$DATETIME
+
+PROJECT_ROOT=$(project_root)
+
+ISOLA_HOME=${ISOLA_ROOT}/projects/${PROJECT_NAME}/${ISOLA_NAME}/${VERSION}
+
+trap cleanup_projects EXIT
+
+mkdir -p $ISOLA_HOME/$PROJECT_NAME
+
+for base_dir in ${BASE_ISOLA_DIRS[@]+"${BASE_ISOLA_DIRS[@]}"}; do
+  cp -a ${base_dir}/. $ISOLA_HOME
+  # 'cp -a' preserves the permission, so explicitly allow write to the dir
+  chmod +w $ISOLA_HOME
+done
+
+cp -a $PROJECT_ROOT/. $ISOLA_HOME/$PROJECT_NAME
+
+LOG_DIR=${ISOLA_HOME}/.isola
+LOG_FILE=${LOG_DIR}/${PROJECT_NAME}:${ISOLA_NAME}:${VERSION}.log
+mkdir -p $LOG_DIR
+
+(
+  export ISOLA_HOME
+  cd ${ISOLA_HOME}/${PROJECT_NAME}
+  "${ISOLA_COMMANDS[@]}" 2>&1 | tee $LOG_FILE
+) || (echo -e "\nIsola creation failed." >&2 && rm -rf $ISOLA_HOME && exit 1)
+
+if "$READONLY_FLAG"; then
+  # Make it read-only
+  chmod -w $ISOLA_HOME
+fi
+
+echo -e "" >&2
+
+if "$OVERWRITE_FLAG" && is_valid_simlink ${ISOLA_HOME}/../latest; then
+  # Remove before relinking 'latest'
+  remove_isola $(isola_id2realid ${PROJECT_NAME}:${ISOLA_NAME}:latest)
+fi
+
+ln -sfn $ISOLA_HOME ${ISOLA_HOME}/../latest
+
+echo -e "Isola '${PROJECT_NAME}:${ISOLA_NAME}:${VERSION}' was successfully created." >&2

@@ -1,0 +1,31 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+. ${ISOLA_ROOT}/bin/commands/common.bash
+
+help_and_exit() {
+  echo "Usage: isola where [OPTIONS] project:name[:version]
+
+OPTIONS:
+  -h    show help" >&2
+  exit 1
+}
+
+while getopts :h OPT; do
+  case $OPT in
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" == 0 ]]; then
+  echo -e "Error: Isola ID 'project:name[:version]' is not specified.\n" >&2; help_and_exit
+fi
+
+ISOLA_ID=$1
+
+parse_isola_id2realpath $ISOLA_ID
