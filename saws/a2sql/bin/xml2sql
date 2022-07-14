@@ -1,0 +1,443 @@
+#!/usr/bin/env python3
+
+"""
+xml2sql
+"""
+
+# BUG: sqlite columns are case insensitive
+
+#
+# read xml file.
+#
+# generate a record for each subtree rooted at a specified tag.
+# for each of its subtrees of the form <tag>x</tag>, it
+# considers the record has a column 'tag' whose value is 'x'
+#
+
+import xml.dom.minidom
+import re
+import sqlite3
+import sys
+
+dbg = 0
+
+def Ws(msg):
+    """
+    write msg to stdout
+    """
+    sys.stdout.write(msg)
+
+def Es(msg):
+    """
+    write msg to stderr
+    """
+    sys.stderr.write(msg)
+
+def interpret(val_str):
+    """
+    interpret a string as sqlite value
+    """
+    try:
+        return int(val_str)
+    except ValueError:
+        pass
+    try:
+        return float(val_str)
+    except ValueError:
+        pass
+    return val_str
+
+def do_sql(db_cur, cmd, vals=()):
+    """
+    do sql cmd
+    """
+    if dbg >= 2:
+        Es("%s; %s\n" % (cmd, vals))
+    db_cur.execute(cmd, vals)
+
+def get_leaf_element_val(xml_tree):
+    """
+    if xml_tree is an xml tree (dom) object corresponding to a leaf,
+    something like <a> hello </a>, then we return "hello".  if it has
+    a child node, like <a> hello <b> c </b> </a>, return None
+    """
+    if xml_tree.nodeType != xml_tree.ELEMENT_NODE:
+        return None
+    texts = []
+    for ch_node in xml_tree.childNodes:
+        if ch_node.nodeType != ch_node.TEXT_NODE:
+            return None
+        texts.append(ch_node.data.strip())
+    return "".join(texts)
+
+def collect_tags_rec(xml_tree, regexp, record_tag,
+                     tags_dict, tags_list,
+                     tags_dict_in, tags_list_in):
+    """
+    collet tags recursively
+    """
+    if hasattr(xml_tree, "tagName"):
+        if xml_tree.tagName != record_tag \
+                and regexp.match(xml_tree.tagName) \
+                and xml_tree.tagName not in tags_dict \
+                and get_leaf_element_val(xml_tree) is not None:
+            # found a new leaf tag
+            tags_dict[xml_tree.tagName] = None
+            tags_list.append(xml_tree.tagName)
+        if xml_tree.tagName == record_tag:
+            for ch_node in xml_tree.childNodes:
+                collect_tags_rec(ch_node, regexp, record_tag,
+                                 tags_dict_in, tags_list_in,
+                                 tags_dict_in, tags_list_in)
+        else:
+            for ch_node in xml_tree.childNodes:
+                collect_tags_rec(ch_node, regexp, record_tag,
+                                 tags_dict, tags_list,
+                                 tags_dict_in, tags_list_in)
+    return tags_list, tags_list_in
+
+def collect_tags_rec2(xml_tree, regexp, record_tag,
+                      tags_dict, tags_list,
+                      tags_dict_in, tags_list_in,
+                      ancestor_tags):
+    """
+    collect tags
+    """
+    if hasattr(xml_tree, "tagName"):
+        all_tags = ancestor_tags + (xml_tree.tagName,)
+        if xml_tree.tagName != record_tag \
+                and regexp.match(xml_tree.tagName) \
+                and all_tags not in tags_dict \
+                and get_leaf_element_val(xml_tree) is not None:
+            # found a new leaf tag
+            tags_dict[all_tags] = None
+            tags_list.append(all_tags)
+        if xml_tree.tagName == record_tag:
+            for ch_node in xml_tree.childNodes:
+                collect_tags_rec2(ch_node, regexp, record_tag,
+                                  tags_dict_in, tags_list_in,
+                                  tags_dict_in, tags_list_in,
+                                  all_tags)
+        else:
+            for ch_node in xml_tree.childNodes:
+                collect_tags_rec2(ch_node, regexp, record_tag,
+                                  tags_dict, tags_list,
+                                  tags_dict_in, tags_list_in,
+                                  all_tags)
+    return tags_list, tags_list_in
+
+def valid_column_name(col):
+    """
+    make col a valid column name
+    """
+    col = col.replace(":", "_")
+    col = col.replace("-", "_")
+    return col
+
+def valid_column_name2(col):
+    """
+    make col a valid column name
+    """
+    pat = re.compile("[^a-z0-9]")
+    return tuple([pat.sub("_", char) for char in col])
+
+def collect_tags(xml_tree, regexp, record_tag):
+    """
+    collect tags
+    """
+    outer_tags, inner_tags = collect_tags_rec(xml_tree, regexp, record_tag,
+                                              {}, [], {}, [])
+    for tag in inner_tags:
+        if tag in outer_tags:
+            outer_tags.remove(tag)
+    outer = [valid_column_name(tag) for tag in outer_tags]
+    inner = [valid_column_name(tag) for tag in inner_tags]
+    return outer, inner
+
+def collect_tags2(xml_tree, regexp, record_tag):
+    """
+    collect tags
+    """
+    # collect all tags that appear outside and inside record_tag
+    outer_tags, inner_tags = collect_tags_rec2(xml_tree, regexp, record_tag,
+                                               {}, [], {}, [], ())
+    # if a tag appear both outside and inside, omit the outside one
+    for tag in inner_tags:
+        if tag in outer_tags:
+            outer_tags.remove(tag)
+    # outer = [valid_column_name2(x) for x in outer_tags]
+    # inner = [valid_column_name2(x) for x in inner_tags]
+    return outer_tags, inner_tags
+
+def traverse(xml_tree, record_tag, tags, inner_tags, db_cur, insert_cmd, vals):
+    """
+    traverse xml_tree
+    """
+    leaf_val = get_leaf_element_val(xml_tree)
+    if leaf_val is not None:
+        vals[valid_column_name(xml_tree.tagName)] = leaf_val
+    elif not hasattr(xml_tree, "childNodes"):
+        return
+    else:
+        for ch_node in xml_tree.childNodes:
+            traverse(ch_node, record_tag, tags,
+                     inner_tags, db_cur, insert_cmd, vals)
+    if hasattr(xml_tree, "tagName") and xml_tree.tagName == record_tag:
+        do_sql(db_cur, insert_cmd, tuple([vals.get(tag) for tag in tags]))
+        for tag in inner_tags:
+            del vals[tag]
+
+def make_py_val(val_str):
+    """
+    make val_str a python value
+    """
+    try:
+        return int(val_str)
+    except ValueError:
+        pass
+    try:
+        return float(val_str)
+    except ValueError:
+        pass
+    try:
+        return val_str.decode("utf-8")
+    except ValueError:
+        pass
+    if val_str == "":
+        return None
+    return val_str
+
+def traverse2(xml_tree, record_tag, tags, inner_tags,
+              db_cur, insert_cmd, vals, ancestor_tags):
+    """
+    traverse xml_tree
+    """
+    leaf_val = get_leaf_element_val(xml_tree)
+    if leaf_val is not None:
+        all_tags = ancestor_tags + (xml_tree.tagName, )
+        # vals[all_tags] = leaf_val
+        vals[all_tags] = make_py_val(leaf_val)
+    elif not hasattr(xml_tree, "childNodes"):
+        return
+    else:
+        if hasattr(xml_tree, "tagName"):
+            all_tags = ancestor_tags + (xml_tree.tagName, )
+        else:
+            all_tags = ancestor_tags
+        for ch_node in xml_tree.childNodes:
+            traverse2(ch_node, record_tag, tags, inner_tags,
+                      db_cur, insert_cmd, vals, all_tags)
+    if hasattr(xml_tree, "tagName") and xml_tree.tagName == record_tag:
+        # we have just finished traversing a subtree of record_tag,
+        # generate a row
+        if dbg >= 2:
+            Es("inserting a row with valus = %s, tags = %s\n" % (vals, tags))
+        do_sql(db_cur, insert_cmd, tuple([vals.get(tag) for tag in tags]))
+        for tag in inner_tags:
+            if tag in vals:
+                del vals[tag]
+
+def collect_records(xml_tree, record_tag, tags, inner_tags,
+                    db_cur, insert_cmd, vals):
+    """
+    xml_tree          : documentElement object
+    record_tag : a tag name for which we like to generate a row
+
+    """
+    traverse(xml_tree, record_tag, tags, inner_tags,
+             db_cur, insert_cmd, vals)
+
+def collect_records2(xml_tree, record_tag, tags, inner_tags,
+                     db_cur, insert_cmd, vals):
+    """
+    xml_tree          : documentElement object
+    record_tag : a tag name for which we like to generate a row
+
+    """
+    traverse2(xml_tree, record_tag, tags, inner_tags,
+              db_cur, insert_cmd, vals, ())
+
+
+def valid_and_unique_names(tuples):
+    """
+    ts : list of tuples, each of which is a path of tag names
+    from the root to leaf, like (pubmed:citation, pubmed:datecreated, pubmed:year).
+    return a list of strings, each string of which is a string
+    generated from each tuple, unique within the list.
+    we try to make them as short as possible. specifically, we first try to use
+    the last element ('pubmed:year' above). only when they are not unique
+    (i.e., other tags also end with pubmed:year), are the second last elemnt
+    used (pubmed:datecreated).
+    it also guarantees that each string is a valid sql column name,
+    converting all non alphanumerical letters to '_'
+
+    BUG: if two entries differ only in non alphanumerical characters,
+    like pubmed:year and pubmed;year, they are considered different
+    while we judge uniqueness, but later may be collapsed into the
+    same valid column name.
+
+    """
+    # tuple -> its suffix sufficient to guarantee uniqueness
+    unique = {}
+    # the length of suffix used
+    i = 0
+    while len(unique) < len(tuples):
+        i = i + 1
+        suffixes = {}
+        # collect all tuples whose suffix of length i are sufficient
+        # to make them unique
+        for tup in tuples:
+            # tup already made unique
+            if tup in unique:
+                continue
+            suf = tup[-i:]      # its suffix of length i
+            # record all tuples of the common suffix
+            if suf not in suffixes:
+                suffixes[suf] = []
+            suffixes[suf].append(tup)
+        # check if each tuple is now unique
+        for tup in tuples:
+            if tup in unique:
+                continue
+            suf = tup[-i:]
+            if len(suffixes[suf]) == 1:
+                # now tup becomes unique. record the suffix
+                # we now know unique
+                unique[tup] = suf
+    # make each component a valid column name
+    pat = re.compile("[^0-9A-za-z]")
+    names = []
+    for tup in tuples:
+        unique_suffix = unique[tup]
+        # apply non-alphanumeric -> '_' for each component
+        # to get a list of valid column names
+        valids = [pat.sub("_", component) for component in unique_suffix]
+        # then concatinate them with '_'
+        names.append("_".join(valids))
+    return names
+
+
+def process_file(db_cur, xml_file, record_tag, table_name, tables,
+                 outer_tags, outer_tags_values):
+    """
+    db_cur         : sqlite3 cursor object; obtained by sqlite3.connect(...).cursor()
+    xml_file   : string; xml file anme
+    record_tag : a tag name for which we like to generate a row
+    table_name : name of the table to inject rows to
+    tables     : list of tables we have encountered so far in this process
+                 (so we don't issue the same create table command twice)
+    outer_tags : tags the appeared around the record_tag
+    outer_tag_values : current values of outer_tags
+
+    process XML_FILE and convert it into a table of name TABLE_NAME.
+    record_tag specifies XML tag name of subtrees, each occurrence of
+    which should generate a row.  out_tags specify tags that should
+    accompany each row and outer_tag_values their current values.
+    """
+    if dbg >= 1:
+        Es("process_file: %s\n" % xml_file)
+    if table_name in tables:
+        do_sql(db_cur, ('select count(*) from %s where file="%s"'
+                        % (table_name, xml_file)))
+        (n_files,) = db_cur.fetchone()
+        if n_files > 0:
+            Es("%s already loaded\n" % xml_file)
+            return
+    dom = xml.dom.minidom.parse(xml_file)
+    more_outer_tags, inner_tags = collect_tags2(dom.documentElement,
+                                                re.compile(".*"), record_tag)
+    if dbg >= 2:
+        Es("outer_tags = %s, more_outer_tags = %s, inner_tags = %s\n"
+           % (outer_tags, more_outer_tags, inner_tags))
+    tags = outer_tags + more_outer_tags + inner_tags
+    column_names = valid_and_unique_names(tags)
+    if dbg >= 2:
+        Es("column_names -> %s\n" % column_names)
+    insert_cmd = ("insert into %s (%s) values (%s)"
+                  % (table_name, ",".join(column_names),
+                     ",".join(["?"] * len(column_names))))
+    if table_name not in tables:
+        create_cmd = ("create table if not exists %s (%s)"
+                      % (table_name, ",".join(column_names)))
+        do_sql(db_cur, create_cmd)
+        tables[table_name] = None
+    outer_tags_values[u"file",] = xml_file
+    collect_records2(dom.documentElement,
+                     record_tag, tags, inner_tags, db_cur, insert_cmd,
+                     outer_tags_values)
+
+def drop_table(db_cur, table_name):
+    """
+    drop table table_name
+    """
+    Es("dropping table %s\n" % table_name)
+    drop_cmd = ("drop table if exists %s" % table_name)
+    do_sql(db_cur, drop_cmd)
+
+def process_commands(db_cur, args):
+    """
+    process commands
+    """
+    # x=y x:=y
+    column_val_pat = re.compile("([^:=]+)(:?=)(.*)")
+    table_name = None
+    tables = {}
+    record_tag = None
+    outer_tags = [(u"file", )]
+    outer_tags_values = {}
+    n_args = len(args)
+    i = 0
+    while i < n_args:
+        arg = args[i]
+        if dbg >= 2:
+            Es("processing args[%d] = %s\n" % (i, arg))
+        i = i + 1
+        if arg == "--table":
+            # specify table name
+            table_name = args[i]
+            i = i + 1
+        elif arg == "--drop":
+            # specify table name
+            # drop_first = 1
+            drop_table(db_cur, table_name)
+        elif arg == "--record_tag":
+            # specify the tag
+            record_tag = args[i]
+            i = i + 1
+        elif arg == "--file":
+            # specify xml file name to import
+            xml_file = args[i]
+            i = i + 1
+            process_file(db_cur, xml_file, record_tag, table_name, tables,
+                         outer_tags, outer_tags_values)
+        else:
+            # either x=y type or filename
+            match = column_val_pat.match(arg)
+            if match:
+                column = match.group(1)
+                val = interpret(match.group(3))
+                if column not in outer_tags:
+                    outer_tags.append((column,))
+                outer_tags_values[column,] = val
+            else:
+                xml_file = arg
+                process_file(db_cur, xml_file, record_tag, table_name, tables,
+                             outer_tags, outer_tags_values)
+
+def main():
+    """
+    main
+    """
+    if len(sys.argv) < 2:
+        Es("usage: xml2sql db_file arg arg arg ...\n")
+        return 1
+    db_sqlite = sys.argv[1]
+    args = sys.argv[2:]
+    conn = sqlite3.connect(db_sqlite)
+    db_cur = conn.cursor()
+    process_commands(db_cur, args)
+    conn.commit()
+    return 0
+
+if __name__ == "__main__":
+    main()

@@ -1,0 +1,63 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+. ${ISOLA_ROOT}/bin/commands/common.bash
+
+help_and_exit() {
+  echo "Usage: isola run [OPTIONS] COMMANDS
+
+OPTIONS:
+  -b base_isola   speficy a base isola ID as 'project:name[:version]' format
+  -n              do not copy the current project to the isola
+  -p              project name (default: current dir name)
+  -h              show help" >&2
+  exit 1
+}
+
+NOCOPY_FLAG=false
+BASE_ISOLA_DIRS=()
+PROJECT_NAME=$(project_name)
+
+while getopts :b:np:h OPT; do
+  case $OPT in
+    b) BASE_ISOLA_DIRS=(${BASE_ISOLA_DIRS[@]+"${BASE_ISOLA_DIRS[@]}"} $(parse_isola_id2path $OPTARG)) ;;
+    n) NOCOPY_FLAG=true ;;
+    p) PROJECT_NAME=$OPTARG ;;
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" == 0 ]]; then
+  echo -e "Error: COMMANDS is not specified.\n" >&2; help_and_exit
+fi
+
+ISOLA_COMMANDS=("$@")
+
+ISOLA_HOME=$(create_new_tmp_dir)
+
+trap "rm -rf $ISOLA_HOME" EXIT
+
+for base_dir in ${BASE_ISOLA_DIRS[@]+"${BASE_ISOLA_DIRS[@]}"}; do
+  cp -a ${base_dir}/. $ISOLA_HOME
+  # 'cp -a' preserves the permission, so explicitly allow write to the dir
+  chmod +w $ISOLA_HOME
+done
+
+if "$NOCOPY_FLAG"; then
+  PROJECT_NAME=.
+else
+  PROJECT_ROOT=$(project_root)
+  mkdir -p $ISOLA_HOME/$PROJECT_NAME
+  cp -a $PROJECT_ROOT/. $ISOLA_HOME/$PROJECT_NAME
+fi
+
+(
+  export ISOLA_HOME
+  cd ${ISOLA_HOME}/${PROJECT_NAME}
+  "${ISOLA_COMMANDS[@]}"
+)

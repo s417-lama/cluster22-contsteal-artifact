@@ -1,0 +1,44 @@
+#!/bin/bash
+set -euo pipefail
+export LC_ALL=C
+export LANG=C
+
+export ISOLA_ROOT=$(cd $(dirname $0)/.. 2> /dev/null && pwd -P)
+
+help_and_exit() {
+  echo "Usage: isola [OPTIONS] COMMAND
+
+COMMANDs:
+  create    create an isola
+  run       run commands in a temporal isola
+  ls        list isolas
+  rm        remove isolas
+  where     show path to an isola dir
+  cleanup   try to fix inconsistent state
+
+OPTIONS:
+  -h        show help" >&2
+  exit 1
+}
+
+while getopts :h OPT; do
+  case $OPT in
+    h) help_and_exit ;;
+    :) echo -e "Parsing Error: -$OPTARG\n" >&2; help_and_exit ;;
+    *) echo -e "Unknown option: -$OPTARG\n" >&2; help_and_exit ;;
+  esac
+done
+shift $((OPTIND - 1))
+
+if [[ "$#" == 0 ]]; then
+  echo -e "Error: COMMAND is not specified.\n" >&2; help_and_exit
+fi
+
+COMMAND=$1
+COMMAND_EXE=$(dirname $0)/commands/$COMMAND
+
+if [ -f $COMMAND_EXE ]; then
+  $COMMAND_EXE "${@:2}"
+else
+  echo -e "Error: COMMAND '$COMMAND' does not exist.\n" >&2; help_and_exit
+fi

@@ -1,0 +1,1908 @@
+This file describes the most significant changes. For more detail, use
+'git log' on a clone of the charm repository.
+
+================================================================================
+What's new in Charm++ 7.0.0
+================================================================================
+
+This is a feature release, with the following major changes:
+
+Highlights:
+
+- A significant overhaul of the load balancing infrastructure and the
+  addition of TreeLB, a new, more flexible and extensible base LB,
+  intended to replace the previous CentralLB and HybridBaseLB designs
+  (load balancers using these previous designs are still
+  supported). Some included strategies have been rewritten to use
+  TreeLB, unused and extraneous strategies have been removed. Please
+  see
+  https://charm.readthedocs.io/en/latest/charm++/manual.html#load-balancing
+  for more information.
+
+- Experimental support for intra-node GPU messages, allowing data to be
+  sent to/from GPU memory without going through host memory. Please
+  see
+  https://charm.readthedocs.io/en/latest/charm++/manual.html#gpu-support for
+  more information.
+
+Misc:
+
+- Charm++ now builds with CMake by default when using the `./build`
+  script (requires CMake version 3.4 or higher). The old build system is
+  still available by using `./buildold`. Please see
+  https://charm.readthedocs.io/en/latest/charm++/manual.html#installation-with-cmake
+  for more information.
+
+- Charm++'s development branch has been renamed from 'master' to 'main'. Please see
+  https://github.com/UIUC-PPL/charm/pull/3303 for details.
+
+- We have adopted GitHub discussions
+  (https://github.com/UIUC-PPL/charm/discussions) as the preferred
+  venue for Charm++ questions and discussions instead of the
+  charm@cs.illinois.edu mailing list.
+
+- Support for Blue Gene/Q targets has been deprecated.
+
+- Charm++ now runs on the new Apple M1 chips with the targets:
+  multicore-darwin-arm8, netlrts-darwin-arm8, and mpi-darwin-arm8.
+
+- Charm++ now runs on the new Cray Shasta machines with the targets (in beta):
+  ofi-crayshasta, and mpi-crayshasta.
+
+- The BigSim emulator has been removed from Charm++.
+
+- The following unmaintained machine layers have been removed from Charm++:
+  * uth (Machine layer that uses user-level threads for execution)
+  * sim (Machine layer that simulates a simple message-passing machine with communications processors; based
+         on the Dagger simulator)
+  * shmem (Machine layer built on top of the OpenSHMEM API)
+
+- The following modules have been removed: ARMCI, Jade, and Charj.
+
+- The 'mpi-linux-mips64' target has been removed.
+
+Charm++ Features & Fixes:
+
+- We have renamed the `VERSION` file to `charm-version.h` and made it compatible
+  with C. Charm++ programs that need to check the
+  Charm++ version should use the `CHARM_VERSION`, `CHARM_VERSION_MAJOR`,
+  `CHARM_VERSION_MINOR`, and `CHARM_VERSION_PATCH` C macros defined when compiling
+  a Charm++ application. We also provide a `CHARM_VERSION_GIT` macro for the exact
+  git revision of Charm++. In shell scripts, you can determine the version information
+  like this: `$ grep "CHARM_VERSION " charm-version.h | awk '{print $3}'`.
+
+- Support for variable sized messages in TRAM.
+
+- Added a pup_buffer API with zero copy functionality.
+
+- Array broadcasts are now node aware, avoiding unnecessary
+  duplication of messages. Expedited nokeep array broadcasts are also
+  allowed now.
+
+- Added CmiNodeReduce API for Converse node level reductions.
+
+- Builds with CMK_OPTIMIZE=1 will only segfault to aid in debugging in
+  CmiAbort when ++debug or +truecrash are provided.
+
+- Callbacks used in liveViz have been made ASLR safe.
+
+- Updated implementation of atomics, locks, and fences to use C++11/C11
+  versions where suitable.
+
+- Fixed bugs in HAPI and updated implementation to use new CUDA APIs.
+
+- Added whenidle attribute to indicate entry method to be called when
+  a PE is idle.
+
+- Improved performance, support, and fixes for UCX. IBM Power is now
+  supported with UCX.
+
+- The CmiSyncSend family now tries to avoid copies for nokeep
+  messages.
+
+- Fixed bug with element IDs with CMK_GLOBAL_LOCATION_UPDATE.
+
+- Fixed bug in BlockMap in array creation.
+
+- Added CcdPROCESSOR_LONG_IDLE to run a function during long periods
+  of idleness and CcdSCHEDLOOP to run a function during every
+  scheduler loop.
+
+- Added isCheckpoint() and isMigration() methods for users to
+  condition logic inside PUP based on its purpose.
+
+- Added execution metadata to Projections logs.
+
+- Added several new benchmarks and tests.
+
+- Fixed bug where out-of-order migration updates may cause a hang.
+
+Adaptive MPI:
+
+- Isomalloc sync is now enabled by default and the implementation no
+  longer uses the filesystem to pass data. Isomalloc sync can be
+  disabled with +no_isomalloc_sync.
+
+- Added AMPI-only build target, AMPI-only. This build optimizes AMPI
+  by disabling features of Charm++ that AMPI doesn't use.
+
+- Fixed tlsglobals migration on macOS.
+
+- Fixed bugs in activation of migration callbacks.
+
+- Fixed a bug in MPI_Waitsome.
+
+- Accept arguments from AMPI_BUILD_FLAGS environment variable for
+  ampiCC.
+
+- Improved portability of fsglobals and pipglobals.
+
+================================================================================
+What's new in Charm++ 6.10.2
+================================================================================
+
+This is a minor bug-fix release, with the following changes:
+
+- Verbs layer - Fixed memory leaks in acknowledgment handling for
+  large message transfers.
+
+- GNI layer - Fixed a minor issue related to freeing short messages
+  sent while using the Zero copy API on gni-crayxe platforms.
+
+- Fixed a memory leak in the copy based implementation of the Zero
+  copy API impacting non-RDMA enabled layers like netlrts.
+
+================================================================================
+What's new in Charm++ 6.10.1
+================================================================================
+
+This is a minor bug-fix release, with the following changes:
+
+- Fix verbs layer send completion errors on recent InfiniBand hardware/drivers.
+
+- Avoid aborting with a segfault when calling CmiAbort in production builds.
+
+================================================================================
+What's new in Charm++ 6.10.0
+================================================================================
+
+This is a feature release, with the following major changes:
+
+Misc:
+
+- Updated the license to clarify the restriction on commercial use of the software
+  in the academic distribution.
+
+- We have moved away from .tex in favor of .rst files to make building the
+  documentation more portable. The documentation is now available at
+  https://charm.readthedocs.io/ .
+
+- We have moved bug/issue tracking from Redmine to GitHub, and code
+  review from Gerrit to GitHub. Our GitHub repository is at:
+  https://github.com/UIUC-PPL/charm .
+  
+- As a preview feature, Charm++ can now be built with CMake (version 3.4 or higher).
+  To try it, you can replace your `./build` command with `./buildcmake`, which supports
+  most of the options of `./build`. The old build system is still available.
+  Please see https://charm.readthedocs.io/en/latest/charm++/manual.html#installation-with-cmake
+  for more information.
+  
+- Upcoming deprecation notice: The next release of Charm++ will feature a significant overhaul of
+  the load balancing infrastructure. There will be changes to the process of selecting and using
+  load balancers, writing custom load balancers, and the internals of the load balancing
+  infrastructure. Programs that rely on custom load balancers or the internals of the LB
+  infrastructure will likely require some changes for compatibility.
+  
+- Upcoming deprecation notice: The next release of Charm++ will remove the BigSim emulation
+  facility from the runtime system.
+  
+Known Issues:
+
+- Recent InfiniBand machines crash in SMP builds due to problems in the verbs layer implementation.
+  Users are recommended to use UCX for the time being if possible.
+  (https://github.com/UIUC-PPL/charm/issues/2532)
+  
+- UCX sometimes hangs/crashes on Frontera.
+  (https://github.com/UIUC-PPL/charm/issues/2635, https://github.com/UIUC-PPL/charm/issues/2636)
+
+Charm++ Features & Fixes:
+
+- Support for a new Unified Communication X (UCX) networking backend in LRTS,
+  thanks to Mellanox and Charmworks staff.
+
+- The Zero Copy API now supports broadcast operations, and is used internally
+  for transmission of large readonly objects during startup.
+
+- Get and put operations, used in the Zero Copy Direct API, now return
+  CkNcpyStatus::(in)complete for users to check for immediate completion
+  as opposed to waiting for the completion callback.
+
+- Addition of a new Zero Copy Post API, for avoiding the receive-side message
+  copy. This can be used in both point-to-point and broadcast operations.
+
+- Defined a new API, CkWithinNodeBroadcast, for broadcasting a message from a Group element
+  to all other Group elements in the same process or logical node. If the target entry
+  method is [nokeep], this API avoids making any copies of the message.
+
+- Callbacks to [inline] entry methods are now executed inline by default. Previously,
+  this was only done when the callback was constructed with an optional parameter.
+
+- Eliminated the need for mainchares in user-driven interop mode by adding a new
+  split-phase initialization API, fixed a bug in the interop exit sequence, and new
+  support for using CkCallback::ckExit when using interop.
+
+- Allocate pinned host memory pool for GPUs dynamically on demand, instead of
+  statically at compilation time.
+
+- Memory copy operations in GPUManager WorkRequest API are reverted to be asynchronous.
+
+- Added an optional parameter for freeing the CkCallback object in GPUManager WorkRequest API.
+
+- Fixed a bug in MetaLB and adding tests for MetaLB.
+
+- Fixed a bug in SDAG's code generation for forall statements with negative steps.
+
+- TRAM and [aggregate] entry methods now support multi-dimensional chare arrays.
+
+- Virtual inheritance from multiple PUPable base classes is now allowed.
+
+- Support for PUPing C++11 random number engines and engine adaptors, as well as for
+  PUPing templated abstract base classes.
+
+- Section reductions are now optimized for streamable operations.
+
+- Core dump files are now available for --with-production builds.
+
+- Defined a new XI-Builder interface, a library front-end for XLAT-I's code generation.
+
+- Fixes to the perfReport and memory tracemodes as well as record/replay in SMP mode,
+  and improvements to PAPI-enabled builds.
+
+- Due to being broken since before v6.8, mlog and causalft builds have been removed.
+
+- Added a charmc option "-module-names" which prints the module names in a .ci file,
+  one module name per line in the output.
+
+- charmrun implements ++no-* for flag-type parameters. For example,
+  ++no-scalable-start. Also fixed use of ++scalable-start and ++batch together.
+
+- Performance measurement programs from the tests and examples directories have been
+  recategorized into a new "benchmarks" directory.
+
+- Charm++ can now be built with -std=c++17, and all eligible C files in the Charm++
+  runtime have been transitioned to compile as C++.
+
+- Support for mpi-win-x86_64-gcc builds.
+
+- Various improvements to Charm4Py, such as a new sections implementation, are
+  described in the charm4py repository on GitHub.
+  
+- The CmiAbort and CkAbort functions now support printf-style format strings.
+  Please make sure to replace '%' with '%%' in the argument string to print a '%'.
+
+Adaptive MPI:
+
+- AMPI now uses Charm++'s Zero Copy API to transfer large messages efficiently using
+  RDMA and CMA wherever possible and profitable.
+
+- More efficient implementations of MPI_Bcast, all MPI_(I)(all)gather(v) routines,
+  reductions with non-commutative operations, and user-defined datatype creation.
+
+- Added support for MPI_Win_(Un)lock_all and MPI_Type_match_size.
+
+- Fixes to MPI_Mrecv, MPI_Info_dup, and MPI_BOTTOM error handling.
+
+- Stubs for MPI functions currently unimplemented in AMPI are now provided to allow
+  more MPI codes to build. These emit -Wdeprecated-declarations diagnostics when used.
+
+- AMPI's mpif.h is now compilable in line-extended fixed format.
+
+- TLSglobals now works on Mac OS.
+
+- Two new global variable privatization methods have been added, Process-in-Process
+  Globals (pipglobals) and Filesystem Globals (fsglobals).
+
+- AMPI's nm_globals.sh script now works on both Linux and Mac OS and provides
+  more useful output for identifying writable global/static variables.
+
+- Fixed AMPI's CUDA support, with the AMPI+CUDA example now working as expected.
+
+================================================================================
+What's new in Charm++ 6.9.0
+================================================================================
+
+This is a feature release, with the following major additions:
+
+Highlights:
+
+- Charm++ now requires C++11 and better supports use of modern C++ in applications.
+
+- New "Zero Copy" messaging APIs for more efficient communication of large arrays.
+
+- charm4py provides a new Python interface to Charm++, without the need for .ci files.
+
+- AMPI performance, standard compliance, and usability improvements.
+
+- GPU Manager improvements for asynchronous offloading and a new CUDA-like API (HAPI).
+
+Charm++ Features & Fixes:
+
+- Added new, more intuitive process launching commands based on hwloc support,
+  such as '++processPer{Host,Socket,Core,PU} <num>' and '++oneWthPer{Host,Socket,Core,PU}'.
+  Also added a '++autoProvision' option, which by default uses all hardware resources
+  available to the job.
+
+- Added a new 'zero copy' direct API which allows users to communicate large message buffers
+  directly via RDMA on networks that support it, avoiding any intermediate buffering of data
+  between the sender and the receiver. The API is also optimized for shared memory.
+
+- A new Python interface to Charm++, named charm4py, is now available for Python users.
+  More documentation on it can be found here: http://charm4py.readthedocs.io
+
+- Charmxi now supports r-value references, std::array, std::tuple, the 'typename' keyword,
+  parameter packs, variadic templates, array indices with template parameters, and attributes
+  on explicit instantiations of templated entry methods.
+
+- Projections traces of templated entry methods now display demangled template type names.
+
+- [local] and [inline] entry method attributes now work for templated entry methods and now
+  support perfect forwarding of their arguments.
+
+- Added various type traits for generic programming with Charm++ entities inside
+  charm++_type_traits.h
+
+- Chare array index types are now exposed as 'array_index_t'.
+
+- Support for default arguments to Group entry methods.
+
+- Charm++ now throws a runtime error when a user calls an SDAG entry method containing a
+  'when' clause directly, without calling it via a proxy.
+
+- Users can now pass std::vector's directly to contribute() rather than passing the size and
+  buffer address separately. Cross-array section reduction contributions can now take a callback.
+
+- Added a simplified STL-based interface for section creation.
+
+- Added PUP support for C++ enums, for std::deque and std::forward_list, for STL containers
+  of objects with abstract base classes, and for avoiding default construction during unpacking
+  by defining a constructor that takes a value of type PUP::reconstruct.
+
+- Improved performance for PUP of STL containers of arithmetic types and types
+  declared as PUPbytes.
+
+- Allow setting queueing type and priorities on entry methods with no parameters.
+
+- Enable setting Group and Node Group dependencies on all types of entry methods and
+  constructors, as well as multiple dependencies.
+
+- Support for model-based runtime load balancing strategy selection via MetaLB. This can be enabled
+  with +MetaLBModelDir <path-to-model> used alongside +MetaLB option. A trained model can be
+  found in charm/src/ck-ldb/rf_model.
+
+- A new lock-free producer-consumer queue implementation has been added as a build option
+  '--enable-lockless-queue' for LRTS's within-process messaging queues in SMP mode.
+
+- CkLoop now supports lambda syntax, adds a Hybrid mode that combines static scheduling with dynamic
+  work stealing, and adds Drone mode support in which chares are mapped to rank 0 on each logical
+  node so that other PEs can act as drones to execute tasks.
+
+- Updated our integrated LLVM OpenMP runtime to support more OpenMP directives.
+
+- Updated f90charm interface for more functionality and usability, and fixed all example programs.
+
+- The Infiniband 'verbs' communication layer now automatically selects the fastest active
+  Infiniband device and port at startup.
+
+- Fixed '-tracemode utilization', tracing of user-level threads, and nested local/inline methods.
+
+- Fixed a performance bug introduced in v6.8.0 for dynamic location management.
+
+- Added support for using Boost's lightweight uFcontext user-level threads, now the default
+  ULT implementation on most platforms.
+
+- '++debug' now works using lldb on Mac (Darwin) systems.
+
+- CkAbort() is now marked with the C++ attribute [[noreturn]].
+
+- CkExit() now takes an optional integer argument which is returned from the program's exit.
+
+- Improved error checking throughout, and fixes to race conditions during startup.
+
+AMPI Changes:
+
+- Improved performance of point-to-point message matching and reduced per-rank memory footprint.
+
+- Fixes to derived datatypes handling, MPI_Sendrecv_replace, MPI_(I)Alltoall{v,w},
+  MPI_(I)Scatter(v), MPI_IN_PLACE in gather collectives, MPI_Buffer_detach, MPI_Type_free,
+  MPI_Op_free, and MPI_Comm_free.
+
+- Implemented support for generalized requests, MPI_Comm_create_group, keyval attribute callbacks,
+  the distributed graph virtual topology, large count routines, matched probe and recv, and
+  MPI_Comm_idup(_with_info) routines.
+
+- Added support for using -tlsglobals for privatization of global/static variables
+  in shared objects. Previously -tlsglobals required static linking.
+
+- '-memory os-isomalloc', which uses the system's malloc underneath, now works everywhere
+  Isomalloc does. Both versions of Isomalloc now wrap calls to posix_memalign(), and we
+  removed the need to link with '-Wl,--allow-multiple-definition' on some systems.
+
+- Updated AMPI_Migrate() with built-in MPI_Info objects, such as AMPI_INFO_LB_SYNC.
+
+- AMPI now only renames the user's MPI calls from MPI_* to AMPI_* if Charm++/AMPI is
+  built on top of another MPI implementation for its communication substrate.
+
+- Support for compiling mpif.h in both fixed form and free form.
+
+- PMPI profiling interface support added.
+
+- Added an ampirun script that wraps charmrun to enable easier integration with
+  build and test scripts that take mpirun/mpiexec as an option.
+
+GPU Manager Changes:
+
+- Enable concurrent kernel execution by removing the limit imposed by the internal
+  implementation that used only three streams.
+
+- New API (Hybrid API, or HAPI) that is more similar to the CUDA API.
+
+- Added NVIDIA NVTX support for profiling host-side functions.
+
+- Deprecated the workRequest API. New users are now strongly recommended to use
+  the new API, or Hybrid API (HAPI).
+
+Build System Changes:
+
+- Charm++ now requires C++11 support, and as such defaults to using bgclang on BGQ.
+  Compilers GCC v4.8+, ICC v15.0+, XLC v13.1+, Cray CC v8.6+, MSVC v19.00.24+ and
+  Clang v3.3+ are required.
+
+- Building Charm++ from the git repository now requires autoconf and automake.
+
+- Support for the Flang Fortran compiler added.
+
+- Users can now specify compiler versions to our top-level build script when building
+  with gcc or clang.
+
+- Windows users can now build Charm++ with GCC, Clang, or MSVC.
+
+- All of Charm++ and AMPI can now be built as shared objects.
+
+- Added a CMake wrapper for compiling .ci files.
+
+- Charm++ is now available in Spack under the name 'charmpp'.
+
+- Added {pamilrts,mpi,multicore,netlrts}-linux-ppc64le build targets for new IBM POWER systems.
+
+- Added {multicore,netlrts}-linux-arm8 build targets for AArch64 / ARM64 systems.
+
+================================================================================
+What's new in Charm++ 6.8.2
+================================================================================
+
+This is a minor release containing only the following changes on top of 6.8.1:
+
+- Fix for a crash in memory deregistration on the OFI communication layer in SMP mode.
+
+- Tuned eager/rendezvous messaging thresholds for the PAMI communication layer
+  on POWER8 systems.
+
+================================================================================
+What's new in Charm++ 6.8.1
+================================================================================
+
+This is a backwards-compatible patch/bug-fix release. Roughly 100 bug
+fixes, improvements, and cleanups have been applied across the entire
+system. Notable changes are described below:
+
+General System Improvements
+
+- Enable network- and node-topology-aware trees for group and chare
+  array reductions and broadcasts
+
+- Add a message receive 'fast path' for quicker array element lookup
+
+- Feature #1434: Optimize degenerate CkLoop cases
+
+- Fix a rare race condition in Quiescence Detection that could allow
+  it to fire prematurely (bug #1658)
+  * Thanks to Nikhil Jain (LLNL) and Karthik Senthil for isolating
+    this in the Quicksilver proxy application
+
+- Fix various LB bugs
+  * Fix RefineSwapLB to properly handle non-migratable objects
+  * GreedyRefine: improvements for concurrent=false and HybridLB integration
+  * Bug #1649: NullLB shouldnt wait for LB period
+
+- Fix Projections tracing bug #1437: CkLoop work traces to the
+  previous entry on the PE rather than to the caller
+
+- Modify [aggregate] entry method (TRAM) support to only deliver
+  PE-local messages inline for [inline]-annotated methods. This avoids
+  the potential for excessively deep recursion that could overrun
+  thread stacks.
+
+- Fix various compilation warnings
+
+Platform Support
+
+- Improve experimental support for PAMI network layer on POWER8 Linux platforms
+  * Thanks to Sameer Kumar of IBM for contributing these patches
+
+- Add an experimental 'ofi' network layer to run on Intel Omni-Path
+  hardware using libfabric
+  * Thanks to Yohann Burette and Mikhail Shiryaev of Intel for
+    contributing this new network layer
+
+- The GNI network layer (used on Cray XC/XK/XE systems) now respects
+  the ++quiet command line argument during startup
+
+AMPI Improvements
+
+- Support for MPI_IN_PLACE in all collectives and for persistent requests
+
+- Improved Alltoall(v,w) implementations
+
+- AMPI now passes all MPICH-3.2 tests for groups, virtual topologies, and infos
+
+- Fixed Isomalloc to not leave behind mapped memory when migrating off a PE
+
+================================================================================
+What's new in Charm++ 6.8.0
+================================================================================
+
+Over 900 bug fixes, improvements, and cleanups have been applied
+across the entire system. Major changes are described below:
+
+Charm++ Features
+
+- Calls to entry methods taking a single fixed-size parameter can now
+  automatically be aggregated and routed through the TRAM library by
+  marking them with the [aggregate] attribute.
+
+- Calls to parameter-marshalled entry methods with large array
+  arguments can ask for asynchronous zero-copy send behavior with an
+  `nocopy' tag in the parameter's declaration.
+
+- The runtime system now integrates an OpenMP runtime library so that
+  code using OpenMP parallelism will dispatch work to idle worker
+  threads within the Charm++ process.
+
+- Applications can ask the runtime system to perform automatic
+  high-level end-of-run performance analysis by linking with the
+  `-tracemode perfReport' option.
+
+- Added a new dynamic remapping/load-balancing strategy,
+  GreedyRefineLB, that offers high result quality and well bounded
+  execution time.
+
+- Improved and expanded topology-aware spanning tree generation
+  strategies, including support for runs on a torus with holes, such
+  as Blue Waters and other Cray XE/XK systems.
+
+- Charm++ programs can now define their own main() function, rather
+  than using a generated implementation from a mainmodule/mainchare
+  combination. This extends the existing Charm++/MPI interoperation
+  feature.
+
+- Improvements to Sections:
+
+  * Array sections API has been simplified, with array sections being
+  automatically delegated to CkMulticastMgr (the most efficient implementation
+  in Charm++). Changes are reflected in Chapter 14 of the manual.
+
+  * Group sections can now be delegated to CkMulticastMgr (improved performance
+  compared to default implementation). Note that they have to be manually
+  delegated. Documentation is in Chapter 14 of Charm++ manual.
+
+  * Group section reductions are now supported for delegated sections
+  via CkMulticastMgr.
+
+  * Improved performance of section creation in CkMulticastMgr.
+
+  * CkMulticastMgr uses the improved spanning tree strategies. See above.
+
+- GPU manager now creates one instance per OS process and scales the
+  pre-allocated memory pool size according to the GPU memory size and
+  number of GPU manager instances on a physical node.
+
+- Several GPU Manager API changes including:
+
+  * Replaced references to global variables in the GPU manager API with calls to
+  functions.
+
+  * The user is no longer required to specify a bufferID in dataInfo struct.
+
+  * Replaced calls to kernelSelect with direct invocation of functions passed
+  via the work request object (allows CUDA to be built with all programs).
+
+- Added support for malleable jobs that can dynamically shrink and
+  expand the set of compute nodes hosting Charm++ processes.
+
+- Greatly expanded and improved reduction operations:
+
+  * Added built-in reductions for all logical and bitwise operations
+  on integer and boolean input.
+
+  * Reductions over groups and chare arrays that apply commutative,
+  associative operations (e.g. MIN, MAX, SUM, AND, OR, XOR) are now
+  processed in a streaming fashion. This reduces the memory footprint of
+  reductions. User-defined reductions can opt into this mode as well.
+
+  * Added a new `Tuple' reducer that allows combining multiple reductions
+  of different input data and operations from a common set of source
+  objects to a single target callback.
+
+  * Added a new `Summary Statistics' reducer that provides count, mean,
+  and standard deviation using a numerically-stable streaming algorithm.
+
+- Added a `++quiet' option to suppress charmrun and charm++ non-error
+  messages at startup.
+
+- Calls to chare array element entry methods with the [inline] tag now
+  avoid copying their arguments when the called method takes its
+  parameters by const&, offering a substantial reduction in overhead in
+  those cases.
+
+- Synchronous entry methods that block until completion (marked with
+  the [sync] attribute) can now return any type that defines a PUP
+  method, rather than only message types.
+
+- Static (non-generated) header files are now warning-free for
+  gcc -Wall -Wextra -pedantic.
+
+- Deprecated setReductionClient and CkSetReductionClient in favor of
+  explicitly passing callbacks to contribute calls.
+
+- On C++ standard library implementations with support for
+  std::is_constructible (e.g. GCC libstdc++ >4.5), chare array
+  elements only need to define a constructor taking CkMigrateMessage*
+  if it will actually be migrated.
+
+- The PUP serialization framework gained support for some C++11
+  library classes, including unique_ptr and unordered_map, when the
+  underlying types have PUP operators.
+
+AMPI Features
+
+- More efficient implementations of message matching infrastructure, multiple
+  completion routines, and all varieties of reductions and gathers.
+
+- Support for user-defined non-commutative reductions, MPI_BOTTOM, cancelling
+  receive requests, MPI_THREAD_FUNNELED, PSCW synchronization for RMA, and more.
+
+- Fixes to AMPI's extensions for load balancing and to Isomalloc on SMP builds.
+
+- More robust derived datatype support, optimizations for truly contiguous types.
+
+- ROMIO is now built on AMPI and linked in by ampicc by default.
+
+- A version of HDF5 v1.10.1 that builds and runs on AMPI with virtualization
+  is now available at https://charm.cs.illinois.edu/gerrit/#/admin/projects/hdf5-ampi
+
+- Improved support for performance analysis and visualization with Projections.
+
+Platforms and Portability
+
+- The runtime system code now requires compiler support for C++11
+  R-value references and move constructors. This is not expected to be
+  incompatible with any currently supported compilers.
+
+- The next feature release (anticipated to be 6.9.0 or 7.0) will require
+  full C++11 support from the compiler and standard library.
+
+- Added support for IBM POWER8 systems with the PAMI communication API,
+  such as development/test platforms for the upcoming Sierra and Summit
+  supercomputers at LLNL and ORNL. Contributed by Sameer Kumar of IBM.
+
+- Mac OS (darwin) builds now default to the modern libc++ standard
+  library instead of the older libstdc++.
+
+- Blue Gene/Q build targets have been added for the `bgclang' compiler.
+
+- Charm++ can now be built on Cray's CCE 8.5.4+.
+
+- Charm++ will now build without custom configuration on Arch Linux
+
+- Charmrun can automatically detect rank and node count from
+  Slurm/srun environment variables.
+
+- Many obsolete architecture, network, and compiler support files have
+  been removed. These include:
+  * IBM Blue Gene/P
+  * Sony/Toshiba/IBM Cell (including PlayStation 3)
+  * Cray XT
+  * Intel IA-64 (Itanium)
+  * Intel x86-32 for Windows, Mac OS X (darwin), and Solaris
+  * Cygwin for Windows
+  * Older IBM AIX/POWER configurations
+  * GCC 3 and KAI compilers
+  * Sun/Oracle Solaris
+
+================================================================================
+What's new in Charm++ 6.7.1
+================================================================================
+
+Changes in this release are primarily bug fixes for 6.7.0. The major exception
+is AMPI, which has seen changes to its extension APIs and now complies with more
+of the MPI standard. A brief list of changes follows:
+
+Charm++ Bug Fixes
+
+- Startup and exit sequences are more robust
+
+- Error and warning messages are generally more informative
+
+- CkMulticast's set and concat reducers work correctly
+
+AMPI Features
+
+- AMPI's extensions have been renamed to use the prefix AMPI_ instead of MPI_
+  and to generally follow MPI's naming conventions
+
+- AMPI_Migrate(MPI_Info) is now used for dynamic load balancing and all fault
+  tolerance schemes (see the AMPI manual)
+
+- AMPI officially supports MPI-2.2, and also implements the non-blocking
+  collectives and neighborhood collectives from MPI-3.1
+
+Platforms and Portability
+
+- Cray regularpages build target has been fixed
+
+- Clang compiler target for BlueGene/Q systems added
+
+- Comm. thread tracing for SMP mode added
+
+- AMPI's compiler wrappers are easier to use with autoconf and cmake
+
+================================================================================
+What's new in Charm++ 6.7.0
+================================================================================
+
+Over 120 bugs fixed, spanning areas across the entire system
+
+Charm++ Features
+
+- New API for efficient formula-based distributed sparse array creation
+
+- CkLoop is now built by default
+
+- CBase_Foo::pup need not be called from Foo::pup in user code anymore - runtime
+  code handles this automatically
+
+- Error reporting and recovery in .ci files is greatly improved, providing more
+  precise line numbers and often column information
+
+- Many data races occurring under shared-memory builds (smp, multicore) were
+  fixed, facilitating use of tools like ThreadSanitizer and Helgrind
+
+AMPI Enhancements
+
+- Further MPI standard compliance in AMPI allows users to build and run
+  Hypre-2.10.1 on AMPI with virtualization, migration, etc.
+
+- Improved AMPI Fortran2003 PUP interface 'apup', similar to C++'s STL PUP
+
+Platforms and Portability
+
+- Compiling Charm++ now requires support for C++11 variadic templates. In GCC,
+  this became available with version 4.3, released in 2008
+
+- New machine target for multicore Linux ARM7: multicore-linux-arm7
+
+- Preliminary support for POWER8 processors, in preparation for the upcoming
+  Summit and Sierra supercomputers
+
+- The charmrun process launcher is now much more robust in the face of slow
+  or rate-limited connections to compute nodes
+
+- PXSHM now auto-detects the node size, so the '+nodesize' is no longer needed
+
+- Out-of-tree builds are now supported
+
+Deprecations
+
+- CommLib has been removed.
+
+- CmiBool has been dropped in favor of C++'s bool
+
+
+================================================================================
+What's new in Charm++ 6.6.1
+================================================================================
+
+Changes in this release are primarily bug fixes for 6.6.0. A concise list of
+affected components follows:
+
+- CkIO
+
+- Reductions with syncFT
+
+- mpicxx based MPI builds
+
+- Increased support for macros in CI file
+
+- GNI + RDMA related communication
+
+- MPI_STATUSES_IGNORE support for AMPIF
+
+- Restart on different node count with chkpt
+
+- Immediate msgs on multicore builds
+
+================================================================================
+What's new in Charm++ 6.6.0
+================================================================================
+
+- Machine target files for Cray XC systems ('gni-crayxc') have been added
+
+- Interoperability with MPI code using native communication interfaces on Blue
+  Gene Q (PAMI) and Cray XE/XK/XC (uGNI) systems, in addition to the universal
+  MPI communication interface
+
+- Support for partitioned jobs on all machine types, including TCP/IP and IB
+  Verbs networks using 'netlrts' and 'verbs' machine layers
+
+- A substantially improved version of our asynchronous library, CkIO, for
+  parallel output of large files
+
+- Narrowing the circumstances in which the runtime system will send
+  overhead-inducing ReductionStarting messages
+
+- A new fully distributed load balancing strategy, DistributedLB, that produces
+  high quality results with very low latency
+
+- An API for applications to feed custom per-object data to specialized load
+  balancing strategies (e.g. physical simulation coordinates)
+
+- SMP builds on LRTS-based machine layers (pamilrts, gni, mpi, netlrts, verbs)
+  support tracing messages through communication threads
+
+- Thread affinity mapping with +pemap now supports Intel's Hyperthreading more
+  conveniently
+
+- After restarting from a checkpoint, thread affinity will use new
+  +pemap/+commap arguments
+
+- Queue order randomization options were added to assist in debugging race
+  conditions in application and runtime code
+
+- The full runtime code and associated libraries can now compile under the C11
+  and C++11/14 standards.
+
+- Numerous bug fixes, performance enhancements, and smaller improvements in the
+  provided runtime facilities
+
+- Deprecations
+  * The long-unsupported FEM library has been deprecated in favor of ParFUM
+  * The CmiBool typedefs have been deleted, as C++ bool has long been universal
+  * Future versions of the runtime system and libraries will require some degree
+    of support for C++11 features from compilers
+
+================================================================================
+What's new in Charm++ 6.5.0
+================================================================================
+
+- The Charm++ manual has been thoroughly revised to improve its organization,
+  comprehensiveness, and clarity, with many additional example code snippets
+  throughout.
+
+- The runtime system now includes the 'Metabalancer', which can provide
+  substantial performance improvements for applications that exhibit dynamic
+  load imbalance. It provides two primary benefits. First, it automatically
+  optimizes the frequency of load balancer invocation, to avoid work stoppage
+  when it will provide too little benefit. Second, calls to AtSync() are made
+  less synchronous, to further reduce overhead when the load balancer doesn't
+  need to run. To activate the Metabalancer, pass the option +MetaLB at
+  runtime. To get the full benefits, calls to AtSync() should be made at every
+  iteration, rather than at some arbitrary longer interval as was previously
+  common.
+
+- Many feature additions and usability improvements have been made in the
+  interface translator that generates code from .ci files:
+  * Charmxi now provides much better error reports, including more accurate
+    line numbers and clearer reasons for failure, including some semantic
+    problems that would otherwise appear when compiling the C++ code or even at
+    runtime.
+  * A new SDAG construct 'case' has been added that defines a disjunction over a
+    set of 'when' clauses: only one 'when' out of a set will ever be triggered.
+  * Entry method templates are now supported. An example program can be found
+    in tests/charm++/method_templates/.
+  * SDAG keyword "atomic" has been deprecated in favor of the newly supported
+    keyword "serial". The two are synonymous, but "atomic" is now provided only
+    for backward compatibility.
+  * It is no longer necessary to call __sdag_init() in chares that contain SDAG
+    code - the generated code does this automatically. The function is left as
+    a no-op for compatibility, but may be removed in a future version.
+  * Code generated from .ci files is now primarily in .def.h files, with only
+    declarations in .decl.h. This improves debugging, speeds compilation,
+    provides clearer compiler output, and enables more complete encapsulation,
+    especially in SDAG code.
+  * Mainchare constructors are expected to take CkArgMsg*, and always have
+    been. However, charmxi would allow declarations with no argument, and
+    assume the message. This is now deprecated, and generates a warning.
+
+- Projections tracing has been extended and improved in various ways
+  * The trace module can generate a record of network topology of the nodes in
+    a run for certain platforms (including Cray), which Projections can
+    visualize.
+  * If the gzip library (libz) is available when Charm++ is compiled, traces
+    are compressed by default.
+  * If traces were flushed as a results of filled buffers during the run, a
+    warning will be printed at exit to indicate that the user should be wary of
+    interference that may have resulted.
+  * In SMP builds, it is now possible to trace message progression through the
+    communication threads. This is disabled by default to avoid overhead and
+    potential misleading interpretation.
+
+- Array elements can be block-mapped at the SMP node level instead of at the
+  per-PE level (option "+useNodeBlkMapping").
+
+- AMPI can now privatize global and static variables using TLS. This is
+  supported in C and C++ with __thread markings on the variable declarations
+  and definitions, and in Fortran with a patched version of the gfortran
+  compiler. To activate this feature, append '-tls' to the '-thread' option's
+  argument when you link your AMPI program.
+
+- Charm can now be built to only support message priorities of a specific data
+  type. This enables an optimized message queue within the the runtime
+  system. Typical applications with medium sized compute grains may not benefit
+  noticeably when switching to the new scheduler. However, this may permit
+  further optimizations in later releases.
+
+  The new queue is enabled by specifying the data type of the message
+  priorities while building charm using --with-prio-type=dtype. Here, dtype can
+  be one of char, short, int, long, float, double and bitvec. Specifying bitvec
+  will permit arbitrary-length bitvector priorities, and is the current default
+  mode of operation. However, we may change this in a future release.
+
+- Converse now provides a complete set of wrappers for
+  fopen/fread/fwrite/fclose to handle EINTR, which is not uncommon on the
+  increasingly-popular Lustre. They are named CmiF{open,read,write,close}, and
+  are available from C and C++ code.
+
+- The utility class 'CkEntryOptions' now permits method chaining for cleaner
+  usage. This applies to all its set methods (setPriority, setQueueing,
+  setGroupDepID). Example usage can be found in examples/charm++/prio/pgm.C.
+
+- When creating groups or chare arrays that depend on the previous construction
+  of another such entity on the local PE, it is now possible to declare that
+  dependence to the runtime. Creation messages whose dependence is not yet
+  satisfied will be buffered until it is.
+
+- For any given chare class Foo and entry method Bar, the supporting class's
+  member CkIndex_Foo::Bar() is used to lookup/specify the entry method
+  index. This release adds a newer API for such members where the argument is a
+  function pointer of the same signature as the entry method. Those new
+  functions are used like CkIndex_Foo::idx_Bar(&Foo::Bar). This permits entry
+  point index lookup without instantiating temporary variables just to feed the
+  CkIndex_Foo::Bar() methods. In cases where Foo::Bar is overloaded, &Foo::Bar
+  must be cast to the desired type to disambiguate it.
+
+- CkReduction::reducerType now have PUP methods defined; and can hence be
+  passed as parameter-marshalled arguments to entry methods.
+
+- The runtime option +stacksize for controlling the allocation of user-level
+  threads' stacks now accepts shorthanded annotation such as 1M.
+
+- The -optimize flag to the charmc compiler wrapper now passes more aggressive
+  options to the various underlying compilers than the previous '-O'.
+
+- The charmc compiler wrapper now provides a flag -use-new-std to enable
+  support for C11 and C++11 where available. To use this in application code,
+  the runtime system must have been built with that flag as well.
+
+- When using, CmiMemoryUsage(), the runtime can be instructed not to use the
+  underlying mallinfo() library call, which can be inaccurate in settings where
+  usage exceeds INT_MAX. This is accomplished by setting the environment
+  variable "MEMORYUSAGE_NO_MALLINFO".
+
+- Experimental Features
+  * Initial implementation of a fast message-logging protocol. Use option
+    'mlogft' to build it.
+  * Message compression support for persistent message on Gemini machine layer.
+  * Node-level inter-PE loop/task parallelization is now supported through
+    CkLoop
+  * New temperature/CPU frequency aware load balancer
+  * Support interoperation of Charm++ and native MPI code through dynamically
+    switching control between the two
+  * API in centralized load balancers to get and set PE speed
+  * A new scheme for optimization of double in-memory checkpoint/restart.
+  * Message combining library for improved fine-grained communication
+    performance
+  * Support for partitioning of allocated nodes into subsets that run
+    independent Charm++ instances but can interact with each other.
+
+Platform-Specific Changes
+-------------------------
+
+- Cray XE/XK
+  * The gemini_gni network layer has been heavily tuned and optimized,
+    providing substantial improvements in performance, scalability, and
+    stability.
+  * The gemini_gni-crayxe machine layer supports a 'hugepages' option at build
+    time, rather than requiring manual configuration file editing.
+  * Persistent message optimizations can be used to reduce latency and
+    overheads
+  * Experimental support for 'urgent' sends, which are sent ahead of any other
+    outgoing messages queued for transmission.
+
+- IBM Blue Gene Q: Experimental machine-layer support for the native PAMI
+  interface and MPI, with and without SMP support. This supports many new
+  systems, including LLNL's Sequoia, ALCF's Mira, and FZ Juelich's Juqueen.
+
+  There are three network-layer implementations for these systems: 'mpi',
+  'pami', and 'pamilrts'. The 'mpi' layer is stable, but its performance and
+  scalability suffers from the additional overhead of using MPI rather than
+  driving the interconnect directly. The 'pami' layer is well tested for NAMD,
+  but has shown instability for other applications. It is likely to be replaced
+  by the 'pamilrts' layer, which is more generally stable and seems to provide
+  the same performance, in the next release.
+
+  In addition to the common 'smp' option to build the runtime system with
+  shared memory support, there is an 'async' option which sometimes provides
+  better performance on SMP builds. This option passes tests on 'pamilrts', but
+  is still experimental.
+
+  Note: Applications that have large number of messages may crash in default
+  setup due to overflow in the low-level FIFOs. Environment variables
+  MUSPI_INJFIFOSIZE and PAMI_RGETINJFIFOSIZE can be set to avoid application
+  failures due to large number of small and large messages respectively. The
+  default value of these variable is 65536 which is sufficient for 1000
+  messages in flight.
+
+- Infiniband Verbs: Better support for more flavors of ibverbs libraries
+
+- MPI Network Layer
+  * Experimental rendezvous protocol for better performance above some MPI
+    implementations.
+  * Some tuning parameters ("+dynCapSend" and "+dynCapRecv") are now
+    configurable at job launch, rather than Charm++ compilation.
+
+- PGI C++: Disable automatic 'using namespace std;'
+
+- Charm++ now supports ARM, both non-smp and smp.
+
+- Mac OS X: Compilation options to build and link correctly on newer versions
+
+
+================================================================================
+What's new in Charm++ 6.4.0
+================================================================================
+
+--------------------------------------------------------------------------------
+Platform Support
+--------------------------------------------------------------------------------
+
+- Cray XE and XK systems using the Gemini network via either MPI
+  (mpi-crayxe) or the native uGNI (gemini_gni-crayxe)
+
+- IBM Blue Gene Q, using MPI (mpi-bluegeneq) or PAMI (pami-bluegeneq)
+
+- Clang, Cray, and Fujitsu compilers
+
+- MPI-based machine layers can now run on >64k PEs
+
+--------------------------------------------------------------------------------
+General Changes
+--------------------------------------------------------------------------------
+
+- Added a new [reductiontarget] attribute to enable
+  parameter-marshaled recipients of reduction messages
+
+- Enabled pipelining of large messages in CkMulticast by default
+
+- New load balancers added:
+  * TreeMatch
+  * Zoltan
+  * Scotch graph partitioning based: ScotchLB and Refine and Topo variants
+  * RefineSwap
+
+- Load balancing improvements:
+
+  * Allow reduced load database size using floats instead of doubles
+  * Improved hierarchical balancer
+  * Periodic balancing adapts its interval dynamically
+  * User code can request a callback when migration is complete
+  * More balancers properly consider object migratability and PE
+    availability and speed
+  * Instrumentation records multicasts
+
+- Chare arrays support options that can enable some optimizations
+
+- New 'completion detection' library for parallel process termination
+  detection, when the need for modularity excludes full quiescence
+  detection
+
+- New 'mesh streamer' library for fine-grain many-to-many collectives,
+  handling message bundling and network topology
+
+- Memory pooling allocator performance and resource usage improved
+  substantially
+
+- AMPI: More routines support MPI_IN_PLACE, and those that don't check
+  for it
+
+================================================================================
+What's new in Charm++ 6.2.1 (since 6.2.0)
+================================================================================
+
+--------------------------------------------------------------------------------
+New Supported Platforms:
+--------------------------------------------------------------------------------
+
+POWER7 with LAPI on Linux
+
+Infiniband on PowerPC
+
+--------------------------------------------------------------------------------
+General Changes
+--------------------------------------------------------------------------------
+
+- Better support for multicasts on groups
+- Topology information gathering has been optimized
+- Converse (seed) load balancers have many new optimizations applied
+- CPU affinity can be set more easily using +pemap and +commap options
+  instead of the older +coremap
+- HybridLB (hierarchical balancing for very large core-count systems)
+  has been substantially improved
+- Load balancing infrastructure has further optimizations and bug fixes
+- Object mappings can be read from a file, to allow offline
+  topology-aware placement
+- Projections logs can be spread across multiple directories, speeding
+  up output when dealing with thousands of cores (+trace-subdirs N
+  will divide log files evenly among N subdirectories of the trace
+  root, named PROGNAME.projdir.K)
+- AMPI now implements MPI_Issend
+- AMPI's MPI_Alltoall uses a flooding algorithm more agressively,
+  versus pairwise exchange
+- Virtualized ARMCI support has been extended to cover the functions
+  needed by CAF
+
+--------------------------------------------------------------------------------
+Architecture-specific changes
+--------------------------------------------------------------------------------
+
+- LAPI SMP has many new optimizations applied
+
+- Net builds support the use of clusters' mpiexec systems for job
+  launch, via the ++mpiexec option to charmrun
+
+================================================================================
+What's new in Charm++ 6.2.0 (since 6.1)
+================================================================================
+
+--------------------------------------------------------------------------------
+New Supported Platforms:
+--------------------------------------------------------------------------------
+
+64-bit MIPS, such as SiCortex, using mpi-linux-mips64
+
+Windows HPC cluster, using mpi-win32/mpi-win64
+
+Mac OSX 10.6, Snow Leopard (32-bit and 64-bit).
+
+--------------------------------------------------------------------------------
+General Changes
+--------------------------------------------------------------------------------
+
+Runtime support
+ - Smarter build/configure scripts
+ - A new interface for model-based load balancing
+ - new CPU topology API
+ - a general implementation of CmiMemoryUsage()
+ - Bug fix: Quiescence detection (QD) works with immediate messages
+ - New reduction functions implemented in Converse
+ - CCS (Converse Client-Server) can deliver message to more than one processor
+ - Added a memory-aware adaptive scheduler, which can be optionally
+   compiled in to charm
+ - Added preliminary support for automatic message prioritization
+   (disabled by default)
+
+Charm++
+ - Cross-array and cross-group sections
+ - Structured Dagger (SDAG): Support templated arguments properly
+ - Plain chares support checkpoint/restart (both in-memory and disk-based)
+ - Conditional packing of messages and parameters in SMP scenario
+ - Changes to the CkArrayIndex class hierarchy
+   -- sizeof() all CkArrayIndex* classes is now the same
+   -- Codes using custom array indices have to use placement-new to construct
+      their custom index. Refer example code: examples/charm++/hello/fancyarray/
+   -- *** Backward Incompatibility ***
+      CkArrayIndex[4D/5D/6D]::index are now of type int (instead of short)
+      However the data is stored as shorts. Access by casting
+      CkArrayIndexND::data() appropriately
+   -- *** Deprecated ***
+      The direct use of public data member
+      CkArrayIndexND::index (N=1..6) is deprecated. We reserve the right to
+      change/remove this variable in future releases of Charm++.
+      Instead, please access the indices via member function:
+      int CkArrayIndexND::data()
+
+Adaptive MPI (AMPI)
+ - Compilers renamed to avoid collision with host MPI (ampicc, ampiCC,
+   ampif77, ampif90)
+ - Improved MPI standard conformance, and documentation of non-conformance
+   * Bug fixes in: MPI_Ssend, MPI_Cart_shift, MPI_Get_count
+   * Support MPI_IN_PLACE in MPI_(All)Reduce
+   * Define various missing constants
+ - Return the received message's tag in response to a non-blocking
+   wildcard receive, to support SuperLU
+ - Improved tracing for BigSim
+
+Multiphase Shared Arrays (MSA)
+ - Typed handles to enforce phases
+ - Split-phase synchronization to enable message-driven execution
+ - 3D arrays
+
+TCharm
+ - Automatic tracing of API calls for simulation and analysis
+
+Debugging
+ - Wider support for architectures other than net- (in particular MPI layers)
+ - Improved support for large scale debugging (better scalability)
+ - Enhanced record/replay stability to handle various events, and to
+   signal unexpected messages
+ - New detailed record/replay: The full content of messages can be
+   recorded, and a single processor can be re-executed outside of the
+   parallel application
+
+Performance analysis
+ - Tracing of nested entry methods
+
+Automatic Performance Tuning
+ - Created an automatic tuning framework [still for experimental use only]
+
+CkMulticast
+ - Network-topology / node aware spanning trees used internally for and
+   lower bytes on the network and improved performance in multicasts and
+   reductions delegated to this library
+
+Comlib
+ - Improved OneTimeMulticastStrategy classes
+
+BigSim
+ - Out-of-core support, with prefetching capability
+ - Detailed tracing of MPI calls
+ - Detailed record/replay support at emulation time, capable of
+   replaying any emulated processor after obtained recorded logs.
+
+--------------------------------------------------------------------------------
+Architecture-specific changes
+--------------------------------------------------------------------------------
+
+Net-*
+ - Can run jobs with more than 1024 PEs
+
+Net-Linux
+ - New charmrun option ++no-va-randomization to disable address space
+   randomization (ASLR). This is most useful for running AMPI with
+   isomalloc
+
+MPI
+ - Default to using ampicxx instead of mpiCC
+
+MPI-SMP
+ - The +p option now has the same semantics as in other smp builds
+
+Power 7
+ - Support for VSX in SIMD abstraction API
+
+Blue Gene/L
+ - Compilers and options have been updated to the latest ones
+
+Blue Gene/P
+ - Added routines for measuring performance counters on BG/P.
+ - Updated to support latest DCMF driver version. On ANL's Intrepid, you may
+   need to set BGP_INSTALL=/bgsys/drivers/V1R4M1_460_2009-091110P/ppc in your
+   environment. This is the default on ANL's Surveyor.
+
+Cray XT
+ - cputopology information is now available on XT3/4/5
+
+Infiniband (ibverbs)
+ - Bug fix: plug memory leaks that caused failures in long runs
+ - Optimized to reduce startup delays
+
+LAPI
+ - Support for SMP (experimental)
+
+
+================================================================================
+Note that changes from 5.9, 6.0, and 6.1 are not documented here. A partial list
+can be found on the charm download page, or by reading through version control
+logs.
+
+================================================================================
+What's New since Charm++ 5.4 release 1
+================================================================================
+
+--------------------------------------------------------------------------------
+New Supported Platforms:
+--------------------------------------------------------------------------------
+1. Charm++ ported to IA64 Itanium running Win2K and Linux, Charm++ also support
+   Intel C/C++ compilers;
+
+2. Charm++ ported to Power Macintosh powerpc running Darwin;
+
+3. Charm++ ported to Myrinet networking with GM API;
+
+--------------------------------------------------------------------------------
+Summary of New Features:
+--------------------------------------------------------------------------------
+1. Structure Dagger
+   Structured Dagger is a coordination language built on top of CHARM++.
+   Structured Dagger allows easy expression of dependences among messages and 
+   computations and also among computations within the same object using 
+   when-blocks and various structured constructs. 
+
+2. Entry functions support parameter marshalling
+   Now you can declare and invoke remote entry functions using parameter 
+   marshalling instead of defining messages.
+
+3. Easier running - standalone mode
+   For net-* version running locally, you can now run Charm programs without 
+   charmrun. Running a node program directly from command line is now the
+   same as "charmrun +p1 <program>"; for SMP version, you can also specify 
+   multiple (local) processors, as in "program +p2".
+   
+
+--------------------------------------------------------------------------------
+Summary of Changes:
+--------------------------------------------------------------------------------
+1. "build" changed for compilation of Charm++
+   To build Charm++ from scratch, we now take additional command line options
+   to compile with addon features and using different compilers other than gcc.
+   For example, to build Linux IA64 with Myrinet support, type command:
+   ./build net-linux-ia64  gm
+
+
+                *******   Old Change histories *******
+
+
+================================================================================
+What's New in Charm++ 5.4 release 1 since 5.0
+================================================================================
+
+--------------------------------------------------------------------------------
+New Supported Platforms:
+--------------------------------------------------------------------------------
+
+1. Win9x/2000/NT:  with Visual C++ or Cygwin gcc/g++, you can compile and run 
+   Charm++ programs on all Win32 platforms.
+   
+2. Scyld Beowulf:  Charm++ has been ported to the Linux-based Scyld Beowulf 
+   operating system. For more information on Scyld, see <http://www.scyld.com>
+
+3. MPI with VMI:   Charm++ has been ported to NCSA's Virtual Machine Interface,
+   which is an efficient messaging library for heterogeneous cluster 
+   communication.
+
+
+--------------------------------------------------------------------------------
+Summary of New Features:
+--------------------------------------------------------------------------------
+1. Dynamic Load balancing:
+   Chare migration is supported in the new release. Migration-based dynamic 
+   load balancing framework with various load balancing strategies library has 
+   been added.
+
+2. Chare Array
+   Charm++ array is supported. You can now create an array of Chare objects
+   and use array index to refer the Charm++ array elements. A reduction
+   library on top of Chare array has been implemented and included.
+
+3. Projections
+   Projections, a Java application for Charm++ program performance analysis and 
+   visualization, has been included and distributed in the new release. Two
+   trace modes are available: trace-projections and trace-summary. Trace-summary
+   is a light-weight trace library compared to trace-projections.
+
+4. AMPI
+   AMPI is a load-balancing based library for porting legacy MPI applications 
+   to Charm++. With few changes in the original MPI code to AMPI, the new
+   legacy MPI application on Charm++ will gain from Charm++'s adptive 
+   load balancing ability.
+
+5. Easier invocation
+   "Charmrun" is now available on all platforms, with a uniform command line 
+   syntax. You can forget the difference between net-* versions and MPI versions,
+   and run charm++ application with this same charmrun command syntax. 
+   ++local option is added in charmrun for net-* version, it provides
+   simple local use of Charm and no longer require the ability to 
+   "rsh localhost" or a nodelist file in order to run charm only on the local
+   machine. This is especially attractive when you run Charm++ on Windows.
+
+6. New libraries:
+   Many new libraries have been added in this release. They include:
+   1) master-slave library: for writing manager-worker paradigm programs.
+   2) receiver library: provide asynchronous communication mode for chare array.
+   3) f90charm:  provides Fortran90 bindings for Charm++ Array.
+   4) BlueGene:  a Charm++/Converse emulator for IBM proposed Blue Gene.
+
+--------------------------------------------------------------------------------
+Summary of Changes:
+--------------------------------------------------------------------------------
+1. message declaration syntax in .ci file:
+   The message declaration syntax for packed/varsize messages has been changed.
+   The packed/varsize keywords are eliminated, and you can specify the actual
+   actual varsize arrays in the interface file and have the translator generate
+   alloc, pack and unpack.
+
+
+Here is the detailed list of Changes:
+
+--------------------------------------------------------------------------------
+Major Features:
+--------------------------------------------------------------------------------
+
+10/06/1999	rbrunner	Added migration-based dynamic load balancing
+				framework.
+11/15/1999	olawlor		Added reduction support foe Charm++ arrays
+02/06/2000	milind		Added AMPI, an implementation of MPI with
+				dynamic load balancing
+02/18/2000	paranjpy	New platforms supported: net-win32, and 					net-win32-smp
+04/04/2000	olawlor		Added arbitrarily indexed Charm++ arrays.
+				Also, added translator support for new arrays.
+04/15/2000	olawlor		Added "puppers" for packing and unpacking 
+				objects.
+06/14/2000	milind		Added the threaded FEM framework.
+
+--------------------------------------------------------------------------------
+Minor Features:
+--------------------------------------------------------------------------------
+
+10/09/1999	rbrunner	Added packlib, a library for C and C++ to 
+				pack-unpack data to/from Charm++ messages.
+10/13/1999	gzheng		New LB strategy: RefineLB
+10/13/1999	paranjpy	New LB Strategy: Heap
+10/14/1999	milind		New LB Strategy: Metis
+10/19/1999	olawlor		New test program for testing LB strategies.
+10/21/1999	gzheng		New trace mode: trace-summary
+10/28/1999	milind		New supported platform: net-sol-x86
+10/29/1999	milind		Added runtime checks for ChareID assignment.
+11/10/1999	rbrunner	Added Neighborhood base strategy for LB 
+				framework.
+11/15/1999	olawlor		conv-host now reads in a startup file 
+				~/.conv-hostrc
+11/15/1999	olawlor		New test program for testing array reductions.
+11/16/1999	rbrunner	Added processor-speed checking functions to
+				LB framework
+11/19/1999	milind		Mapped SIGUSR to a Ccd condtion handler
+11/22/1999	rbrunner	New LB strategy: WSLB
+11/29/1999	ruiliu		Modified Metis LB strategy to deal with 
+				different processor speeds
+12/16/1999	rbrunner	New LB strategy: GreedyRef
+12/16/1999	rbrunner	New LB strategy: RandRef
+12/21/1999	skumar2		New LB strategy: CommLB
+01/03/2000	rbrunner	New LB strategy: RecBisectBfLB
+01/08/2000	skumar2		New LB strategy: Comm1LB, with varying processor
+				speeds
+01/18/2000	milind		Modified SM library syntax, and added a test
+				program for SM.
+01/19/2000	gzheng		Added irecv, a library to simplify conversion
+				of message-passing programs to Charm++
+02/20/2000	olawlor		Added preliminary broadcast support to Charm++
+				arrays.
+02/23/2000	paranjpy	Added converse-level quiescence detection
+03/02/2000	milind		Added ++server-port option to pre-specify
+				CCS port.
+03/10/2000	wilmarth	Random seed-based load balancer now uses
+				bit-vector for active PEs.
+03/21/2000	gzheng		Added support for marking user-defined events 
+				in trace-summary.
+03/28/2000	wilmarth	Added CMK_TRUECRASH. Very helpful for
+				post-mortem debugging of Charm++ programs on
+				net-* versions.
+03/31/2000	jdesouza	Added Fortran90 support to the Charm++ 
+				interface translator.
+03/09/2000	milind		Added support for -LANG and -rpath options 
+				in charmc for Origin2000.
+04/28/2000	milind		Added prioritized converse threads.
+05/01/2000	milind		Added test programs for TeMPO, AMPI and irecv.
+05/04/2000	milind		New supported platform: mpi-sp.
+05/04/2000	gzheng		Added irecv pingpong program.
+05/17/2000	olawlor		Each chare, group and array element now has to
+				have migration constructor.
+05/24/2000	milind		Added Jacobi3D programs for irecv and AMPI both.
+05/24/2000	milind		Made migratable an optional attribute of 
+				chares, groups, and nodegroups.  
+				Arrays are by default migratable.
+05/29/2000	paranjpy	Added pup methods to arrays, reductions etc 
+				internal objects.
+06/13/2000	milind		Made CtvInitialize idempotent.  That is, it 
+				can be called by any number of threads now, 
+				only the first one will actually do 
+				CtvInitialize.
+06/20/2000	milind		Added a simple test program for the FEM 
+				framework.
+07/06/2000	milind		Imported Metis 4.0 sources in the CVS tree. 
+				Also added code to make metis libraries and 
+				executables to Makefile.
+07/07/2000	milind		Added more meaningfull error messages using 
+				perror in addition to a cryptic error codes in
+				net-* versions.
+07/10/2000	milind		fem and femf are now recognized as "languages" 
+				by charmc.
+07/10/2000	saboo		Added the derived datatypes library.
+07/13/2000	milind		Added +idle_timeout functionality. It takes a 
+				commandline parameter denoting milliseconds of 
+				maximum consecutive idle time allowed per 
+				processor.
+07/14/2000	milind		Added group multicast. Added 
+				CkSendMsgBranchMulti, CldEnqueueMulti, and 
+				translator changes to support it.
+07/14/2000	milind		SUPER_INSTALL now takes "-*" arguments prior 
+				to the target, that will be passed to make as 
+				"makeflags". This makes it easy to suppress 
+				make's output of commands etc (with the -s 
+				flag). As a result of this, several Makefiles 
+				have been massaged.
+07/18/2000	milind		Added support for using "dbx" on suns as 
+				debugger.
+07/19/2000	milind		Added ability to tracemode projections which 
+				produces binary trace files. Use flag 
+				+binary-trace on the command line.
+07/26/2000	milind		Separated AMPI from TeMPO.
+07/28/2000	milind		Added test programs to test reduce, alltoall 
+				and allreduce functionality of AMPI.
+08/02/2000	milind		Added an option to let the user specify which 
+				"xterm" to use.  For example, on some systems 
+				(CDE), only dtterm is installed.  So, by 
+				putting ++xterm dtterm on the conv-host 
+				commandline, one can use dtterm when ++in-xterm
+				option is specified on conv-host commandline.
+08/14/2000	milind		FEM Framework: Added capabilities to handle 
+				esoteric meshes to standalone offline programs.
+				Makefile now produces gmap and fgmap programs, 
+				which are used for this purpose.  They convert 
+				the mesh to a graph before partitioning it 
+				using Metis.
+08/24/2000	milind		Added the 2D crack propagation program as a 
+				test program for FEM framework.
+08/25/2000	milind		Initial implementation of isomalloc-based 
+				threads.  This implementation uses a fixed 
+				stack size for all threads (can be set at 
+				runtime.)
+08/26/2000	milind		Added a macro CtvAccessOther that lets you 
+				get/set a Ctv variable of any thread.  It 
+				should be invoked as CtvAccessOther(thread,
+				varname); Added CthGetData function to each of 
+				the threads implementation.  This function is 
+				used in the CtvAccessOther macro.
+08/27/2000	milind		FEM Framework: Separated mesh to graph 
+				conversion capability into a separate program.
+				This way, the generated graph can be partitioned
+				repeatedly.
+09/04/2000	milind		Added the class static readonly variables to 
+				ci file syntax.
+09/05/2000	milind		FEM Framework: A very fast O(n) algorithm for 
+				mesh2graph , uses more memory, but the tradeoff
+				was worth it. Coded by Karthik Mahesh, minor 
+				optimizations by Milind.
+09/05/2000	milind		Added a barebones charm kernel scheduling 
+				overhead measurement program.
+09/15/2000	milind		Added pup support for AMPI and FEM framework.
+09/20/2000	olawlor		Added capability to have an array of base type 
+				where individual element could be of derived 
+				types.
+10/03/2000	gzheng		New supported platform: net-linux-axp
+10/05/2000	skumar2		Added program littleMD to the test suite.
+10/07/2000	skumar2		New job scheduler (Faucets projects).
+10/15/2000	milind		Improved support for Fortran90 in charmc.
+11/04/2000	jdesouza	Made the Faucets scheduler multi-threaded.
+11/05/2000	olawlor		FEM Framework: supports multiple element types,
+				mesh re-assembly, etc.
+11/15/2000	gzheng		New platform support: net-cygwin
+11/18/2000	gzheng		conv-host no longer needs /bin/csh to start 
+				remote program.  set 
+				CMK_CONV_HOST_CSH_UNAVAILABLE to 1 to use 
+				/bin/sh instead.
+11/25/2000	milind		Finished experimental implementation of 
+				converse-threads based on co-operative pthreads.
+11/25/2000	milind		Added a benchmark suite of all pingpongs in
+				Charm++.
+11/28/2000	milind		Removed deletion of _idx at the end of every 
+				send or doneInserting call.  Instead now it is 
+				in the destructor of the proxy. This allows us 
+				to cache proxies, when proxy creation becomes 
+				a bottleneck.
+11/28/2000	olawlor		Added "seek blocks" to puppers.  This should 
+				allow out-of-order pup'ing without the ugliness
+				of getBuf; and in a way that works with all 
+				PUP::ers.
+11/29/2000	olawlor		Simplified and regularized command-line-argument
+				handling.
+11/29/2000	milind		AMPI: Added multiple-communicators capability.
+12/05/2000	gzheng		Now /bin/sh is default shell to fork node 
+				program on remote machines.
+12/13/2000	olawlor		Added charmrun wrapper for poe on mpi-sp.
+12/14/2000	milind		Added bluegene emulator sources and test 
+				programs.  Added "bluegene" as a language known
+				to charmc.  Makefile now has a target called 
+				bluegene.  Added preliminary bluegene 
+				documentation.  (copied from Arun's webpage.)
+12/15/2000	gzheng		f90charm addition to Makefile and charmc. Also,
+				added fixed size arrays support to f90charm. A 
+				test program f90charm/hello is checked in.
+12/17/2000	milind		Added rtest test program. Contributed by jim to
+				test Converse message transmission.
+12/20/2000	olawlor		Added charmconfig script. Enables automatic 
+				determination of C++ compiler properties, 
+				replacing the verbose and error-prone 
+				conv-mach.h entries for CMK_BOOL, 
+				CMK_STL_USE_DOT_H, CMK_CPP_CAST_OK, ...
+12/20/2000	olawlor		Charm++ Arrays optimizations: Key and object 
+				now variable-length fields, instead of pointers.
+				This extra flexibility lets us save many 
+				dynamic allocations in the array framework.
+12/20/2000	olawlor		Added PUP::able support-- dynamic type 
+				identification, allocation, and deletion.  
+				Allows you to write:   p(objPtr); and 
+				objPointer will be properly identified, 
+				allocated, packed, and deallocated (depending 
+				on the PUP::er).  Requires you to register any 
+				such classes with DECLARE_PUPable and 
+				DEFINE_PUPable.
+12/20/2000	olawlor		Arrays optimizations: Made CkArrayIndex 
+				fixed-size.  This significantly improves 
+				messaging speed (7 us instead of 10 us 
+				roundtrip).  Move spring cleaning check into a 
+				CcdCallFnAfter, which gains more speed (down to
+				4 us roundtrip).
+12/20/2000	olawlor		More optimizations: Minor speed tweaks-- 
+				conv-ccs.c uses hashtable for handler lookup; 
+				conv-conds skips timer test until needed; 
+				convcore.c scheduler loop optmizations (no 
+				superfluous EndIdle calls); threads.c 
+				CMK_OPTIMIZE-> no mprotect.
+12/20/2000	olawlor		More Optimizations: Minor speed tweaks-- ck.C 
+				groups cldEnqueue skip; init.h defines 
+				CkLocalBranch inline; and supporting changes.
+12/22/2000	gzheng		IA64 support for Converse user level threads.
+01/02/2001	olawlor		CCS: Minor update-- enabled CcsProbe, cleaned 
+				up superflous debug messages in server, added 
+				Java interface (originally written for 
+				AppSpecter).
+01/09/2001	gzheng		charmconfig converted to autoconf style, need 
+				to change configure.in and conv-autoconfig.h.in,
+				and run autoconf to get configure and copy to 
+				charmconfig.  added fortran subroutine name 
+				test and get libpthread.a
+01/10/2001	milind		Added telnet method of getting libpthread.a 
+				from charm webserver.
+01/11/2001	olawlor		Moved projections files here from 
+				CVSROOT/projections-java.  Added fast Java 
+				versions of the .log file input routines in 
+				LogReader, LogLoader, LogAnalyzer, and 
+				UsageCalc.  Added "U.java" user interface 
+				utility file, allowing times to be input in 
+				seconds, milliseconds, or microseconds, 
+				instead of just microseconds.
+01/15/2001	gzheng		add +trace-root to specify the directory to 
+				put log files in. this is need in Scyld cluster
+				where there is no NFS mounting and no i/o 
+				access to home directory sharing on nodes.
+01/15/2001	milind		Made AMPI into a f90 module instead of 
+				'ampif.h' inclusion.  AMPI f90 bindings are 
+				now more inclusive.  Fixed argc,argv handling 
+				bugs in ArgsInfo message.  Fixed a bug in pup 
+				that caused thread not to be sized, but was 
+				packed nevertheless. Moved irecv to waitall 
+				instead of at in ampi_start.  Made 
+				AMPI_COMM_WORLD to be 0, because it clashed 
+				with wildcard(-1).  AMPI_COMM_UNIVERSE is now 
+				handled properly in the AMPI module.  
+				C/C++ data members are NOT visible to 
+				Fortran 90.
+01/18/2001	gzheng		New supported platform: net-linux-scyld
+01/20/2001	olawlor		Moved array index field from CMessage_* to the 
+				Ck envelope itself.  This is the right thing 
+				to do, because any message may be sent to/from 
+				an array element.  To reduce the wasted space 
+				in a message, a union is used to overlay the 
+				fields for the various possible message types.
+01/29/2001	olawlor		Freed charmrun on net-* version from using
+				remote shell to fork off processes. One can now
+				use a daemon provided in the distribution.
+02/07/2001	olawlor		Added debugging support to puppers.
+02/13/2000	gzheng		Added ++local option to charmrun to start node 
+				program locally without any daemon; fix the 
+				hang program if you type wrong pgm name in 
+				scyld version, and redirect all output to 
+				/dev/null, otherwise all node program can send 
+				its output to console in scyld. Also implemented				++local in net-win32 version.
+02/26/2000	milind		Changed the varsize syntax. Now one can specify
+				actual varsize arrays in the interface file
+				and have the translator generate alloc, pack 
+				and unpack.
+
+--------------------------------------------------------------------------------
+Bug Fixes:
+--------------------------------------------------------------------------------
+
+10/29/1999	milind		Replaced jmemcpy by memcpy in net versions, as
+				it was causing a bit to flip (bug reported
+				by jim.)
+10/29/1999	milind		Fixed multiline macros in all header files.
+02/05/2000	milind		Fixed linking errors by getting the order of
+				libraries right from the charmc command-line.
+02/18/2000	paranjpy	Fixed Charm++ initialization bug on SMPs.
+02/21/2000	milind		Fixed a context-switching bug in mipspro version
+				of QuickThreads.
+02/25/2000	milind		Charm++ interface translator was segfaulting
+				on interface file errors. Fixed that. Also,
+				added linenumbers to error messages.
+03/02/2000	milind		Made CCS work on SMPs.
+03/07/2000	milind		Made ConverseInit consistent with the manual on
+				Origin2000 version.
+04/18/2000	milind		Fixed a bug in CkWaitFuture, which was caching 
+				a variable locally, while it was changed by 
+				another thread.
+05/04/2000	paranjpy	Fixed argv deletion bug on net-win32-smp.
+06/08/2000	milind	 	sp3 version: changed optimization flags, which 
+				where power2 processor-specific.
+06/20/2000	milind		mpi-* versions: Fixed ConverseExit since it was
+				not obeying the following statement in the MPI 
+				standard: The user must ensure that all pending
+				communications involving a process completes 
+				before the process calls MPI_FINALIZE.
+07/05/2000	milind		Fixed a nasty bug in charmc in the -cp option. 
+				It used to append the name provided to -o flag 
+				to the directory provided to the -cp flag.  
+				Thus, -o ../pgm -cp ../bin options meant that 
+				the pgm would be copied to ../bin/.., which is 
+				not the expected behavior. This fix correctly 
+				copies pgm to ../bin.
+07/07/2000	milind		Removed variable arg_myhome, as it was not 
+				being used anywhere, and also, setting it was 
+				causing problems of env var HOME was not set.
+07/27/2000	milind		thishandle for the arrayelement was not being 
+				correctly set.  Bug was reported by Neelam.
+08/26/2000	milind		Origin2000: Changed the page alignment to 
+				reflect the mmap alignment.  The mmap man page 
+				specifically states that it is not the same as 
+				page size.
+09/02/2000	milind		Fixed a bug in code generated for threaded 
+				(void) entry methods of array elements. The 
+				dummy message that is passed to that method in 
+				a thread has to be deleted before calling the 
+				object method, because upon object method's 
+				return, the thread might have migrated.
+09/03/2000	olawlor		Minor fix-fixes: 1.) Change to LBObjid hash 
+				function would fail for >4-int object indices.
+				Replaced with proper function, which also 
+				preserves the 1-int case.  2.) Array element 
+				sends must go via the message queue to prevent 
+				stack build-up for deep single-processor call 
+				chains. These might happen, e.g., in a driver 
+				element calling itself for the main time loop.
+				Messages are now properly noted as sent, then 
+				wait through the queue for delivery.  This 
+				entailed minor reorganization of the message 
+				delivery subsystem.
+09/21/2000	olawlor		Tiny SMP thread fix-- registrations of a 
+				thread-private variable now reserve space on 
+				calls after the first.  This wastes space for 
+				multiple CthInitialize's-- it's a quick hack to
+				get threads working again on SMP versions.
+10/16/2000	olawlor		A few CCS fixes:   -Added split-phase reply 
+				(delay reply indefinitely)  -Cleaned up error
+				handling -Pass user data as "void *" instead of
+				"char *"
+11/03/2000	wilmarth	Removed 0 size array allocation in Charm++ 
+				quiescence detection.
+11/20/2000	gzheng		Rewrote part of Fiber thread, including a bug 
+				fix for a the non thread-safe function, and a 
+				different fiber free strategy.
+11/29/2000	gzheng		The LB init procedure tried to allocate 
+				65536*160 as initial size, which is 10M memory 
+				for communication table, which is too big. 
+				Cut it down to roughly 1M, and it can expand 
+				in later code.
+12/05/2000	gzheng		In many cases, conv-host exits without print 
+				out the error message from remote shell. try 
+				to fix it by calling sync to flush the pipe 
+				before exit 1.
+12/10/2000	milind		net-linux: Made static linking the default 
+				option because dynamic linking runtime causes 
+				isomalloc threads to crash.
+12/18/2000	milind		Increased portability of isomalloc threads by 
+				removing dependence on alloca.
+12/28/2000	milind		Fixed ctrl-getone abort bug on SMP.
+12/28/2000	milind		Made _groupTable a pointer on which a 
+				constructor is explicitly called.  Since it 
+				was a Cpv variable, its constructor was not 
+				called by default in case of an SMP version.
+12/29/2000	olawlor		Prevent infinite copy constructor recursion on 
+				Origin2000.
+01/10/2001	olawlor		Added "explicit" keyword to remove ambiguity 
+				for KCC, which was confused by the private 
+				PUP::er(int) "cast" constructor and the operator
+				|(PUP::er &p,T &t) into rejecting all operator|
+				(int,int) as ambiguous.
+2001/01/17	gzheng		fix the charmconfig bug on paragon-red: the 
+				failure testing of fortran won't stop the 
+				compilation.
+01/20/2001	olawlor		Arrays reduction:  Fixed bug-- reduction may end
+				because all contributors migrate away. 
+01/29/2001	olawlor		Fix heap-corrupting bug-- call ->init() on 
+				nodeGroupTable, which sets the "pending" 
+				message queue to NULL.  This prevents a nasty 
+				delete-unitialized-data bug later on.  Also 
+				delayed queue creation until messages actually 
+				arrive.
+
+--------------------------------------------------------------------------------
+Documentation Changes:
+--------------------------------------------------------------------------------
+
+01/31/2000	milind		Installation manual: Fixed bugs pointed out by
+				quantum TA
+02/28/2000	wilmarth	Added a new look Charm++ manual.
+06/20/2000	milind		Added pdflatex support to generate PDF versions
+				of manuals from LaTeX sources.
+12/05/2000	milind		Added Orion's FEM manual. Converted from HTML.
+12/10/2000	milind		Added pplmanual.sty for all manuals.
+12/17/2000	milind		Added master-slave library documentation to
+				convext manual.
+12/21/2000	saboo		Added DDT documentation.
+01/02/2001	olawlor		Updated for new CCS version.
+
+--------------------------------------------------------------------------------
+Other Changes:
+--------------------------------------------------------------------------------
+
+10/24/1999	olawlor		charmc is changed to Bourne shell script 
+				instead of csh. All conv-mach.csh are
+				replaced by conv-mach.sh.
+10/25/1999	olawlor		SUPER_INSTALL is converted to use bourne shell.
+10/28/1999	milind		All Makefiles now take OPTS commandline
+				arguments.
+01/16/2000	olawlor		Simplified Charm++ interface translator.
+02/23/2000	ruiliu		Changed rand() calls from all over the codes
+				to the new Converse random number generator.
+02/26/2000	milind		Simplified the converse scheduler loop by 
+				combining the maxmsgs and poll modes.
+08/31/2000	milind		Imported system documentation into the CVS tree.
+				Also added super_install target for docs with 
+				necessary Makefile modifications.
+09/08/2000	olawlor		Made soft links use relative pathnames instead 
+				of absolute.  This lets you move a charm++ 
+				installation without having to recompile 
+				anything.
+09/11/2000	olawlor		Grouped commonly needed code in the new util
+				directory. Also, added pup_c a C wrapper for
+				puppers.
+09/11/2000	olawlor		Slightly reorganized header structure.  Now no 
+				headers should need to be listed twice (once in
+				ALLHEADERS, again in CKHEADERS).  Now headers 
+				are soft-linked instead of copied.  This makes 
+				development much easier.  Added support for the
+				new Common/util directory.
+09/21/2000	olawlor		Major reorganization of net-* codes. Now all 
+				the TCP socket routines are in separate files.
+				Also combined windoes NT code with unix codes.
+09/21/2000	olawlor		Major rewrite of CCS-- underlying protocol is 
+				now binary (send/recv binary data everywhere); 
+				conv-host forwards requests to nodes; and 
+				source has been significantly re-arranged.  
+				(especially if NODE_0_IS_CONVHOST).
+11/22/2000	milind		Removed IDL translator from distribution.
+12/01/2000	olawlor		Renamed conv-host charmrun; added test for 
+				script conv-host. Also added charmrun for most 
+				other machines.
+12/17/2000	milind		Moved List related data structures into 
+				cklists.h in util. Removed most of the redundant
+				list implementations.
+12/20/2000	gzheng		SUPER_INSTALL: format the output of list of 
+				versions and make the help page fit into one 
+				page of xterm.
+12/24/2000	milind		Added test-{charm,converse,ampi,fem} targets to 
+				super_install.
+12/28/2000	milind		net-sol-smp now uses pthreads.
+01/29/2001	olawlor		Merged windowsNT and unix build procedures by
+				basing the Windows build on cygwin. Added 
+				scripts to deal with unix and windows 
+				differences.

@@ -1,0 +1,920 @@
+MADM_COMM_ALLOCATOR_INIT_SIZE = 2097152
+MADM_LOGGER_PRINT_STAT_PER_RANK = 0
+MADM_FUTURE_POOL_BUF_SIZE = 131072
+=============================================================
+[pfor]
+# of processes:                9216
+N (Input size):                16777216
+M (Leaf execution time in ns): 10000
+# of blocks:                   5
+# of repeats:                  100
+# of warmup runs:              2000
+CPU frequency:                 3.300000 GHz
+# of loop iterations at leaf:  4125
+-------------------------------------------------------------
+uth options:
+MADM_DEBUG_LEVEL = 0, MADM_DEBUG_LEVEL_RT = 5, MADM_CORES = 16, MADM_SERVER_MOD = 0, MADM_GASNET_POLL_THREAD = 0, MADM_GASNET_SEGMENT_SIZE = 0
+MADM_STACK_SIZE = 1048576, MADM_TASKQ_CAPACITY = 1024, MADM_PROFILE = 0, MADM_STEAL_LOG = 0, MADM_ABORTING_STEAL = 1
+=============================================================
+
+warmup time: 43549313906 ns
+[0] 104749269 ns ( #tasks: 83886080 work: 850961440686 ns span: 4361747 ns busy: 88.148802 % )
+  collect_future          :   0.001590 % (        15344670 ns /    965369263104 ns ) count:    56681 ave:      270 ns
+  collect_suspended       :   0.000477 % (         4600063 ns /    965369263104 ns ) count:       66 ave:    69697 ns
+  join_outstanding        :   0.073708 % (       711556176 ns /    965369263104 ns ) count:    67209 ave:    10587 ns
+  steal_success           :   2.224310 % (     21472806767 ns /    965369263104 ns ) count:   633671 ave:    33886 ns
+  steal_fail              :   7.431665 % (     71743010924 ns /    965369263104 ns ) count:  9662747 ave:     7424 ns
+  steal_task_copy         :   0.432179 % (      4172127821 ns /    965369263104 ns ) count:   633671 ave:     6584 ns
+  steal_task_size         :     1598 bytes ( 1012842076 /   633671 )
+
+[1] 105588963 ns ( #tasks: 83886080 work: 850679668373 ns span: 7192328 ns busy: 87.418845 % )
+  collect_future          :   0.001819 % (        17703487 ns /    973107883008 ns ) count:    64109 ave:      276 ns
+  collect_suspended       :   0.000556 % (         5409839 ns /    973107883008 ns ) count:       78 ave:    69356 ns
+  join_outstanding        :   0.083212 % (       809739111 ns /    973107883008 ns ) count:    75159 ave:    10773 ns
+  steal_success           :   2.420746 % (     23556468864 ns /    973107883008 ns ) count:   692771 ave:    34003 ns
+  steal_fail              :   8.060373 % (     78436123942 ns /    973107883008 ns ) count: 10567866 ave:     7422 ns
+  steal_task_copy         :   0.467046 % (      4544856952 ns /    973107883008 ns ) count:   692771 ave:     6560 ns
+  steal_task_size         :     1580 bytes ( 1094931084 /   692771 )
+
+[2] 104640108 ns ( #tasks: 83886080 work: 850694087600 ns span: 9522285 ns busy: 88.213036 % )
+  collect_future          :   0.001666 % (        16066763 ns /    964363235328 ns ) count:    58910 ave:      272 ns
+  collect_suspended       :   0.000607 % (         5853171 ns /    964363235328 ns ) count:       84 ave:    69680 ns
+  join_outstanding        :   0.074639 % (       719793921 ns /    964363235328 ns ) count:    68177 ave:    10557 ns
+  steal_success           :   2.245878 % (     21658417814 ns /    964363235328 ns ) count:   640328 ave:    33823 ns
+  steal_fail              :   7.751566 % (     74753248529 ns /    964363235328 ns ) count:  9918884 ave:     7536 ns
+  steal_task_copy         :   0.433258 % (      4178178323 ns /    964363235328 ns ) count:   640328 ave:     6525 ns
+  steal_task_size         :     1593 bytes ( 1020588896 /   640328 )
+
+[3] 105672652 ns ( #tasks: 83886080 work: 850710611240 ns span: 10032043 ns busy: 87.352789 % )
+  collect_future          :   0.001966 % (        19145078 ns /    973879160832 ns ) count:    70168 ave:      272 ns
+  collect_suspended       :   0.000780 % (         7598471 ns /    973879160832 ns ) count:      110 ave:    69077 ns
+  join_outstanding        :   0.090021 % (       876693946 ns /    973879160832 ns ) count:    83150 ave:    10543 ns
+  steal_success           :   2.615837 % (     25475087682 ns /    973879160832 ns ) count:   755547 ave:    33717 ns
+  steal_fail              :   9.676480 % (     94237225605 ns /    973879160832 ns ) count: 13739068 ave:     6859 ns
+  steal_task_copy         :   0.504450 % (      4912736817 ns /    973879160832 ns ) count:   755547 ave:     6502 ns
+  steal_task_size         :     1575 bytes ( 1190365356 /   755547 )
+
+[4] 106288055 ns ( #tasks: 83886080 work: 850700739522 ns span: 8830047 ns busy: 86.846013 % )
+  collect_future          :   0.001626 % (        15928397 ns /    979550714880 ns ) count:    57193 ave:      278 ns
+  collect_suspended       :   0.000606 % (         5932579 ns /    979550714880 ns ) count:       86 ave:    68983 ns
+  join_outstanding        :   0.071090 % (       696363119 ns /    979550714880 ns ) count:    65636 ave:    10609 ns
+  steal_success           :   2.147895 % (     21039722171 ns /    979550714880 ns ) count:   621166 ave:    33871 ns
+  steal_fail              :   9.400594 % (     92083587966 ns /    979550714880 ns ) count: 13226970 ave:     6961 ns
+  steal_task_copy         :   0.415433 % (      4069378054 ns /    979550714880 ns ) count:   621166 ave:     6551 ns
+  steal_task_size         :     1604 bytes ( 996870648 /   621166 )
+
+[5] 104669999 ns ( #tasks: 83886080 work: 850731518427 ns span: 9342992 ns busy: 88.191725 % )
+  collect_future          :   0.001740 % (        16783917 ns /    964638710784 ns ) count:    61851 ave:      271 ns
+  collect_suspended       :   0.000752 % (         7253286 ns /    964638710784 ns ) count:      105 ave:    69078 ns
+  join_outstanding        :   0.078965 % (       761727472 ns /    964638710784 ns ) count:    72171 ave:    10554 ns
+  steal_success           :   2.334358 % (     22518123242 ns /    964638710784 ns ) count:   667680 ave:    33725 ns
+  steal_fail              :   7.651375 % (     73808123353 ns /    964638710784 ns ) count:  9933522 ave:     7430 ns
+  steal_task_copy         :   0.449554 % (      4336569969 ns /    964638710784 ns ) count:   667680 ave:     6494 ns
+  steal_task_size         :     1583 bytes ( 1057390784 /   667680 )
+
+[6] 105694563 ns ( #tasks: 83886080 work: 850669422012 ns span: 8272539 ns busy: 87.330452 % )
+  collect_future          :   0.001637 % (        15948099 ns /    974081092608 ns ) count:    57977 ave:      275 ns
+  collect_suspended       :   0.000817 % (         7959850 ns /    974081092608 ns ) count:      115 ave:    69216 ns
+  join_outstanding        :   0.073092 % (       711972606 ns /    974081092608 ns ) count:    67397 ave:    10563 ns
+  steal_success           :   2.199158 % (     21421581730 ns /    974081092608 ns ) count:   632556 ave:    33865 ns
+  steal_fail              :   8.875389 % (     86453486486 ns /    974081092608 ns ) count: 12221489 ave:     7073 ns
+  steal_task_copy         :   0.424590 % (      4135853987 ns /    974081092608 ns ) count:   632556 ave:     6538 ns
+  steal_task_size         :     1597 bytes ( 1010458032 /   632556 )
+
+[7] 104850452 ns ( #tasks: 83886080 work: 850753948696 ns span: 8980653 ns busy: 88.042264 % )
+  collect_future          :   0.001626 % (        15707951 ns /    966301765632 ns ) count:    56495 ave:      278 ns
+  collect_suspended       :   0.000701 % (         6776348 ns /    966301765632 ns ) count:       98 ave:    69146 ns
+  join_outstanding        :   0.071325 % (       689213411 ns /    966301765632 ns ) count:    64694 ave:    10653 ns
+  steal_success           :   2.144817 % (     20725404895 ns /    966301765632 ns ) count:   609386 ave:    34010 ns
+  steal_fail              :   9.635870 % (     93111582224 ns /    966301765632 ns ) count: 13673883 ave:     6809 ns
+  steal_task_copy         :   0.414468 % (      4005014617 ns /    966301765632 ns ) count:   609386 ave:     6572 ns
+  steal_task_size         :     1608 bytes ( 980074536 /   609386 )
+
+[8] 105159351 ns ( #tasks: 83886080 work: 850646453562 ns span: 6576380 ns busy: 87.772553 % )
+  collect_future          :   0.001702 % (        16498904 ns /    969148578816 ns ) count:    61058 ave:      270 ns
+  collect_suspended       :   0.000860 % (         8334889 ns /    969148578816 ns ) count:      121 ave:    68883 ns
+  join_outstanding        :   0.077573 % (       751800486 ns /    969148578816 ns ) count:    71276 ave:    10547 ns
+  steal_success           :   2.317037 % (     22455530592 ns /    969148578816 ns ) count:   663979 ave:    33819 ns
+  steal_fail              :   7.924742 % (     76802523759 ns /    969148578816 ns ) count: 10152234 ave:     7565 ns
+  steal_task_copy         :   0.445727 % (      4319759268 ns /    969148578816 ns ) count:   663979 ave:     6505 ns
+  steal_task_size         :     1584 bytes ( 1052148652 /   663979 )
+
+[9] 104363387 ns ( #tasks: 83886080 work: 850632816311 ns span: 6347129 ns busy: 88.440564 % )
+  collect_future          :   0.001625 % (        15625459 ns /    961812974592 ns ) count:    57353 ave:      272 ns
+  collect_suspended       :   0.000781 % (         7514394 ns /    961812974592 ns ) count:      109 ave:    68939 ns
+  join_outstanding        :   0.072754 % (       699756250 ns /    961812974592 ns ) count:    66074 ave:    10590 ns
+  steal_success           :   2.189003 % (     21054113162 ns /    961812974592 ns ) count:   621966 ave:    33850 ns
+  steal_fail              :   7.579937 % (     72904815760 ns /    961812974592 ns ) count:  9663826 ave:     7544 ns
+  steal_task_copy         :   0.421317 % (      4052284680 ns /    961812974592 ns ) count:   621966 ave:     6515 ns
+  steal_task_size         :     1601 bytes ( 996341368 /   621966 )
+
+[10] 104387196 ns ( #tasks: 83886080 work: 850646033225 ns span: 7031378 ns busy: 88.421766 % )
+  collect_future          :   0.001702 % (        16369005 ns /    962032398336 ns ) count:    60552 ave:      270 ns
+  collect_suspended       :   0.000752 % (         7233846 ns /    962032398336 ns ) count:      105 ave:    68893 ns
+  join_outstanding        :   0.077480 % (       745384517 ns /    962032398336 ns ) count:    70682 ave:    10545 ns
+  steal_success           :   2.291785 % (     22047710649 ns /    962032398336 ns ) count:   652169 ave:    33806 ns
+  steal_fail              :   7.449062 % (     71662392330 ns /    962032398336 ns ) count:  9572305 ave:     7486 ns
+  steal_task_copy         :   0.440971 % (      4242284140 ns /    962032398336 ns ) count:   652169 ave:     6504 ns
+  steal_task_size         :     1591 bytes ( 1037618532 /   652169 )
+
+[11] 105402219 ns ( #tasks: 83886080 work: 850620929263 ns span: 5762553 ns busy: 87.567680 % )
+  collect_future          :   0.001770 % (        17189514 ns /    971386850304 ns ) count:    63715 ave:      269 ns
+  collect_suspended       :   0.001052 % (        10218390 ns /    971386850304 ns ) count:      148 ave:    69043 ns
+  join_outstanding        :   0.082254 % (       799007409 ns /    971386850304 ns ) count:    75213 ave:    10623 ns
+  steal_success           :   2.399796 % (     23311306285 ns /    971386850304 ns ) count:   689190 ave:    33824 ns
+  steal_fail              :   8.237832 % (     80021214748 ns /    971386850304 ns ) count: 10804495 ave:     7406 ns
+  steal_task_copy         :   0.461135 % (      4479404772 ns /    971386850304 ns ) count:   689190 ave:     6499 ns
+  steal_task_size         :     1579 bytes ( 1088656984 /   689190 )
+
+[12] 104645554 ns ( #tasks: 83886080 work: 850637831459 ns span: 6577711 ns busy: 88.202612 % )
+  collect_future          :   0.001674 % (        16141849 ns /    964413425664 ns ) count:    59517 ave:      271 ns
+  collect_suspended       :   0.000816 % (         7871026 ns /    964413425664 ns ) count:      114 ave:    69044 ns
+  join_outstanding        :   0.077232 % (       744831687 ns /    964413425664 ns ) count:    70284 ave:    10597 ns
+  steal_success           :   2.266849 % (     21861792008 ns /    964413425664 ns ) count:   646403 ave:    33820 ns
+  steal_fail              :   8.053278 % (     77666890464 ns /    964413425664 ns ) count: 10657302 ave:     7287 ns
+  steal_task_copy         :   0.436327 % (      4207993517 ns /    964413425664 ns ) count:   646403 ave:     6509 ns
+  steal_task_size         :     1592 bytes ( 1029665612 /   646403 )
+
+[13] 105225985 ns ( #tasks: 83886080 work: 850700569430 ns span: 9221929 ns busy: 87.722552 % )
+  collect_future          :   0.001668 % (        16179547 ns /    969762677760 ns ) count:    58726 ave:      275 ns
+  collect_suspended       :   0.001006 % (         9754150 ns /    969762677760 ns ) count:      141 ave:    69178 ns
+  join_outstanding        :   0.073993 % (       717558310 ns /    969762677760 ns ) count:    67778 ave:    10586 ns
+  steal_success           :   2.218018 % (     21509508085 ns /    969762677760 ns ) count:   636377 ave:    33799 ns
+  steal_fail              :   8.972557 % (     87012508023 ns /    969762677760 ns ) count: 12256862 ave:     7099 ns
+  steal_task_copy         :   0.428019 % (      4150765868 ns /    969762677760 ns ) count:   636377 ave:     6522 ns
+  steal_task_size         :     1597 bytes ( 1016818020 /   636377 )
+
+[14] 106066106 ns ( #tasks: 83886080 work: 850655766014 ns span: 9563464 ns busy: 87.023142 % )
+  collect_future          :   0.001620 % (        15836466 ns /    977505232896 ns ) count:    57261 ave:      276 ns
+  collect_suspended       :   0.000796 % (         7779110 ns /    977505232896 ns ) count:      113 ave:    68841 ns
+  join_outstanding        :   0.071182 % (       695805506 ns /    977505232896 ns ) count:    65460 ave:    10629 ns
+  steal_success           :   2.150069 % (     21017037772 ns /    977505232896 ns ) count:   618891 ave:    33959 ns
+  steal_fail              :   9.157556 % (     89515590867 ns /    977505232896 ns ) count: 12827363 ave:     6978 ns
+  steal_task_copy         :   0.415121 % (      4057827495 ns /    977505232896 ns ) count:   618891 ave:     6556 ns
+  steal_task_size         :     1605 bytes ( 993879916 /   618891 )
+
+[15] 104682126 ns ( #tasks: 83886080 work: 850641967873 ns span: 7091647 ns busy: 88.172226 % )
+  collect_future          :   0.001652 % (        15936119 ns /    964750473216 ns ) count:    58508 ave:      272 ns
+  collect_suspended       :   0.000996 % (         9613681 ns /    964750473216 ns ) count:      140 ave:    68669 ns
+  join_outstanding        :   0.074907 % (       722662880 ns /    964750473216 ns ) count:    68275 ave:    10584 ns
+  steal_success           :   2.229416 % (     21508298192 ns /    964750473216 ns ) count:   636559 ave:    33788 ns
+  steal_fail              :   7.622276 % (     73535943608 ns /    964750473216 ns ) count:  9872249 ave:     7448 ns
+  steal_task_copy         :   0.429213 % (      4140836661 ns /    964750473216 ns ) count:   636559 ave:     6505 ns
+  steal_task_size         :     1592 bytes ( 1013997372 /   636559 )
+
+[16] 104918882 ns ( #tasks: 83886080 work: 850655274294 ns span: 8515763 ns busy: 87.974636 % )
+  collect_future          :   0.001589 % (        15368524 ns /    966932416512 ns ) count:    55578 ave:      276 ns
+  collect_suspended       :   0.000787 % (         7607754 ns /    966932416512 ns ) count:      110 ave:    69161 ns
+  join_outstanding        :   0.069946 % (       676333662 ns /    966932416512 ns ) count:    63919 ave:    10581 ns
+  steal_success           :   2.105668 % (     20360387188 ns /    966932416512 ns ) count:   601224 ave:    33864 ns
+  steal_fail              :   9.150914 % (     88483155288 ns /    966932416512 ns ) count: 12639059 ave:     7000 ns
+  steal_task_copy         :   0.406774 % (      3933226120 ns /    966932416512 ns ) count:   601224 ave:     6542 ns
+  steal_task_size         :     1610 bytes ( 968175264 /   601224 )
+
+[17] 104439119 ns ( #tasks: 83886080 work: 850705851279 ns span: 9418920 ns busy: 88.384021 % )
+  collect_future          :   0.001700 % (        16365049 ns /    962510920704 ns ) count:    60429 ave:      270 ns
+  collect_suspended       :   0.000932 % (         8973819 ns /    962510920704 ns ) count:      131 ave:    68502 ns
+  join_outstanding        :   0.076817 % (       739372007 ns /    962510920704 ns ) count:    70169 ave:    10537 ns
+  steal_success           :   2.290237 % (     22043783278 ns /    962510920704 ns ) count:   653342 ave:    33740 ns
+  steal_fail              :   7.616804 % (     73312574419 ns /    962510920704 ns ) count:  9911514 ave:     7396 ns
+  steal_task_copy         :   0.440614 % (      4240957734 ns /    962510920704 ns ) count:   653342 ave:     6491 ns
+  steal_task_size         :     1589 bytes ( 1038746040 /   653342 )
+
+[18] 104697838 ns ( #tasks: 83886080 work: 850618337854 ns span: 5205150 ns busy: 88.156545 % )
+  collect_future          :   0.001713 % (        16531008 ns /    964895275008 ns ) count:    61096 ave:      270 ns
+  collect_suspended       :   0.001086 % (        10474732 ns /    964895275008 ns ) count:      153 ave:    68462 ns
+  join_outstanding        :   0.078246 % (       754990430 ns /    964895275008 ns ) count:    71762 ave:    10520 ns
+  steal_success           :   2.328609 % (     22468642999 ns /    964895275008 ns ) count:   665175 ave:    33778 ns
+  steal_fail              :   7.904363 % (     76268827365 ns /    964895275008 ns ) count: 10261092 ave:     7432 ns
+  steal_task_copy         :   0.447719 % (      4320022488 ns /    964895275008 ns ) count:   665175 ave:     6494 ns
+  steal_task_size         :     1586 bytes ( 1055186972 /   665175 )
+
+[19] 104644439 ns ( #tasks: 83886080 work: 850635702056 ns span: 7248360 ns busy: 88.203331 % )
+  collect_future          :   0.001639 % (        15802333 ns /    964403149824 ns ) count:    57854 ave:      273 ns
+  collect_suspended       :   0.000803 % (         7744084 ns /    964403149824 ns ) count:      113 ave:    68531 ns
+  join_outstanding        :   0.073283 % (       706745893 ns /    964403149824 ns ) count:    66873 ave:    10568 ns
+  steal_success           :   2.205577 % (     21270652947 ns /    964403149824 ns ) count:   628969 ave:    33818 ns
+  steal_fail              :   8.043444 % (     77571224264 ns /    964403149824 ns ) count: 10645607 ave:     7286 ns
+  steal_task_copy         :   0.424953 % (      4098260861 ns /    964403149824 ns ) count:   628969 ave:     6515 ns
+  steal_task_size         :     1599 bytes ( 1006024868 /   628969 )
+
+[20] 104400083 ns ( #tasks: 83886080 work: 850611585197 ns span: 6589001 ns busy: 88.407271 % )
+  collect_future          :   0.001621 % (        15593217 ns /    962151164928 ns ) count:    57175 ave:      272 ns
+  collect_suspended       :   0.001247 % (        11994290 ns /    962151164928 ns ) count:      174 ave:    68932 ns
+  join_outstanding        :   0.072431 % (       696891708 ns /    962151164928 ns ) count:    65864 ave:    10580 ns
+  steal_success           :   2.186164 % (     21034205834 ns /    962151164928 ns ) count:   621704 ave:    33833 ns
+  steal_fail              :   7.784388 % (     74897575801 ns /    962151164928 ns ) count: 10191943 ave:     7348 ns
+  steal_task_copy         :   0.421032 % (      4050968564 ns /    962151164928 ns ) count:   621704 ave:     6515 ns
+  steal_task_size         :     1604 bytes ( 997301664 /   621704 )
+
+[21] 104996684 ns ( #tasks: 83886080 work: 850643671160 ns span: 5099372 ns busy: 87.908248 % )
+  collect_future          :   0.001766 % (        17089536 ns /    967649439744 ns ) count:    63089 ave:      270 ns
+  collect_suspended       :   0.001005 % (         9729474 ns /    967649439744 ns ) count:      141 ave:    69003 ns
+  join_outstanding        :   0.081333 % (       787019930 ns /    967649439744 ns ) count:    74125 ave:    10617 ns
+  steal_success           :   2.409301 % (     23313584552 ns /    967649439744 ns ) count:   688863 ave:    33843 ns
+  steal_fail              :   8.062605 % (     78017750477 ns /    967649439744 ns ) count: 10583221 ave:     7371 ns
+  steal_task_copy         :   0.462860 % (      4478863502 ns /    967649439744 ns ) count:   688863 ave:     6501 ns
+  steal_task_size         :     1581 bytes ( 1089632700 /   688863 )
+
+[22] 104821700 ns ( #tasks: 83886080 work: 850659071878 ns span: 8784607 ns busy: 88.056592 % )
+  collect_future          :   0.001668 % (        16116509 ns /    966036787200 ns ) count:    59044 ave:      272 ns
+  collect_suspended       :   0.000999 % (         9647065 ns /    966036787200 ns ) count:      140 ave:    68907 ns
+  join_outstanding        :   0.074769 % (       722292784 ns /    966036787200 ns ) count:    68543 ave:    10537 ns
+  steal_success           :   2.244428 % (     21682004761 ns /    966036787200 ns ) count:   641584 ave:    33794 ns
+  steal_fail              :   8.088197 % (     78134958382 ns /    966036787200 ns ) count: 10506455 ave:     7436 ns
+  steal_task_copy         :   0.432185 % (      4175061424 ns /    966036787200 ns ) count:   641584 ave:     6507 ns
+  steal_task_size         :     1593 bytes ( 1022632320 /   641584 )
+
+[23] 105075997 ns ( #tasks: 83886080 work: 850645088360 ns span: 6142458 ns busy: 87.842040 % )
+  collect_future          :   0.001744 % (        16891348 ns /    968380388352 ns ) count:    62291 ave:      271 ns
+  collect_suspended       :   0.001210 % (        11714960 ns /    968380388352 ns ) count:      169 ave:    69319 ns
+  join_outstanding        :   0.079550 % (       770344777 ns /    968380388352 ns ) count:    73334 ave:    10504 ns
+  steal_success           :   2.351222 % (     22768775377 ns /    968380388352 ns ) count:   676289 ave:    33667 ns
+  steal_fail              :   8.290633 % (     80284863726 ns /    968380388352 ns ) count: 10911729 ave:     7357 ns
+  steal_task_copy         :   0.452412 % (      4381065330 ns /    968380388352 ns ) count:   676289 ave:     6478 ns
+  steal_task_size         :     1582 bytes ( 1070144580 /   676289 )
+
+[24] 105497268 ns ( #tasks: 83886080 work: 850627055298 ns span: 6819313 ns busy: 87.489415 % )
+  collect_future          :   0.001579 % (        15355087 ns /    972262821888 ns ) count:    55358 ave:      277 ns
+  collect_suspended       :   0.001116 % (        10852362 ns /    972262821888 ns ) count:      158 ave:    68685 ns
+  join_outstanding        :   0.069910 % (       679706127 ns /    972262821888 ns ) count:    64027 ave:    10615 ns
+  steal_success           :   2.093530 % (     20354612402 ns /    972262821888 ns ) count:   600536 ave:    33894 ns
+  steal_fail              :   8.918574 % (     86711982994 ns /    972262821888 ns ) count: 12528774 ave:     6921 ns
+  steal_task_copy         :   0.404118 % (      3929093347 ns /    972262821888 ns ) count:   600536 ave:     6542 ns
+  steal_task_size         :     1614 bytes ( 969371296 /   600536 )
+
+[25] 105306630 ns ( #tasks: 83886080 work: 850634219576 ns span: 7496595 ns busy: 87.648536 % )
+  collect_future          :   0.001673 % (        16236267 ns /    970505902080 ns ) count:    59256 ave:      274 ns
+  collect_suspended       :   0.001186 % (        11514170 ns /    970505902080 ns ) count:      166 ave:    69362 ns
+  join_outstanding        :   0.075108 % (       728927408 ns /    970505902080 ns ) count:    69176 ave:    10537 ns
+  steal_success           :   2.242652 % (     21765072800 ns /    970505902080 ns ) count:   644574 ave:    33766 ns
+  steal_fail              :   9.229159 % (     89569533162 ns /    970505902080 ns ) count: 12781634 ave:     7007 ns
+  steal_task_copy         :   0.432545 % (      4197879585 ns /    970505902080 ns ) count:   644574 ave:     6512 ns
+  steal_task_size         :     1592 bytes ( 1026791736 /   644574 )
+
+[26] 104845561 ns ( #tasks: 83886080 work: 850636336513 ns span: 7259929 ns busy: 88.034199 % )
+  collect_future          :   0.001667 % (        16104523 ns /    966256690176 ns ) count:    58776 ave:      273 ns
+  collect_suspended       :   0.001076 % (        10393562 ns /    966256690176 ns ) count:      150 ave:    69290 ns
+  join_outstanding        :   0.074439 % (       719274454 ns /    966256690176 ns ) count:    68123 ave:    10558 ns
+  steal_success           :   2.232304 % (     21569782362 ns /    966256690176 ns ) count:   638543 ave:    33779 ns
+  steal_fail              :   8.436879 % (     81521905285 ns /    966256690176 ns ) count: 11404463 ave:     7148 ns
+  steal_task_copy         :   0.430362 % (      4158405218 ns /    966256690176 ns ) count:   638543 ave:     6512 ns
+  steal_task_size         :     1597 bytes ( 1019933692 /   638543 )
+
+[27] 104382417 ns ( #tasks: 83886080 work: 850648579489 ns span: 7453918 ns busy: 88.426079 % )
+  collect_future          :   0.001683 % (        16191069 ns /    961988355072 ns ) count:    59774 ave:      270 ns
+  collect_suspended       :   0.001367 % (        13151045 ns /    961988355072 ns ) count:      190 ave:    69216 ns
+  join_outstanding        :   0.076643 % (       737299617 ns /    961988355072 ns ) count:    70104 ave:    10517 ns
+  steal_success           :   2.284082 % (     21972605739 ns /    961988355072 ns ) count:   651943 ave:    33703 ns
+  steal_fail              :   7.725858 % (     74321851680 ns /    961988355072 ns ) count: 10152018 ave:     7320 ns
+  steal_task_copy         :   0.439482 % (      4227761466 ns /    961988355072 ns ) count:   651943 ave:     6484 ns
+  steal_task_size         :     1588 bytes ( 1035498076 /   651943 )
+
+[28] 104793532 ns ( #tasks: 83886080 work: 850646109287 ns span: 9164773 ns busy: 88.078919 % )
+  collect_future          :   0.001679 % (        16216107 ns /    965777190912 ns ) count:    58816 ave:      275 ns
+  collect_suspended       :   0.001215 % (        11737261 ns /    965777190912 ns ) count:      169 ave:    69451 ns
+  join_outstanding        :   0.075198 % (       726241294 ns /    965777190912 ns ) count:    68589 ave:    10588 ns
+  steal_success           :   2.247821 % (     21708946044 ns /    965777190912 ns ) count:   641436 ave:    33844 ns
+  steal_fail              :  10.532926 % (    101724600122 ns /    965777190912 ns ) count: 15091611 ave:     6740 ns
+  steal_task_copy         :   0.433650 % (      4188090245 ns /    965777190912 ns ) count:   641436 ave:     6529 ns
+  steal_task_size         :     1595 bytes ( 1023251632 /   641436 )
+
+[29] 105572535 ns ( #tasks: 83886080 work: 850626414460 ns span: 4952702 ns busy: 87.426974 % )
+  collect_future          :   0.001922 % (        18699977 ns /    972956482560 ns ) count:    69602 ave:      268 ns
+  collect_suspended       :   0.001327 % (        12908568 ns /    972956482560 ns ) count:      186 ave:    69400 ns
+  join_outstanding        :   0.090706 % (       882530481 ns /    972956482560 ns ) count:    83705 ave:    10543 ns
+  steal_success           :   2.644046 % (     25725416729 ns /    972956482560 ns ) count:   762784 ave:    33725 ns
+  steal_fail              :   8.666824 % (     84324426933 ns /    972956482560 ns ) count: 11897689 ave:     7087 ns
+  steal_task_copy         :   0.507557 % (      4938306200 ns /    972956482560 ns ) count:   762784 ave:     6474 ns
+  steal_task_size         :     1574 bytes ( 1201203840 /   762784 )
+
+[30] 104628861 ns ( #tasks: 83886080 work: 850616157049 ns span: 7460295 ns busy: 88.214436 % )
+  collect_future          :   0.001603 % (        15460004 ns /    964259582976 ns ) count:    56591 ave:      273 ns
+  collect_suspended       :   0.001091 % (        10519403 ns /    964259582976 ns ) count:      152 ave:    69206 ns
+  join_outstanding        :   0.071368 % (       688170359 ns /    964259582976 ns ) count:    65307 ave:    10537 ns
+  steal_success           :   2.144349 % (     20677087543 ns /    964259582976 ns ) count:   612140 ave:    33778 ns
+  steal_fail              :   8.073182 % (     77846432683 ns /    964259582976 ns ) count: 10816561 ave:     7196 ns
+  steal_task_copy         :   0.413452 % (      3986747235 ns /    964259582976 ns ) count:   612140 ave:     6512 ns
+  steal_task_size         :     1605 bytes ( 982997744 /   612140 )
+
+[31] 105611501 ns ( #tasks: 83886080 work: 850622937273 ns span: 5302912 ns busy: 87.394360 % )
+  collect_future          :   0.001596 % (        15537534 ns /    973315593216 ns ) count:    56223 ave:      276 ns
+  collect_suspended       :   0.001166 % (        11348463 ns /    973315593216 ns ) count:      163 ave:    69622 ns
+  join_outstanding        :   0.071791 % (       698754611 ns /    973315593216 ns ) count:    64475 ave:    10837 ns
+  steal_success           :   2.139790 % (     20826914512 ns /    973315593216 ns ) count:   610762 ave:    34099 ns
+  steal_fail              :   9.897628 % (     96335157075 ns /    973315593216 ns ) count: 13965466 ave:     6898 ns
+  steal_task_copy         :   0.412289 % (      4012874848 ns /    973315593216 ns ) count:   610762 ave:     6570 ns
+  steal_task_size         :     1609 bytes ( 983149416 /   610762 )
+
+[32] 106072012 ns ( #tasks: 83886080 work: 850672331374 ns span: 9537663 ns busy: 87.019991 % )
+  collect_future          :   0.001648 % (        16111571 ns /    977559662592 ns ) count:    58813 ave:      273 ns
+  collect_suspended       :   0.001193 % (        11665489 ns /    977559662592 ns ) count:      169 ave:    69026 ns
+  join_outstanding        :   0.074230 % (       725646111 ns /    977559662592 ns ) count:    68562 ave:    10583 ns
+  steal_success           :   2.212121 % (     21624806457 ns /    977559662592 ns ) count:   638248 ave:    33881 ns
+  steal_fail              :   8.959314 % (     87582643898 ns /    977559662592 ns ) count: 12389005 ave:     7069 ns
+  steal_task_copy         :   0.426194 % (      4166305300 ns /    977559662592 ns ) count:   638248 ave:     6527 ns
+  steal_task_size         :     1596 bytes ( 1019160160 /   638248 )
+
+[33] 104640895 ns ( #tasks: 83886080 work: 850631738458 ns span: 4992581 ns busy: 88.205907 % )
+  collect_future          :   0.001630 % (        15719202 ns /    964370488320 ns ) count:    57432 ave:      273 ns
+  collect_suspended       :   0.001215 % (        11715101 ns /    964370488320 ns ) count:      168 ave:    69732 ns
+  join_outstanding        :   0.073602 % (       709799230 ns /    964370488320 ns ) count:    66972 ave:    10598 ns
+  steal_success           :   2.203571 % (     21250588122 ns /    964370488320 ns ) count:   627837 ave:    33847 ns
+  steal_fail              :   7.824493 % (     75457103839 ns /    964370488320 ns ) count: 10301435 ave:     7324 ns
+  steal_task_copy         :   0.424599 % (      4094708872 ns /    964370488320 ns ) count:   627837 ave:     6521 ns
+  steal_task_size         :     1599 bytes ( 1004458932 /   627837 )
+
+[34] 104802070 ns ( #tasks: 83886080 work: 850632997586 ns span: 7316766 ns busy: 88.070386 % )
+  collect_future          :   0.001672 % (        16153334 ns /    965855877120 ns ) count:    59472 ave:      271 ns
+  collect_suspended       :   0.001312 % (        12671580 ns /    965855877120 ns ) count:      183 ave:    69243 ns
+  join_outstanding        :   0.076044 % (       734472244 ns /    965855877120 ns ) count:    69796 ave:    10523 ns
+  steal_success           :   2.252735 % (     21758178078 ns /    965855877120 ns ) count:   645234 ave:    33721 ns
+  steal_fail              :   8.150004 % (     78717294291 ns /    965855877120 ns ) count: 11007905 ave:     7150 ns
+  steal_task_copy         :   0.433913 % (      4190974135 ns /    965855877120 ns ) count:   645234 ave:     6495 ns
+  steal_task_size         :     1592 bytes ( 1027705544 /   645234 )
+
+[35] 104524621 ns ( #tasks: 83886080 work: 850644815298 ns span: 6563882 ns busy: 88.305386 % )
+  collect_future          :   0.001705 % (        16420101 ns /    963298907136 ns ) count:    61073 ave:      268 ns
+  collect_suspended       :   0.001448 % (        13949829 ns /    963298907136 ns ) count:      201 ave:    69402 ns
+  join_outstanding        :   0.079052 % (       761506192 ns /    963298907136 ns ) count:    72305 ave:    10531 ns
+  steal_success           :   2.341379 % (     22554475171 ns /    963298907136 ns ) count:   668603 ave:    33733 ns
+  steal_fail              :   7.370047 % (     70995582868 ns /    963298907136 ns ) count:  9501080 ave:     7472 ns
+  steal_task_copy         :   0.449766 % (      4332590331 ns /    963298907136 ns ) count:   668603 ave:     6480 ns
+  steal_task_size         :     1588 bytes ( 1061946028 /   668603 )
+
+[36] 104497907 ns ( #tasks: 83886080 work: 850652647454 ns span: 8142008 ns busy: 88.328773 % )
+  collect_future          :   0.001627 % (        15664822 ns /    963052710912 ns ) count:    57531 ave:      272 ns
+  collect_suspended       :   0.001207 % (        11625288 ns /    963052710912 ns ) count:      167 ave:    69612 ns
+  join_outstanding        :   0.073212 % (       705068058 ns /    963052710912 ns ) count:    66761 ave:    10561 ns
+  steal_success           :   2.202489 % (     21211128507 ns /    963052710912 ns ) count:   627810 ave:    33785 ns
+  steal_fail              :   7.703810 % (     74191752240 ns /    963052710912 ns ) count: 10059058 ave:     7375 ns
+  steal_task_copy         :   0.423762 % (      4081047012 ns /    963052710912 ns ) count:   627810 ave:     6500 ns
+  steal_task_size         :     1599 bytes ( 1004043912 /   627810 )
+
+[37] 105760393 ns ( #tasks: 83886080 work: 850659235983 ns span: 7531052 ns busy: 87.275049 % )
+  collect_future          :   0.001677 % (        16348795 ns /    974687781888 ns ) count:    59270 ave:      275 ns
+  collect_suspended       :   0.001197 % (        11670903 ns /    974687781888 ns ) count:      167 ave:    69885 ns
+  join_outstanding        :   0.074563 % (       726751933 ns /    974687781888 ns ) count:    68850 ave:    10555 ns
+  steal_success           :   2.236736 % (     21801187831 ns /    974687781888 ns ) count:   645130 ave:    33793 ns
+  steal_fail              :   9.619547 % (     93760546106 ns /    974687781888 ns ) count: 13627444 ave:     6880 ns
+  steal_task_copy         :   0.431396 % (      4204767235 ns /    974687781888 ns ) count:   645130 ave:     6517 ns
+  steal_task_size         :     1595 bytes ( 1029356904 /   645130 )
+
+[38] 104722459 ns ( #tasks: 83886080 work: 850624210443 ns span: 7273521 ns busy: 88.136427 % )
+  collect_future          :   0.001670 % (        16121789 ns /    965122182144 ns ) count:    59180 ave:      272 ns
+  collect_suspended       :   0.001352 % (        13052109 ns /    965122182144 ns ) count:      184 ave:    70935 ns
+  join_outstanding        :   0.076081 % (       734275334 ns /    965122182144 ns ) count:    69434 ave:    10575 ns
+  steal_success           :   2.271209 % (     21919940761 ns /    965122182144 ns ) count:   648050 ave:    33824 ns
+  steal_fail              :   8.331600 % (     80410116448 ns /    965122182144 ns ) count: 11070458 ave:     7263 ns
+  steal_task_copy         :   0.436534 % (      4213083725 ns /    965122182144 ns ) count:   648050 ave:     6501 ns
+  steal_task_size         :     1592 bytes ( 1032226568 /   648050 )
+
+[39] 105391937 ns ( #tasks: 83886080 work: 850651574926 ns span: 9588055 ns busy: 87.579378 % )
+  collect_future          :   0.001719 % (        16694252 ns /    971292091392 ns ) count:    61574 ave:      271 ns
+  collect_suspended       :   0.001174 % (        11400997 ns /    971292091392 ns ) count:      163 ave:    69944 ns
+  join_outstanding        :   0.079391 % (       771122905 ns /    971292091392 ns ) count:    73071 ave:    10553 ns
+  steal_success           :   2.336997 % (     22699066759 ns /    971292091392 ns ) count:   673232 ave:    33716 ns
+  steal_fail              :   8.303116 % (     80647508300 ns /    971292091392 ns ) count: 11200233 ave:     7200 ns
+  steal_task_copy         :   0.449627 % (      4367196079 ns /    971292091392 ns ) count:   673232 ave:     6486 ns
+  steal_task_size         :     1585 bytes ( 1067285056 /   673232 )
+
+[40] 105336605 ns ( #tasks: 83886080 work: 850634698736 ns span: 9432240 ns busy: 87.623644 % )
+  collect_future          :   0.001689 % (        16397088 ns /    970782151680 ns ) count:    59991 ave:      273 ns
+  collect_suspended       :   0.001326 % (        12872897 ns /    970782151680 ns ) count:      183 ave:    70343 ns
+  join_outstanding        :   0.076263 % (       740348210 ns /    970782151680 ns ) count:    70248 ave:    10539 ns
+  steal_success           :   2.269297 % (     22029929201 ns /    970782151680 ns ) count:   653184 ave:    33726 ns
+  steal_fail              :   8.769067 % (     85128539209 ns /    970782151680 ns ) count: 12175479 ave:     6991 ns
+  steal_task_copy         :   0.437012 % (      4242434667 ns /    970782151680 ns ) count:   653184 ave:     6495 ns
+  steal_task_size         :     1592 bytes ( 1039936000 /   653184 )
+
+[41] 104879854 ns ( #tasks: 83886080 work: 850612914122 ns span: 3494265 ns busy: 88.002991 % )
+  collect_future          :   0.001672 % (        16163051 ns /    966572734464 ns ) count:    59538 ave:      271 ns
+  collect_suspended       :   0.001045 % (        10104283 ns /    966572734464 ns ) count:      145 ave:    69684 ns
+  join_outstanding        :   0.076302 % (       737513842 ns /    966572734464 ns ) count:    70146 ave:    10513 ns
+  steal_success           :   2.264416 % (     21887227099 ns /    966572734464 ns ) count:   649187 ave:    33714 ns
+  steal_fail              :   8.252564 % (     79767034065 ns /    966572734464 ns ) count: 10925551 ave:     7300 ns
+  steal_task_copy         :   0.435422 % (      4208674276 ns /    966572734464 ns ) count:   649187 ave:     6482 ns
+  steal_task_size         :     1588 bytes ( 1031325068 /   649187 )
+
+[42] 105447590 ns ( #tasks: 83886080 work: 850643644387 ns span: 5023559 ns busy: 87.532340 % )
+  collect_future          :   0.001601 % (        15554345 ns /    971804989440 ns ) count:    55977 ave:      277 ns
+  collect_suspended       :   0.000697 % (         6769640 ns /    971804989440 ns ) count:       96 ave:    70517 ns
+  join_outstanding        :   0.071496 % (       694803508 ns /    971804989440 ns ) count:    64652 ave:    10746 ns
+  steal_success           :   2.142385 % (     20819807967 ns /    971804989440 ns ) count:   609711 ave:    34147 ns
+  steal_fail              :   8.798139 % (     85500754998 ns /    971804989440 ns ) count: 12040904 ave:     7100 ns
+  steal_task_copy         :   0.412437 % (      4008087438 ns /    971804989440 ns ) count:   609711 ave:     6573 ns
+  steal_task_size         :     1608 bytes ( 980620476 /   609711 )
+
+[43] 104542784 ns ( #tasks: 83886080 work: 850633992105 ns span: 6495479 ns busy: 88.288920 % )
+  collect_future          :   0.001686 % (        16247011 ns /    963466297344 ns ) count:    59912 ave:      271 ns
+  collect_suspended       :   0.001020 % (         9828781 ns /    963466297344 ns ) count:      139 ave:    70710 ns
+  join_outstanding        :   0.077396 % (       745685997 ns /    963466297344 ns ) count:    70773 ave:    10536 ns
+  steal_success           :   2.299330 % (     22153269842 ns /    963466297344 ns ) count:   656758 ave:    33731 ns
+  steal_fail              :   7.656578 % (     73768546661 ns /    963466297344 ns ) count:  9918804 ave:     7437 ns
+  steal_task_copy         :   0.442038 % (      4258890639 ns /    963466297344 ns ) count:   656758 ave:     6484 ns
+  steal_task_size         :     1587 bytes ( 1042596376 /   656758 )
+
+[44] 105005404 ns ( #tasks: 83886080 work: 850639791466 ns span: 5751489 ns busy: 87.900547 % )
+  collect_future          :   0.001658 % (        16048500 ns /    967729803264 ns ) count:    58640 ave:      273 ns
+  collect_suspended       :   0.001053 % (        10186872 ns /    967729803264 ns ) count:      142 ave:    71738 ns
+  join_outstanding        :   0.074996 % (       725756751 ns /    967729803264 ns ) count:    68241 ave:    10635 ns
+  steal_success           :   2.246554 % (     21740568791 ns /    967729803264 ns ) count:   640691 ave:    33933 ns
+  steal_fail              :   8.214501 % (     79494170666 ns /    967729803264 ns ) count: 11005658 ave:     7223 ns
+  steal_task_copy         :   0.431622 % (      4176931912 ns /    967729803264 ns ) count:   640691 ave:     6519 ns
+  steal_task_size         :     1595 bytes ( 1021983820 /   640691 )
+
+[45] 105962766 ns ( #tasks: 83886080 work: 850695128182 ns span: 7937545 ns busy: 87.112042 % )
+  collect_future          :   0.001704 % (        16644262 ns /    976552851456 ns ) count:    60648 ave:      274 ns
+  collect_suspended       :   0.000961 % (         9387104 ns /    976552851456 ns ) count:      130 ave:    72208 ns
+  join_outstanding        :   0.077173 % (       753631359 ns /    976552851456 ns ) count:    71488 ave:    10542 ns
+  steal_success           :   2.284664 % (     22310949683 ns /    976552851456 ns ) count:   661094 ave:    33748 ns
+  steal_fail              :  10.392285 % (    101486155914 ns /    976552851456 ns ) count: 15092015 ave:     6724 ns
+  steal_task_copy         :   0.440262 % (      4299391764 ns /    976552851456 ns ) count:   661094 ave:     6503 ns
+  steal_task_size         :     1590 bytes ( 1051259224 /   661094 )
+
+[46] 105643174 ns ( #tasks: 83886080 work: 850710329337 ns span: 10041213 ns busy: 87.377135 % )
+  collect_future          :   0.001598 % (        15562607 ns /    973607491584 ns ) count:    56560 ave:      275 ns
+  collect_suspended       :   0.000802 % (         7806782 ns /    973607491584 ns ) count:      110 ave:    70970 ns
+  join_outstanding        :   0.071280 % (       693987684 ns /    973607491584 ns ) count:    65549 ave:    10587 ns
+  steal_success           :   2.139615 % (     20831451081 ns /    973607491584 ns ) count:   615564 ave:    33841 ns
+  steal_fail              :   8.508457 % (     82838978632 ns /    973607491584 ns ) count: 11522816 ave:     7189 ns
+  steal_task_copy         :   0.412176 % (      4012980788 ns /    973607491584 ns ) count:   615564 ave:     6519 ns
+  steal_task_size         :     1605 bytes ( 988449904 /   615564 )
+
+[47] 105494974 ns ( #tasks: 83886080 work: 850606267898 ns span: 4076837 ns busy: 87.489179 % )
+  collect_future          :   0.001740 % (        16918143 ns /    972241680384 ns ) count:    61672 ave:      274 ns
+  collect_suspended       :   0.000955 % (         9286568 ns /    972241680384 ns ) count:      129 ave:    71988 ns
+  join_outstanding        :   0.078705 % (       765202237 ns /    972241680384 ns ) count:    72483 ave:    10556 ns
+  steal_success           :   2.340691 % (     22757178227 ns /    972241680384 ns ) count:   674113 ave:    33758 ns
+  steal_fail              :   9.412531 % (     91512546689 ns /    972241680384 ns ) count: 13074620 ave:     6999 ns
+  steal_task_copy         :   0.450999 % (      4384799000 ns /    972241680384 ns ) count:   674113 ave:     6504 ns
+  steal_task_size         :     1584 bytes ( 1068050436 /   674113 )
+
+[48] 104463155 ns ( #tasks: 83886080 work: 850638425403 ns span: 8414423 ns busy: 88.356681 % )
+  collect_future          :   0.001685 % (        16220190 ns /    962732436480 ns ) count:    59478 ave:      272 ns
+  collect_suspended       :   0.000850 % (         8187413 ns /    962732436480 ns ) count:      116 ave:    70581 ns
+  join_outstanding        :   0.076293 % (       734498083 ns /    962732436480 ns ) count:    69496 ave:    10568 ns
+  steal_success           :   2.284177 % (     21990511103 ns /    962732436480 ns ) count:   651208 ave:    33768 ns
+  steal_fail              :   7.799966 % (     75092800678 ns /    962732436480 ns ) count: 10337065 ave:     7264 ns
+  steal_task_copy         :   0.439025 % (      4226633524 ns /    962732436480 ns ) count:   651208 ave:     6490 ns
+  steal_task_size         :     1589 bytes ( 1035354592 /   651208 )
+
+[49] 105643990 ns ( #tasks: 83886080 work: 850637944929 ns span: 6467980 ns busy: 87.369025 % )
+  collect_future          :   0.001685 % (        16401422 ns /    973615011840 ns ) count:    59979 ave:      273 ns
+  collect_suspended       :   0.000808 % (         7869256 ns /    973615011840 ns ) count:      109 ave:    72195 ns
+  join_outstanding        :   0.076382 % (       743669121 ns /    973615011840 ns ) count:    70644 ave:    10526 ns
+  steal_success           :   2.270905 % (     22109868094 ns /    973615011840 ns ) count:   655422 ave:    33733 ns
+  steal_fail              :   8.621496 % (     83940178794 ns /    973615011840 ns ) count: 11776808 ave:     7127 ns
+  steal_task_copy         :   0.436921 % (      4253926191 ns /    973615011840 ns ) count:   655422 ave:     6490 ns
+  steal_task_size         :     1590 bytes ( 1042474424 /   655422 )
+
+[50] 107294008 ns ( #tasks: 83886080 work: 850671841879 ns span: 11050281 ns busy: 86.028851 % )
+  collect_future          :   0.001563 % (        15458554 ns /    988821577728 ns ) count:    55002 ave:      281 ns
+  collect_suspended       :   0.000577 % (         5701906 ns /    988821577728 ns ) count:       80 ave:    71273 ns
+  join_outstanding        :   0.068932 % (       681614972 ns /    988821577728 ns ) count:    63517 ave:    10731 ns
+  steal_success           :   2.066362 % (     20432630079 ns /    988821577728 ns ) count:   600163 ave:    34045 ns
+  steal_fail              :  10.354104 % (    102383618951 ns /    988821577728 ns ) count: 14961740 ave:     6843 ns
+  steal_task_copy         :   0.399072 % (      3946108767 ns /    988821577728 ns ) count:   600163 ave:     6575 ns
+  steal_task_size         :     1616 bytes ( 970247628 /   600163 )
+
+[51] 104640108 ns ( #tasks: 83886080 work: 850641017835 ns span: 7589664 ns busy: 88.207533 % )
+  collect_future          :   0.001703 % (        16421598 ns /    964363235328 ns ) count:    60515 ave:      271 ns
+  collect_suspended       :   0.000537 % (         5177142 ns /    964363235328 ns ) count:       71 ave:    72917 ns
+  join_outstanding        :   0.077524 % (       747612191 ns /    964363235328 ns ) count:    70835 ave:    10554 ns
+  steal_success           :   2.302137 % (     22200966005 ns /    964363235328 ns ) count:   657627 ave:    33759 ns
+  steal_fail              :   7.776693 % (     74995572344 ns /    964363235328 ns ) count: 10105747 ave:     7421 ns
+  steal_task_copy         :   0.442505 % (      4267355927 ns /    964363235328 ns ) count:   657627 ave:     6489 ns
+  steal_task_size         :     1588 bytes ( 1044535724 /   657627 )
+
+[52] 104685704 ns ( #tasks: 83886080 work: 850626384946 ns span: 5056220 ns busy: 88.167597 % )
+  collect_future          :   0.001638 % (        15804518 ns /    964783448064 ns ) count:    57990 ave:      272 ns
+  collect_suspended       :   0.000560 % (         5405835 ns /    964783448064 ns ) count:       73 ave:    74052 ns
+  join_outstanding        :   0.074716 % (       720851701 ns /    964783448064 ns ) count:    68220 ave:    10566 ns
+  steal_success           :   2.233254 % (     21546062747 ns /    964783448064 ns ) count:   637717 ave:    33786 ns
+  steal_fail              :   8.058257 % (     77744731383 ns /    964783448064 ns ) count: 10540464 ave:     7375 ns
+  steal_task_copy         :   0.429583 % (      4144544579 ns /    964783448064 ns ) count:   637717 ave:     6499 ns
+  steal_task_size         :     1597 bytes ( 1018472660 /   637717 )
+
+[53] 104769917 ns ( #tasks: 83886080 work: 850680889293 ns span: 9269988 ns busy: 88.102374 % )
+  collect_future          :   0.001661 % (        16035325 ns /    965559555072 ns ) count:    58756 ave:      272 ns
+  collect_suspended       :   0.000565 % (         5454910 ns /    965559555072 ns ) count:       74 ave:    73715 ns
+  join_outstanding        :   0.075169 % (       725799020 ns /    965559555072 ns ) count:    68498 ave:    10595 ns
+  steal_success           :   2.256774 % (     21790493791 ns /    965559555072 ns ) count:   643777 ave:    33847 ns
+  steal_fail              :   8.042898 % (     77658968200 ns /    965559555072 ns ) count: 10544176 ave:     7365 ns
+  steal_task_copy         :   0.433785 % (      4188449671 ns /    965559555072 ns ) count:   643777 ave:     6506 ns
+  steal_task_size         :     1593 bytes ( 1025737156 /   643777 )
+
+[54] 104691978 ns ( #tasks: 83886080 work: 850662266574 ns span: 6914877 ns busy: 88.166032 % )
+  collect_future          :   0.001642 % (        15837967 ns /    964841269248 ns ) count:    57957 ave:      273 ns
+  collect_suspended       :   0.000557 % (         5369575 ns /    964841269248 ns ) count:       76 ave:    70652 ns
+  join_outstanding        :   0.074871 % (       722381624 ns /    964841269248 ns ) count:    68097 ave:    10608 ns
+  steal_success           :   2.235766 % (     21571596092 ns /    964841269248 ns ) count:   635906 ave:    33922 ns
+  steal_fail              :   7.923011 % (     76444480732 ns /    964841269248 ns ) count: 10418556 ave:     7337 ns
+  steal_task_copy         :   0.429419 % (      4143209771 ns /    964841269248 ns ) count:   635906 ave:     6515 ns
+  steal_task_size         :     1596 bytes ( 1014964744 /   635906 )
+
+[55] 104567683 ns ( #tasks: 83886080 work: 850626164027 ns span: 6481894 ns busy: 88.267085 % )
+  collect_future          :   0.001689 % (        16279999 ns /    963695766528 ns ) count:    60086 ave:      270 ns
+  collect_suspended       :   0.000420 % (         4047706 ns /    963695766528 ns ) count:       56 ave:    72280 ns
+  join_outstanding        :   0.077803 % (       749788906 ns /    963695766528 ns ) count:    71397 ave:    10501 ns
+  steal_success           :   2.302103 % (     22185266855 ns /    963695766528 ns ) count:   658748 ave:    33677 ns
+  steal_fail              :   8.228621 % (     79298870146 ns /    963695766528 ns ) count: 11035530 ave:     7185 ns
+  steal_task_copy         :   0.442539 % (      4264730378 ns /    963695766528 ns ) count:   658748 ave:     6473 ns
+  steal_task_size         :     1585 bytes ( 1044607280 /   658748 )
+
+[56] 105152991 ns ( #tasks: 83886080 work: 850640270324 ns span: 7745789 ns busy: 87.777224 % )
+  collect_future          :   0.001629 % (        15788202 ns /    969089965056 ns ) count:    57865 ave:      272 ns
+  collect_suspended       :   0.000555 % (         5380216 ns /    969089965056 ns ) count:       74 ave:    72705 ns
+  join_outstanding        :   0.073707 % (       714291190 ns /    969089965056 ns ) count:    67664 ave:    10556 ns
+  steal_success           :   2.205391 % (     21372226174 ns /    969089965056 ns ) count:   632688 ave:    33780 ns
+  steal_fail              :   8.155472 % (     79033857936 ns /    969089965056 ns ) count: 10711561 ave:     7378 ns
+  steal_task_copy         :   0.424266 % (      4111518670 ns /    969089965056 ns ) count:   632688 ave:     6498 ns
+  steal_task_size         :     1598 bytes ( 1011197696 /   632688 )
+
+[57] 104531928 ns ( #tasks: 83886080 work: 850637700428 ns span: 5697517 ns busy: 88.298474 % )
+  collect_future          :   0.001644 % (        15836276 ns /    963366248448 ns ) count:    57710 ave:      274 ns
+  collect_suspended       :   0.000493 % (         4746566 ns /    963366248448 ns ) count:       64 ave:    74165 ns
+  join_outstanding        :   0.073977 % (       712668420 ns /    963366248448 ns ) count:    67460 ave:    10564 ns
+  steal_success           :   2.216506 % (     21353067240 ns /    963366248448 ns ) count:   630173 ave:    33884 ns
+  steal_fail              :   8.817348 % (     84943356198 ns /    963366248448 ns ) count: 11966918 ave:     7098 ns
+  steal_task_copy         :   0.426326 % (      4107078922 ns /    963366248448 ns ) count:   630173 ave:     6517 ns
+  steal_task_size         :     1599 bytes ( 1007705332 /   630173 )
+
+[58] 104569841 ns ( #tasks: 83886080 work: 850666849446 ns span: 5272900 ns busy: 88.269485 % )
+  collect_future          :   0.001662 % (        16014931 ns /    963715654656 ns ) count:    58397 ave:      274 ns
+  collect_suspended       :   0.000361 % (         3476953 ns /    963715654656 ns ) count:       47 ave:    73977 ns
+  join_outstanding        :   0.075525 % (       727847585 ns /    963715654656 ns ) count:    68958 ave:    10554 ns
+  steal_success           :   2.250304 % (     21686534885 ns /    963715654656 ns ) count:   641732 ave:    33793 ns
+  steal_fail              :   8.955924 % (     86309645473 ns /    963715654656 ns ) count: 12355868 ave:     6985 ns
+  steal_task_copy         :   0.433188 % (      4174703286 ns /    963715654656 ns ) count:   641732 ave:     6505 ns
+  steal_task_size         :     1595 bytes ( 1023875856 /   641732 )
+
+[59] 104397376 ns ( #tasks: 83886080 work: 850660943617 ns span: 7203159 ns busy: 88.414693 % )
+  collect_future          :   0.001647 % (        15842451 ns /    962126217216 ns ) count:    58611 ave:      270 ns
+  collect_suspended       :   0.000492 % (         4732837 ns /    962126217216 ns ) count:       50 ave:    94656 ns
+  join_outstanding        :   0.076065 % (       731841755 ns /    962126217216 ns ) count:    69427 ave:    10541 ns
+  steal_success           :   2.255619 % (     21701899404 ns /    962126217216 ns ) count:   642739 ave:    33764 ns
+  steal_fail              :   7.522637 % (     72377267445 ns /    962126217216 ns ) count:  9560829 ave:     7570 ns
+  steal_task_copy         :   0.433073 % (      4166713601 ns /    962126217216 ns ) count:   642739 ave:     6482 ns
+  steal_task_size         :     1593 bytes ( 1024098060 /   642739 )
+
+[60] 104347518 ns ( #tasks: 83886080 work: 850628721090 ns span: 6526856 ns busy: 88.453588 % )
+  collect_future          :   0.001589 % (        15281000 ns /    961666725888 ns ) count:    55991 ave:      272 ns
+  collect_suspended       :   0.000300 % (         2882267 ns /    961666725888 ns ) count:       39 ave:    73904 ns
+  join_outstanding        :   0.071426 % (       686881176 ns /    961666725888 ns ) count:    65040 ave:    10560 ns
+  steal_success           :   2.148399 % (     20660436779 ns /    961666725888 ns ) count:   611164 ave:    33805 ns
+  steal_fail              :   7.918689 % (     76151399372 ns /    961666725888 ns ) count: 10429186 ave:     7301 ns
+  steal_task_copy         :   0.413496 % (      3976456571 ns /    961666725888 ns ) count:   611164 ave:     6506 ns
+  steal_task_size         :     1609 bytes ( 983386352 /   611164 )
+
+[61] 105145101 ns ( #tasks: 83886080 work: 850665138211 ns span: 7876709 ns busy: 87.786377 % )
+  collect_future          :   0.001827 % (        17703520 ns /    969017250816 ns ) count:    65176 ave:      271 ns
+  collect_suspended       :   0.000369 % (         3571863 ns /    969017250816 ns ) count:       50 ave:    71437 ns
+  join_outstanding        :   0.084683 % (       820597585 ns /    969017250816 ns ) count:    77694 ave:    10561 ns
+  steal_success           :   2.484495 % (     24075182420 ns /    969017250816 ns ) count:   713463 ave:    33744 ns
+  steal_fail              :   8.552501 % (     82875209730 ns /    969017250816 ns ) count: 11619593 ave:     7132 ns
+  steal_task_copy         :   0.477126 % (      4623428669 ns /    969017250816 ns ) count:   713463 ave:     6480 ns
+  steal_task_size         :     1585 bytes ( 1131069724 /   713463 )
+
+[62] 105346635 ns ( #tasks: 83886080 work: 850683330178 ns span: 8470785 ns busy: 87.620311 % )
+  collect_future          :   0.001692 % (        16429944 ns /    970874588160 ns ) count:    60533 ave:      271 ns
+  collect_suspended       :   0.000332 % (         3227540 ns /    970874588160 ns ) count:       43 ave:    75059 ns
+  join_outstanding        :   0.077886 % (       756173819 ns /    970874588160 ns ) count:    71547 ave:    10568 ns
+  steal_success           :   2.302231 % (     22351775131 ns /    970874588160 ns ) count:   662017 ave:    33763 ns
+  steal_fail              :   8.579650 % (     83297646179 ns /    970874588160 ns ) count: 11648010 ave:     7151 ns
+  steal_task_copy         :   0.441926 % (      4290546249 ns /    970874588160 ns ) count:   662017 ave:     6481 ns
+  steal_task_size         :     1587 bytes ( 1050970372 /   662017 )
+
+[63] 104394193 ns ( #tasks: 83886080 work: 850628943449 ns span: 6741663 ns busy: 88.414063 % )
+  collect_future          :   0.001614 % (        15527286 ns /    962096882688 ns ) count:    56864 ave:      273 ns
+  collect_suspended       :   0.000348 % (         3352516 ns /    962096882688 ns ) count:       46 ave:    72880 ns
+  join_outstanding        :   0.073168 % (       703946078 ns /    962096882688 ns ) count:    66267 ave:    10622 ns
+  steal_success           :   2.196420 % (     21131685746 ns /    962096882688 ns ) count:   622679 ave:    33936 ns
+  steal_fail              :   7.382236 % (     71024264514 ns /    962096882688 ns ) count:  9308480 ave:     7630 ns
+  steal_task_copy         :   0.421889 % (      4058980405 ns /    962096882688 ns ) count:   622679 ave:     6518 ns
+  steal_task_size         :     1604 bytes ( 999045916 /   622679 )
+
+[64] 104903341 ns ( #tasks: 83886080 work: 850745653919 ns span: 8934208 ns busy: 87.997018 % )
+  collect_future          :   0.001677 % (        16212218 ns /    966789190656 ns ) count:    59297 ave:      273 ns
+  collect_suspended       :   0.000257 % (         2482737 ns /    966789190656 ns ) count:       34 ave:    73021 ns
+  join_outstanding        :   0.075974 % (       734509498 ns /    966789190656 ns ) count:    69427 ave:    10579 ns
+  steal_success           :   2.282164 % (     22063717783 ns /    966789190656 ns ) count:   651841 ave:    33848 ns
+  steal_fail              :   8.058300 % (     77906772038 ns /    966789190656 ns ) count: 10642718 ave:     7320 ns
+  steal_task_copy         :   0.438366 % (      4238075566 ns /    966789190656 ns ) count:   651841 ave:     6501 ns
+  steal_task_size         :     1592 bytes ( 1038115972 /   651841 )
+
+[65] 104610554 ns ( #tasks: 83886080 work: 850692683329 ns span: 9108065 ns busy: 88.237812 % )
+  collect_future          :   0.001614 % (        15557200 ns /    964090865664 ns ) count:    57053 ave:      272 ns
+  collect_suspended       :   0.000257 % (         2481857 ns /    964090865664 ns ) count:       34 ave:    72995 ns
+  join_outstanding        :   0.073735 % (       710871618 ns /    964090865664 ns ) count:    67001 ave:    10609 ns
+  steal_success           :   2.201051 % (     21220132102 ns /    964090865664 ns ) count:   626178 ave:    33888 ns
+  steal_fail              :   7.741519 % (     74635274307 ns /    964090865664 ns ) count: 10035594 ave:     7437 ns
+  steal_task_copy         :   0.422908 % (      4077216924 ns /    964090865664 ns ) count:   626178 ave:     6511 ns
+  steal_task_size         :     1599 bytes ( 1001510216 /   626178 )
+
+[66] 105779080 ns ( #tasks: 83886080 work: 850631618752 ns span: 6237847 ns busy: 87.256798 % )
+  collect_future          :   0.001730 % (        16863933 ns /    974860001280 ns ) count:    61755 ave:      273 ns
+  collect_suspended       :   0.000286 % (         2784238 ns /    974860001280 ns ) count:       38 ave:    73269 ns
+  join_outstanding        :   0.081030 % (       789925549 ns /    974860001280 ns ) count:    73773 ave:    10707 ns
+  steal_success           :   2.363413 % (     23039965146 ns /    974860001280 ns ) count:   678848 ave:    33939 ns
+  steal_fail              :   9.228580 % (     89965730290 ns /    974860001280 ns ) count: 12737589 ave:     7063 ns
+  steal_task_copy         :   0.453582 % (      4421787168 ns /    974860001280 ns ) count:   678848 ave:     6513 ns
+  steal_task_size         :     1580 bytes ( 1073166272 /   678848 )
+
+[67] 105554878 ns ( #tasks: 83886080 work: 850650144676 ns span: 6359875 ns busy: 87.444038 % )
+  collect_future          :   0.001596 % (        15530477 ns /    972793755648 ns ) count:    55963 ave:      277 ns
+  collect_suspended       :   0.000201 % (         1954245 ns /    972793755648 ns ) count:       27 ave:    72379 ns
+  join_outstanding        :   0.070378 % (       684637115 ns /    972793755648 ns ) count:    64727 ave:    10577 ns
+  steal_success           :   2.130431 % (     20724699902 ns /    972793755648 ns ) count:   612127 ave:    33856 ns
+  steal_fail              :   8.884335 % (     86426260480 ns /    972793755648 ns ) count: 12269700 ave:     7043 ns
+  steal_task_copy         :   0.410595 % (      3994240918 ns /    972793755648 ns ) count:   612127 ave:     6525 ns
+  steal_task_size         :     1609 bytes ( 984986108 /   612127 )
+
+[68] 104634386 ns ( #tasks: 83886080 work: 850609010017 ns span: 4786396 ns busy: 88.209037 % )
+  collect_future          :   0.001721 % (        16595984 ns /    964310501376 ns ) count:    61342 ave:      270 ns
+  collect_suspended       :   0.000261 % (         2516329 ns /    964310501376 ns ) count:       34 ave:    74009 ns
+  join_outstanding        :   0.079428 % (       765935560 ns /    964310501376 ns ) count:    72828 ave:    10517 ns
+  steal_success           :   2.357650 % (     22735063941 ns /    964310501376 ns ) count:   674756 ave:    33693 ns
+  steal_fail              :   7.710854 % (     74356571668 ns /    964310501376 ns ) count:  9991570 ave:     7441 ns
+  steal_task_copy         :   0.452687 % (      4365312607 ns /    964310501376 ns ) count:   674756 ave:     6469 ns
+  steal_task_size         :     1584 bytes ( 1069296400 /   674756 )
+
+[69] 104858177 ns ( #tasks: 83886080 work: 850634968681 ns span: 5734328 ns busy: 88.023466 % )
+  collect_future          :   0.001683 % (        16268623 ns /    966372959232 ns ) count:    59871 ave:      271 ns
+  collect_suspended       :   0.000223 % (         2158028 ns /    966372959232 ns ) count:       29 ave:    74414 ns
+  join_outstanding        :   0.077296 % (       746969801 ns /    966372959232 ns ) count:    70762 ave:    10556 ns
+  steal_success           :   2.308225 % (     22306062275 ns /    966372959232 ns ) count:   661325 ave:    33729 ns
+  steal_fail              :   7.999920 % (     77309062197 ns /    966372959232 ns ) count: 10572297 ave:     7312 ns
+  steal_task_copy         :   0.443319 % (      4284112446 ns /    966372959232 ns ) count:   661325 ave:     6478 ns
+  steal_task_size         :     1588 bytes ( 1050345844 /   661325 )
+
+[70] 105096788 ns ( #tasks: 83886080 work: 850651848851 ns span: 5512868 ns busy: 87.825360 % )
+  collect_future          :   0.001652 % (        16000721 ns /    968571998208 ns ) count:    58391 ave:      274 ns
+  collect_suspended       :   0.000232 % (         2247887 ns /    968571998208 ns ) count:       31 ave:    72512 ns
+  join_outstanding        :   0.075581 % (       732051939 ns /    968571998208 ns ) count:    68744 ave:    10648 ns
+  steal_success           :   2.228833 % (     21587850924 ns /    968571998208 ns ) count:   638632 ave:    33803 ns
+  steal_fail              :   8.299067 % (     80382438700 ns /    968571998208 ns ) count: 11114936 ave:     7231 ns
+  steal_task_copy         :   0.428610 % (      4151399142 ns /    968571998208 ns ) count:   638632 ave:     6500 ns
+  steal_task_size         :     1597 bytes ( 1020002848 /   638632 )
+
+[71] 104521382 ns ( #tasks: 83886080 work: 850638094239 ns span: 6449339 ns busy: 88.307424 % )
+  collect_future          :   0.001664 % (        16027396 ns /    963269056512 ns ) count:    58933 ave:      271 ns
+  collect_suspended       :   0.000198 % (         1909759 ns /    963269056512 ns ) count:       26 ave:    73452 ns
+  join_outstanding        :   0.076384 % (       735786199 ns /    963269056512 ns ) count:    69873 ave:    10530 ns
+  steal_success           :   2.268998 % (     21856559466 ns /    963269056512 ns ) count:   647708 ave:    33744 ns
+  steal_fail              :   7.424124 % (     71514288052 ns /    963269056512 ns ) count:  9556668 ave:     7483 ns
+  steal_task_copy         :   0.435681 % (      4196775720 ns /    963269056512 ns ) count:   647708 ave:     6479 ns
+  steal_task_size         :     1589 bytes ( 1029474416 /   647708 )
+
+[72] 104698849 ns ( #tasks: 83886080 work: 850631868131 ns span: 6572107 ns busy: 88.157096 % )
+  collect_future          :   0.001648 % (        15902748 ns /    964904592384 ns ) count:    58349 ave:      272 ns
+  collect_suspended       :   0.000235 % (         2267372 ns /    964904592384 ns ) count:       31 ave:    73141 ns
+  join_outstanding        :   0.075760 % (       731007866 ns /    964904592384 ns ) count:    68993 ave:    10595 ns
+  steal_success           :   2.242613 % (     21639073210 ns /    964904592384 ns ) count:   640683 ave:    33775 ns
+  steal_fail              :   8.486304 % (     81884736191 ns /    964904592384 ns ) count: 11231183 ave:     7290 ns
+  steal_task_copy         :   0.431036 % (      4159087832 ns /    964904592384 ns ) count:   640683 ave:     6491 ns
+  steal_task_size         :     1594 bytes ( 1021309420 /   640683 )
+
+[73] 104331972 ns ( #tasks: 83886080 work: 850700584452 ns span: 6663149 ns busy: 88.474242 % )
+  collect_future          :   0.001605 % (        15429287 ns /    961523453952 ns ) count:    56650 ave:      272 ns
+  collect_suspended       :   0.000204 % (         1956902 ns /    961523453952 ns ) count:       27 ave:    72477 ns
+  join_outstanding        :   0.073092 % (       702794949 ns /    961523453952 ns ) count:    66293 ave:    10601 ns
+  steal_success           :   2.193038 % (     21086570892 ns /    961523453952 ns ) count:   622822 ave:    33856 ns
+  steal_fail              :   7.592009 % (     72998948477 ns /    961523453952 ns ) count:  9889210 ave:     7381 ns
+  steal_task_copy         :   0.421112 % (      4049091727 ns /    961523453952 ns ) count:   622822 ave:     6501 ns
+  steal_task_size         :     1603 bytes ( 998434776 /   622822 )
+
+[74] 104498642 ns ( #tasks: 83886080 work: 850636455410 ns span: 8199918 ns busy: 88.326471 % )
+  collect_future          :   0.001690 % (        16275062 ns /    963059484672 ns ) count:    59942 ave:      271 ns
+  collect_suspended       :   0.000198 % (         1905733 ns /    963059484672 ns ) count:       26 ave:    73297 ns
+  join_outstanding        :   0.077577 % (       747113156 ns /    963059484672 ns ) count:    70904 ave:    10536 ns
+  steal_success           :   2.301092 % (     22160889417 ns /    963059484672 ns ) count:   656345 ave:    33764 ns
+  steal_fail              :   8.168561 % (     78668099081 ns /    963059484672 ns ) count: 10903050 ave:     7215 ns
+  steal_task_copy         :   0.442164 % (      4258305777 ns /    963059484672 ns ) count:   656345 ave:     6487 ns
+  steal_task_size         :     1588 bytes ( 1042339364 /   656345 )
+
+[75] 104942798 ns ( #tasks: 83886080 work: 850653817054 ns span: 8208371 ns busy: 87.954436 % )
+  collect_future          :   0.001597 % (        15444016 ns /    967152826368 ns ) count:    56077 ave:      275 ns
+  collect_suspended       :   0.000209 % (         2016635 ns /    967152826368 ns ) count:       28 ave:    72022 ns
+  join_outstanding        :   0.071536 % (       691863716 ns /    967152826368 ns ) count:    65403 ave:    10578 ns
+  steal_success           :   2.151998 % (     20813112184 ns /    967152826368 ns ) count:   613555 ave:    33922 ns
+  steal_fail              :   8.550129 % (     82692813387 ns /    967152826368 ns ) count: 11757979 ave:     7032 ns
+  steal_task_copy         :   0.414137 % (      4005341672 ns /    967152826368 ns ) count:   613555 ave:     6528 ns
+  steal_task_size         :     1607 bytes ( 986358476 /   613555 )
+
+[76] 105233743 ns ( #tasks: 83886080 work: 850643226338 ns span: 8253449 ns busy: 87.710172 % )
+  collect_future          :   0.001681 % (        16303893 ns /    969834175488 ns ) count:    60031 ave:      271 ns
+  collect_suspended       :   0.000219 % (         2126641 ns /    969834175488 ns ) count:       29 ave:    73332 ns
+  join_outstanding        :   0.077929 % (       755777760 ns /    969834175488 ns ) count:    71489 ave:    10571 ns
+  steal_success           :   2.295954 % (     22266942453 ns /    969834175488 ns ) count:   660238 ave:    33725 ns
+  steal_fail              :   8.631759 % (     83713747657 ns /    969834175488 ns ) count: 11671831 ave:     7172 ns
+  steal_task_copy         :   0.440895 % (      4275948289 ns /    969834175488 ns ) count:   660238 ave:     6476 ns
+  steal_task_size         :     1588 bytes ( 1048534712 /   660238 )
+
+[77] 105336141 ns ( #tasks: 83886080 work: 850639547364 ns span: 6744594 ns busy: 87.624530 % )
+  collect_future          :   0.001660 % (        16111537 ns /    970777875456 ns ) count:    58420 ave:      275 ns
+  collect_suspended       :   0.000196 % (         1905818 ns /    970777875456 ns ) count:       26 ave:    73300 ns
+  join_outstanding        :   0.075879 % (       736620153 ns /    970777875456 ns ) count:    68600 ave:    10737 ns
+  steal_success           :   2.236068 % (     21707258236 ns /    970777875456 ns ) count:   639076 ave:    33966 ns
+  steal_fail              :   8.323545 % (     80803137014 ns /    970777875456 ns ) count: 11208852 ave:     7208 ns
+  steal_task_copy         :   0.429608 % (      4170543731 ns /    970777875456 ns ) count:   639076 ave:     6525 ns
+  steal_task_size         :     1595 bytes ( 1019939792 /   639076 )
+
+[78] 104406174 ns ( #tasks: 83886080 work: 850629230860 ns span: 3155723 ns busy: 88.403947 % )
+  collect_future          :   0.001661 % (        15985444 ns /    962207299584 ns ) count:    59162 ave:      270 ns
+  collect_suspended       :   0.000180 % (         1734460 ns /    962207299584 ns ) count:       24 ave:    72269 ns
+  join_outstanding        :   0.077074 % (       741614108 ns /    962207299584 ns ) count:    70632 ave:    10499 ns
+  steal_success           :   2.274070 % (     21881268171 ns /    962207299584 ns ) count:   650205 ave:    33652 ns
+  steal_fail              :   7.571322 % (     72851813957 ns /    962207299584 ns ) count:  9884079 ave:     7370 ns
+  steal_task_copy         :   0.436895 % (      4203834383 ns /    962207299584 ns ) count:   650205 ave:     6465 ns
+  steal_task_size         :     1589 bytes ( 1033328436 /   650205 )
+
+[79] 104510696 ns ( #tasks: 83886080 work: 850625429664 ns span: 5811207 ns busy: 88.315139 % )
+  collect_future          :   0.001672 % (        16105120 ns /    963170574336 ns ) count:    59299 ave:      271 ns
+  collect_suspended       :   0.000197 % (         1894049 ns /    963170574336 ns ) count:       26 ave:    72848 ns
+  join_outstanding        :   0.077136 % (       742953989 ns /    963170574336 ns ) count:    70092 ave:    10599 ns
+  steal_success           :   2.281850 % (     21978108694 ns /    963170574336 ns ) count:   650463 ave:    33788 ns
+  steal_fail              :   7.723154 % (     74387143788 ns /    963170574336 ns ) count: 10032564 ave:     7414 ns
+  steal_task_copy         :   0.438199 % (      4220604091 ns /    963170574336 ns ) count:   650463 ave:     6488 ns
+  steal_task_size         :     1590 bytes ( 1034835388 /   650463 )
+
+[80] 105100635 ns ( #tasks: 83886080 work: 850649176513 ns span: 7234495 ns busy: 87.821870 % )
+  collect_future          :   0.001653 % (        16014373 ns /    968607452160 ns ) count:    58442 ave:      274 ns
+  collect_suspended       :   0.000206 % (         1992332 ns /    968607452160 ns ) count:       28 ave:    71154 ns
+  join_outstanding        :   0.075394 % (       730276640 ns /    968607452160 ns ) count:    69262 ave:    10543 ns
+  steal_success           :   2.236926 % (     21667028285 ns /    968607452160 ns ) count:   642447 ave:    33725 ns
+  steal_fail              :   8.288677 % (     80284744859 ns /    968607452160 ns ) count: 11339384 ave:     7080 ns
+  steal_task_copy         :   0.430223 % (      4167170390 ns /    968607452160 ns ) count:   642447 ave:     6486 ns
+  steal_task_size         :     1596 bytes ( 1025465980 /   642447 )
+
+[81] 104957400 ns ( #tasks: 83886080 work: 850636535221 ns span: 4806022 ns busy: 87.940413 % )
+  collect_future          :   0.001596 % (        15441840 ns /    967287398400 ns ) count:    55796 ave:      276 ns
+  collect_suspended       :   0.000163 % (         1576967 ns /    967287398400 ns ) count:       22 ave:    71680 ns
+  join_outstanding        :   0.071468 % (       691304618 ns /    967287398400 ns ) count:    65145 ave:    10611 ns
+  steal_success           :   2.139305 % (     20693224011 ns /    967287398400 ns ) count:   612148 ave:    33804 ns
+  steal_fail              :   8.932517 % (     86403114434 ns /    967287398400 ns ) count: 12352219 ave:     6994 ns
+  steal_task_copy         :   0.412265 % (      3987790822 ns /    967287398400 ns ) count:   612148 ave:     6514 ns
+  steal_task_size         :     1606 bytes ( 983206416 /   612148 )
+
+[82] 104504215 ns ( #tasks: 83886080 work: 850643801976 ns span: 7851643 ns busy: 88.322523 % )
+  collect_future          :   0.001653 % (        15921585 ns /    963110845440 ns ) count:    58322 ave:      272 ns
+  collect_suspended       :   0.000210 % (         2021551 ns /    963110845440 ns ) count:       28 ave:    72198 ns
+  join_outstanding        :   0.075546 % (       727593656 ns /    963110845440 ns ) count:    69141 ave:    10523 ns
+  steal_success           :   2.248379 % (     21654381408 ns /    963110845440 ns ) count:   642688 ave:    33693 ns
+  steal_fail              :   7.715365 % (     74307518193 ns /    963110845440 ns ) count: 10080168 ave:     7371 ns
+  steal_task_copy         :   0.432298 % (      4163512052 ns /    963110845440 ns ) count:   642688 ave:     6478 ns
+  steal_task_size         :     1593 bytes ( 1023938240 /   642688 )
+
+[83] 104939453 ns ( #tasks: 83886080 work: 850696000635 ns span: 7846739 ns busy: 87.961602 % )
+  collect_future          :   0.001667 % (        16119070 ns /    967121998848 ns ) count:    59134 ave:      272 ns
+  collect_suspended       :   0.000149 % (         1443318 ns /    967121998848 ns ) count:       20 ave:    72165 ns
+  join_outstanding        :   0.076597 % (       740787655 ns /    967121998848 ns ) count:    70186 ave:    10554 ns
+  steal_success           :   2.267070 % (     21925330363 ns /    967121998848 ns ) count:   650236 ave:    33719 ns
+  steal_fail              :   8.240885 % (     79699413067 ns /    967121998848 ns ) count: 11093419 ave:     7184 ns
+  steal_task_copy         :   0.435656 % (      4213325143 ns /    967121998848 ns ) count:   650236 ave:     6479 ns
+  steal_task_size         :     1592 bytes ( 1035445680 /   650236 )
+
+[84] 104480086 ns ( #tasks: 83886080 work: 850627152353 ns span: 5039970 ns busy: 88.341192 % )
+  collect_future          :   0.001651 % (        15899445 ns /    962888472576 ns ) count:    58295 ave:      272 ns
+  collect_suspended       :   0.000218 % (         2103473 ns /    962888472576 ns ) count:       26 ave:    80902 ns
+  join_outstanding        :   0.075437 % (       726377466 ns /    962888472576 ns ) count:    68567 ave:    10593 ns
+  steal_success           :   2.245128 % (     21618078751 ns /    962888472576 ns ) count:   638971 ave:    33832 ns
+  steal_fail              :   8.101255 % (     78006051891 ns /    962888472576 ns ) count: 10633199 ave:     7336 ns
+  steal_task_copy         :   0.431270 % (      4152648127 ns /    962888472576 ns ) count:   638971 ave:     6498 ns
+  steal_task_size         :     1594 bytes ( 1018560428 /   638971 )
+
+[85] 106403023 ns ( #tasks: 83886080 work: 851675932953 ns span: 6409076 ns busy: 86.851624 % )
+  collect_future          :   0.001614 % (        15826494 ns /    980610259968 ns ) count:    54826 ave:      288 ns
+  collect_suspended       :   0.000264 % (         2586330 ns /    980610259968 ns ) count:       33 ave:    78373 ns
+  join_outstanding        :   0.071431 % (       700457172 ns /    980610259968 ns ) count:    64600 ave:    10842 ns
+  steal_success           :   2.112255 % (     20712988255 ns /    980610259968 ns ) count:   604399 ave:    34270 ns
+  steal_fail              :  10.036230 % (     98416298142 ns /    980610259968 ns ) count: 14532701 ave:     6772 ns
+  steal_task_copy         :   0.415624 % (      4075650309 ns /    980610259968 ns ) count:   604399 ave:     6743 ns
+  steal_task_size         :     1610 bytes ( 973281980 /   604399 )
+
+[86] 105906205 ns ( #tasks: 83886080 work: 851976425786 ns span: 6556501 ns busy: 87.289842 % )
+  collect_future          :   0.001668 % (        16277943 ns /    976031585280 ns ) count:    54028 ave:      301 ns
+  collect_suspended       :   0.000504 % (         4920376 ns /    976031585280 ns ) count:       38 ave:   129483 ns
+  join_outstanding        :   0.071790 % (       700691468 ns /    976031585280 ns ) count:    63419 ave:    11048 ns
+  steal_success           :   2.136286 % (     20850822355 ns /    976031585280 ns ) count:   594349 ave:    35081 ns
+  steal_fail              :   9.737339 % (     95039499819 ns /    976031585280 ns ) count: 13845499 ave:     6864 ns
+  steal_task_copy         :   0.452310 % (      4414691560 ns /    976031585280 ns ) count:   594349 ave:     7427 ns
+  steal_task_size         :     1617 bytes ( 961230452 /   594349 )
+
+[87] 105340305 ns ( #tasks: 83886080 work: 850638530370 ns span: 6503028 ns busy: 87.620961 % )
+  collect_future          :   0.001645 % (        15966924 ns /    970816250880 ns ) count:    57429 ave:      278 ns
+  collect_suspended       :   0.000423 % (         4110822 ns /    970816250880 ns ) count:       30 ave:   137027 ns
+  join_outstanding        :   0.073529 % (       713827385 ns /    970816250880 ns ) count:    67586 ave:    10561 ns
+  steal_success           :   2.238419 % (     21730940103 ns /    970816250880 ns ) count:   632228 ave:    34371 ns
+  steal_fail              :   8.826640 % (     85690455495 ns /    970816250880 ns ) count: 12022342 ave:     7127 ns
+  steal_task_copy         :   0.466302 % (      4526933625 ns /    970816250880 ns ) count:   632228 ave:     7160 ns
+  steal_task_size         :     1597 bytes ( 1010112208 /   632228 )
+
+[88] 104599207 ns ( #tasks: 83886080 work: 850600613437 ns span: 2080289 ns busy: 88.237833 % )
+  collect_future          :   0.001635 % (        15763691 ns /    963986291712 ns ) count:    57362 ave:      274 ns
+  collect_suspended       :   0.000507 % (         4888943 ns /    963986291712 ns ) count:       32 ave:   152779 ns
+  join_outstanding        :   0.074553 % (       718676703 ns /    963986291712 ns ) count:    67008 ave:    10725 ns
+  steal_success           :   2.259117 % (     21777582010 ns /    963986291712 ns ) count:   632640 ave:    34423 ns
+  steal_fail              :   7.928312 % (     76427837872 ns /    963986291712 ns ) count: 10285016 ave:     7430 ns
+  steal_task_copy         :   0.461027 % (      4444241129 ns /    963986291712 ns ) count:   632640 ave:     7024 ns
+  steal_task_size         :     1598 bytes ( 1011553792 /   632640 )
+
+[89] 104341600 ns ( #tasks: 83886080 work: 850644681513 ns span: 6435250 ns busy: 88.460264 % )
+  collect_future          :   0.001662 % (        15978264 ns /    961612185600 ns ) count:    58248 ave:      274 ns
+  collect_suspended       :   0.000337 % (         3237782 ns /    961612185600 ns ) count:       18 ave:   179876 ns
+  join_outstanding        :   0.075192 % (       723058699 ns /    961612185600 ns ) count:    68977 ave:    10482 ns
+  steal_success           :   2.263534 % (     21766418447 ns /    961612185600 ns ) count:   640718 ave:    33971 ns
+  steal_fail              :   7.651704 % (     73579714467 ns /    961612185600 ns ) count: 10030964 ave:     7335 ns
+  steal_task_copy         :   0.458207 % (      4406176855 ns /    961612185600 ns ) count:   640718 ave:     6876 ns
+  steal_task_size         :     1592 bytes ( 1020305144 /   640718 )
+
+[90] 104558404 ns ( #tasks: 83886080 work: 850634202178 ns span: 6254083 ns busy: 88.275753 % )
+  collect_future          :   0.001632 % (        15729093 ns /    963610251264 ns ) count:    56894 ave:      276 ns
+  collect_suspended       :   0.000568 % (         5477582 ns /    963610251264 ns ) count:       31 ave:   176696 ns
+  join_outstanding        :   0.073287 % (       706200492 ns /    963610251264 ns ) count:    66882 ave:    10558 ns
+  steal_success           :   2.211079 % (     21306187292 ns /    963610251264 ns ) count:   625304 ave:    34073 ns
+  steal_fail              :   8.967193 % (     86408786874 ns /    963610251264 ns ) count: 12394077 ave:     6971 ns
+  steal_task_copy         :   0.444559 % (      4283817347 ns /    963610251264 ns ) count:   625304 ave:     6850 ns
+  steal_task_size         :     1600 bytes ( 1000891104 /   625304 )
+
+[91] 104458789 ns ( #tasks: 83886080 work: 850634341862 ns span: 5649220 ns busy: 88.359950 % )
+  collect_future          :   0.001661 % (        15985672 ns /    962692199424 ns ) count:    58558 ave:      272 ns
+  collect_suspended       :   0.000369 % (         3553459 ns /    962692199424 ns ) count:       35 ave:   101527 ns
+  join_outstanding        :   0.075652 % (       728295848 ns /    962692199424 ns ) count:    69187 ave:    10526 ns
+  steal_success           :   2.275295 % (     21904085836 ns /    962692199424 ns ) count:   645657 ave:    33925 ns
+  steal_fail              :   7.533203 % (     72521558522 ns /    962692199424 ns ) count:  9602419 ave:     7552 ns
+  steal_task_copy         :   0.453384 % (      4364690319 ns /    962692199424 ns ) count:   645657 ave:     6760 ns
+  steal_task_size         :     1590 bytes ( 1026884388 /   645657 )
+
+[92] 104760685 ns ( #tasks: 83886080 work: 850698187267 ns span: 8154960 ns busy: 88.111930 % )
+  collect_future          :   0.001646 % (        15889385 ns /    965474472960 ns ) count:    57792 ave:      274 ns
+  collect_suspended       :   0.000389 % (         3758832 ns /    965474472960 ns ) count:       26 ave:   144570 ns
+  join_outstanding        :   0.074748 % (       721677256 ns /    965474472960 ns ) count:    68296 ave:    10566 ns
+  steal_success           :   2.248503 % (     21708719901 ns /    965474472960 ns ) count:   638462 ave:    34001 ns
+  steal_fail              :   7.890582 % (     76181550499 ns /    965474472960 ns ) count: 10433742 ave:     7301 ns
+  steal_task_copy         :   0.445404 % (      4300258308 ns /    965474472960 ns ) count:   638462 ave:     6735 ns
+  steal_task_size         :     1597 bytes ( 1020248184 /   638462 )
+
+[93] 104612595 ns ( #tasks: 83886080 work: 850610285010 ns span: 5948848 ns busy: 88.227544 % )
+  collect_future          :   0.001625 % (        15664018 ns /    964109675520 ns ) count:    57152 ave:      274 ns
+  collect_suspended       :   0.000404 % (         3890537 ns /    964109675520 ns ) count:       25 ave:   155621 ns
+  join_outstanding        :   0.073544 % (       709041519 ns /    964109675520 ns ) count:    67164 ave:    10556 ns
+  steal_success           :   2.214857 % (     21353649429 ns /    964109675520 ns ) count:   629104 ave:    33942 ns
+  steal_fail              :   7.899119 % (     76156173105 ns /    964109675520 ns ) count: 10294150 ave:     7398 ns
+  steal_task_copy         :   0.437310 % (      4216151817 ns /    964109675520 ns ) count:   629104 ave:     6701 ns
+  steal_task_size         :     1600 bytes ( 1007076288 /   629104 )
+
+[94] 104426648 ns ( #tasks: 83886080 work: 850616505495 ns span: 5122397 ns busy: 88.385292 % )
+  collect_future          :   0.001634 % (        15729700 ns /    962395987968 ns ) count:    56729 ave:      277 ns
+  collect_suspended       :   0.000508 % (         4888990 ns /    962395987968 ns ) count:       33 ave:   148151 ns
+  join_outstanding        :   0.072731 % (       699964599 ns /    962395987968 ns ) count:    66291 ave:    10558 ns
+  steal_success           :   2.201254 % (     21184783109 ns /    962395987968 ns ) count:   624094 ave:    33944 ns
+  steal_fail              :   8.745500 % (     84166345532 ns /    962395987968 ns ) count: 11977415 ave:     7027 ns
+  steal_task_copy         :   0.434117 % (      4177927121 ns /    962395987968 ns ) count:   624094 ave:     6694 ns
+  steal_task_size         :     1604 bytes ( 1001104376 /   624094 )
+
+[95] 105255154 ns ( #tasks: 83886080 work: 850626450280 ns span: 7833690 ns busy: 87.690601 % )
+  collect_future          :   0.001675 % (        16249621 ns /    970031499264 ns ) count:    58742 ave:      276 ns
+  collect_suspended       :   0.000317 % (         3078220 ns /    970031499264 ns ) count:       29 ave:   106145 ns
+  join_outstanding        :   0.076170 % (       738873207 ns /    970031499264 ns ) count:    69530 ave:    10626 ns
+  steal_success           :   2.262336 % (     21945369235 ns /    970031499264 ns ) count:   646937 ave:    33921 ns
+  steal_fail              :   9.671496 % (     93816561427 ns /    970031499264 ns ) count: 13625247 ave:     6885 ns
+  steal_task_copy         :   0.444502 % (      4311806169 ns /    970031499264 ns ) count:   646937 ave:     6664 ns
+  steal_task_size         :     1591 bytes ( 1029909924 /   646937 )
+
+[96] 105122436 ns ( #tasks: 83886080 work: 850624343972 ns span: 6222001 ns busy: 87.801094 % )
+  collect_future          :   0.001690 % (        16369066 ns /    968808370176 ns ) count:    59398 ave:      275 ns
+  collect_suspended       :   0.000480 % (         4647883 ns /    968808370176 ns ) count:       40 ave:   116197 ns
+  join_outstanding        :   0.077212 % (       748035198 ns /    968808370176 ns ) count:    70992 ave:    10536 ns
+  steal_success           :   2.296635 % (     22249994160 ns /    968808370176 ns ) count:   656552 ave:    33889 ns
+  steal_fail              :   8.821661 % (     85464994411 ns /    968808370176 ns ) count: 12181067 ave:     7016 ns
+  steal_task_copy         :   0.449603 % (      4355788894 ns /    968808370176 ns ) count:   656552 ave:     6634 ns
+  steal_task_size         :     1588 bytes ( 1043215648 /   656552 )
+
+[97] 104676218 ns ( #tasks: 83886080 work: 850638394881 ns span: 6524251 ns busy: 88.176832 % )
+  collect_future          :   0.001641 % (        15828916 ns /    964696025088 ns ) count:    57864 ave:      273 ns
+  collect_suspended       :   0.000438 % (         4225217 ns /    964696025088 ns ) count:       40 ave:   105630 ns
+  join_outstanding        :   0.074866 % (       722228616 ns /    964696025088 ns ) count:    68713 ave:    10510 ns
+  steal_success           :   2.235673 % (     21567448858 ns /    964696025088 ns ) count:   638337 ave:    33786 ns
+  steal_fail              :   7.683913 % (     74126402313 ns /    964696025088 ns ) count: 10064000 ave:     7365 ns
+  steal_task_copy         :   0.436859 % (      4214364481 ns /    964696025088 ns ) count:   638337 ave:     6602 ns
+  steal_task_size         :     1596 bytes ( 1019195780 /   638337 )
+
+[98] 104544048 ns ( #tasks: 83886080 work: 850623552667 ns span: 6271996 ns busy: 88.286769 % )
+  collect_future          :   0.001696 % (        16345063 ns /    963477946368 ns ) count:    60115 ave:      271 ns
+  collect_suspended       :   0.000229 % (         2208184 ns /    963477946368 ns ) count:       26 ave:    84930 ns
+  join_outstanding        :   0.077644 % (       748085687 ns /    963477946368 ns ) count:    71233 ave:    10501 ns
+  steal_success           :   2.318632 % (     22339506698 ns /    963477946368 ns ) count:   662887 ave:    33700 ns
+  steal_fail              :   7.633095 % (     73543186452 ns /    963477946368 ns ) count:  9901379 ave:     7427 ns
+  steal_task_copy         :   0.451489 % (      4350001568 ns /    963477946368 ns ) count:   662887 ave:     6562 ns
+  steal_task_size         :     1584 bytes ( 1050611292 /   662887 )
+
+[99] 105925884 ns ( #tasks: 83886080 work: 850648800589 ns span: 6789249 ns busy: 87.137627 % )
+  collect_future          :   0.001720 % (        16790597 ns /    976212946944 ns ) count:    60893 ave:      275 ns
+  collect_suspended       :   0.000290 % (         2833025 ns /    976212946944 ns ) count:       29 ave:    97690 ns
+  join_outstanding        :   0.080105 % (       781998521 ns /    976212946944 ns ) count:    73137 ave:    10692 ns
+  steal_success           :   2.337972 % (     22823582524 ns /    976212946944 ns ) count:   670965 ave:    34016 ns
+  steal_fail              :   8.741544 % (     85336086535 ns /    976212946944 ns ) count: 11986206 ave:     7119 ns
+  steal_task_copy         :   0.454203 % (      4433989687 ns /    976212946944 ns ) count:   670965 ave:     6608 ns
+  steal_task_size         :     1588 bytes ( 1065793236 /   670965 )
+

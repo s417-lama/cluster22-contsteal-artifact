@@ -1,0 +1,173 @@
+{       
+    openmpi-memcheck
+    Memcheck:Cond
+    obj:/usr/lib*/libmpi*.so
+    obj:/usr/lib*/libmpi*.so
+    obj:/usr/lib*/libmpi*.so
+    obj:/usr/lib*/libmpi*.so
+}
+
+{
+   openmpi-sched_setaffinity
+   Memcheck:Param
+   sched_setaffinity(mask)
+   fun:syscall
+}
+
+{
+   openmpi-ompi
+   Memcheck:Cond
+   ...
+   fun:ompi_*
+   ...
+}
+
+{
+   openmpi-mca_pml-cond
+   Memcheck:Cond
+   ...
+   fun:mca_*
+   ...
+}
+
+{
+   openmpi-mca_pml-value8
+   Memcheck:Value8
+   ...
+   fun:mca_*
+   ...
+}
+
+{
+   openmpi-mca_bml-write
+   Memcheck:Param
+   write(buf)
+   ...
+   fun:mca_*
+   ...
+}
+
+{  
+   openmpi-mca_oob-writev
+   Memcheck:Param
+   writev(vector[...])
+   ...
+   fun:mca_*
+   ...
+}
+
+{  
+   openmpi-mca_btl-close
+   Memcheck:Param
+   close(fd)
+   ...
+   fun:mca_*
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   fun:mca_*
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   fun:ompi_mpi_init
+   ...
+}
+
+{  
+   openmpi-bind
+   Memcheck:Param
+   socketcall.bind(my_addr.sin6_scope_id)
+   ...
+   fun:ompi_mpi_init
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   fun:ompi_mpi_finalize
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   fun:orte_init
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_malloc
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:_objc_init
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   ...
+   fun:NXCreateMapTableFromZone
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc_zone_calloc
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   match-leak-kinds: definite
+   ...
+   fun:orte_*
+   ...
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/libobjc.A.dylib
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/dyld
+}
+
+{
+   <insert_a_suppression_name_here>
+   Memcheck:Leak
+   ...
+   obj:/usr/lib/system/libsystem_info.dylib
+}
+
+

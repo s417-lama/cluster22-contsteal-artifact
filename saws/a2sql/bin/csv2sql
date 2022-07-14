@@ -1,0 +1,190 @@
+#!/usr/bin/python3
+
+"""
+csv2sql
+"""
+import codecs
+import re
+import sqlite3
+import sys
+dbg = 1
+
+# usage example:
+#
+#   csv2sql a.db --table foo 'x=$1' 'y=$3' 'z=$8' --file a.csv
+#
+#   - currently we assume a single record is a single line, which
+#     is not necessarily the case when a field contains a newline.
+#     using csv module eliminates this problem?
+#   - proper handling of char encodings? (currently using codecs.decode(x, "utf-8"),
+#     assuming the csv file is unicode)
+#   - my experience is bad.
+#     it should do a reasonable job just with
+#       csv2sql a.db --table foo --file a.csv
+#
+
+#
+# csv2sql --- convert csv files into sqlite3 table
+#
+# syntax:
+#  csv2sql database arg arg arg ...
+#
+# Each arg is either:
+#
+# (1) --table tablename
+# (2) column=val   (e.g., x=$3 means the 3rd column becomes field x)
+# (3) filename
+#
+#
+
+
+def Es(msg):
+    """
+    write s to stderr
+    """
+    sys.stderr.write(msg)
+    sys.stderr.flush()
+
+def interpret(cell_str):
+    """
+    make a string sqlite3 value
+    """
+    if cell_str is None:
+        return None
+    try:
+        return int(cell_str)
+    except ValueError:
+        pass
+    try:
+        return float(cell_str)
+    except ValueError:
+        pass
+    assert (isinstance(cell_str, type(""))), cell_str
+    cell_str = cell_str.strip()
+    if len(cell_str) >= 2 and cell_str[:1] == '"' and cell_str[-1:] == '"':
+        return interpret(cell_str[1:-1])
+    if cell_str[:1] == "$":
+        try:
+            return [int(cell_str[1:])]
+        except ValueError:
+            pass
+        return [cell_str[1:]]
+    return codecs.decode(cell_str, "utf-8")
+
+def sql(db_cur, cmd, values=()):
+    """
+    execute sql statement cmd
+    """
+    if dbg >= 2:
+        Es("%s; %s\n" % (cmd, values))
+    db_cur.execute(cmd, values)
+
+def process_file(db_cur, csv_file, table_name, tables,
+                 columns, column_values, separator, skip):
+    """
+    db_cur       : cursor object
+    csv_file : csv filename
+    table_name : table name
+    columns : list of column names
+    column_values : column name -> [number] or
+    """
+    if table_name not in tables:
+        sql(db_cur, ("create table if not exists %s (%s)"
+                     % (table_name, ",".join(columns))))
+    sql(db_cur, 'select count(*) from %s where file="%s"' % (table_name, csv_file))
+    (n_files,) = db_cur.fetchone()
+    if n_files > 0:
+        Es("%s already loaded\n" % csv_file)
+        return
+    csv_fp = open(csv_file, "rb")
+    values_placeholder = []
+    value_indices = []
+    for col in columns:
+        if isinstance(column_values[col], type([])):
+            [idx] = column_values[col]
+            value_indices.append(idx)
+            values_placeholder.append("?")
+        else:
+            values_placeholder.append(repr(column_values[col]))
+    cmd = ("insert or replace into %s (%s) values (%s)"
+           % (table_name, ",".join(columns), ",".join(values_placeholder)))
+    line_no = 0
+    for line in csv_fp:
+        line_no = line_no + 1
+        if line_no <= skip:
+            continue
+        fields = {"line" : line_no, "file" : csv_file}
+        for i, cell in enumerate(line.split(separator)):
+            fields[i + 1] = cell
+        values = tuple([interpret(fields.get(idx)) for idx in value_indices])
+        sql(db_cur, cmd, values)
+    csv_fp.close()
+
+def process_commands(db_cur, args):
+    """
+    process commands in args
+    """
+    # x=y x:=y
+    column_val_pat = re.compile("([^:=]+)(:?=)(.*)")
+    columns = ["file", "line"]
+    column_values = {"file" : ["file"], "line" : ["line"]}
+    tables = {}                 # table names that we have seen
+    table_name = None
+    skip = 0
+    separator = ","
+    n_args = len(args)
+    i = 0
+    while i < n_args:
+        arg = args[i]
+        if dbg >= 2:
+            Es("processing args[%d] = %s\n" % (i, arg))
+        i = i + 1
+        if arg == "--table":
+            # specify table name
+            table_name = args[i]
+            i = i + 1
+        elif arg == "--skip":
+            # specify table name
+            skip = int(args[i])
+            i = i + 1
+        elif arg == "--file":
+            # specify csv file name to import
+            csv_file = args[i]
+            i = i + 1
+            process_file(db_cur, csv_file, table_name, tables,
+                         columns, column_values, separator, skip)
+            columns = ["file", "line"]
+            column_values = {"file" : ["file"], "line" : ["line"]}
+        else:
+            # either x=y type or filename
+            match = column_val_pat.match(arg)
+            if match:
+                column = match.group(1)
+                val = interpret(match.group(3))
+                if column not in column_values:
+                    columns.append(column)
+                column_values[column] = val
+            else:
+                csv_file = arg
+                process_file(db_cur, csv_file, table_name, tables,
+                             columns, column_values, separator, skip)
+                columns = ["file", "line"]
+                column_values = {"file" : ["file"], "line" : ["line"]}
+
+def main():
+    """
+    main
+    """
+    if len(sys.argv) < 2:
+        Es("usage: csv2sql db_file arg arg arg ...\n")
+        return 1
+    db_sqlite = sys.argv[1]
+    args = sys.argv[2:]
+    conn = sqlite3.connect(db_sqlite)
+    db_cur = conn.cursor()
+    process_commands(db_cur, args)
+    conn.commit()
+    return 0
+
+if __name__ == "__main__":
+    sys.exit(main())

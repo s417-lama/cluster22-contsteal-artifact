@@ -1,0 +1,47 @@
+X10 Release 2.6.2
+
+HIGHLIGHTS OF THIS RELEASE
+
+X10 2.6.2 contains updates for new versions of Java and MacOS
+  - Managed X10 support for Java SE 11
+  - Native X10 support for current MacOS versions
+
+LIMITATIONS OF THIS RELEASE
+
+The size and index of arrays must be less than 2^31 with Managed X10.
+An attempt to allocate a longer array causes IllegalArgumentException. 
+
+The following features described in the 2.6 language manual do not
+currently work and may be fixed in the subsequent releases:
+  - Non-static type definitions as class or interface members
+    (static type defs do work)
+
+The constraint solver used by X10 typechecker is known to be incomplete 
+for situations in which a constraint implies an infinite number of 
+distinct constraints.
+
+Additionally, the following features described in the language
+manual do not currently work with Native X10.
+  - Non-final generic instance methods
+  - Exception stack traces on Cygwin
+
+The generated C++ code requires g++ 4.2 or better to be compiled; 
+we do almost all of our testing against g++ 4.4.
+  + On Power/Linux you may either use g++ 4.2 or better
+    or xlC 11.1 or better. 
+
+SUMMARY OF ISSUES RESOLVED IN THIS RELEASE
+
+Below is a summary of JIRA issues addressed for the X10 2.6.1
+
+    * [XTENLANG-3543] - x10c needs to work with JDK9
+    * [XTENLANG-3559] - Fix Illegal Access Warnings from Java 9+
+    * [XTENLANG-3561] - Fixes for NativeX10 on MacOS 10.12 and 10.13
+    * [XTENLANG-3562] - Upgrade to BDWGC 8.0.2
+
+For the details of JIRA issues fixed in this release, see
+  https://xtenlang.atlassian.net/secure/ReleaseNote.jspa?version=10700&projectId=10005
+
+Please use the X10 JIRA to report bugs, after ensuring the problem is
+not already reported:
+  https://xtenlang.atlassian.net/projects/XTENLANG/issues

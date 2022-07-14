@@ -1,0 +1,47 @@
+MADM_COMM_ALLOCATOR_INIT_SIZE = 2097152
+MADM_LOGGER_PRINT_STAT_PER_RANK = 0
+MADM_FUTURE_POOL_BUF_SIZE = 131072
+=============================================================
+[rrm]
+# of processes:                9216
+N (Input size):                33554432
+M (Leaf execution time in ns): 10000
+# of blocks:                   5
+# of repeats:                  100
+# of warmup runs:              1000
+CPU frequency:                 3.300000 GHz
+# of loop iterations at leaf:  4125
+-------------------------------------------------------------
+uth options:
+MADM_DEBUG_LEVEL = 0, MADM_DEBUG_LEVEL_RT = 5, MADM_CORES = 16, MADM_SERVER_MOD = 0, MADM_GASNET_POLL_THREAD = 0, MADM_GASNET_SEGMENT_SIZE = 0
+MADM_STACK_SIZE = 1048576, MADM_TASKQ_CAPACITY = 1024, MADM_PROFILE = 0, MADM_STEAL_LOG = 0, MADM_ABORTING_STEAL = 1
+=============================================================
+
+warmup time: 15162360735 ns
+[0] 50422820783 ns ( #tasks: 4227858432 work: 51681770296741 ns span: 356562968 ns busy: 11.121613 % )
+  steal_success           :   6.893667 % (  32034643165203 ns / 464696716336128 ns ) count: 596300574 ave:    53722 ns
+  steal_fail              :  76.778980 % ( 356789397769750 ns / 464696716336128 ns ) count: 31091980090 ave:    11475 ns
+  steal_task_copy         :   1.012782 % (   4706364410741 ns / 464696716336128 ns ) count: 596300574 ave:     7892 ns
+  steal_task_size         :       55 bytes ( 33059562336 / 596300574 )
+
+[1] 50874783850 ns ( #tasks: 4227858432 work: 51714826266179 ns span: 105410399 ns busy: 11.029861 % )
+  steal_success           :   6.927796 % (  32481805600342 ns / 468862007961600 ns ) count: 609328511 ave:    53307 ns
+  steal_fail              :  76.892935 % ( 360521757613964 ns / 468862007961600 ns ) count: 31716023709 ave:    11367 ns
+  steal_task_copy         :   1.017243 % (   4769463808818 ns / 468862007961600 ns ) count: 609328511 ave:     7827 ns
+  steal_task_size         :       55 bytes ( 33788870968 / 609328511 )
+
+[2] 50657950435 ns ( #tasks: 4227858432 work: 51715526954337 ns span: 109876602 ns busy: 11.077222 % )
+  steal_success           :   6.930793 % (  32357355349451 ns / 466863671208960 ns ) count: 602638982 ave:    53692 ns
+  steal_fail              :  76.835903 % ( 358718915832066 ns / 466863671208960 ns ) count: 31319308007 ave:    11453 ns
+  steal_task_copy         :   1.017962 % (   4752494197859 ns / 466863671208960 ns ) count: 602638982 ave:     7886 ns
+  steal_task_size         :       55 bytes ( 33413981216 / 602638982 )
+
+[3] 50208664111 ns ( #tasks: 4227858432 work: 51642701982519 ns span: 79575776 ns busy: 11.160607 % )
+  steal_success           :   6.929183 % (  32062926545743 ns / 462723048446976 ns ) count: 595427838 ave:    53848 ns
+  steal_fail              :  76.760387 % ( 355188003476753 ns / 462723048446976 ns ) count: 30839642261 ave:    11517 ns
+  steal_task_copy         :   1.017870 % (   4709919586644 ns / 462723048446976 ns ) count: 595427838 ave:     7910 ns
+  steal_task_size         :       55 bytes ( 33010066304 / 595427838 )
+
+--------------------------------------------------------------------------
+prterun noticed that process rank 8816 with PID 0 on node sca1133 exited on signal 6 (Aborted).
+--------------------------------------------------------------------------
